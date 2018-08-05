@@ -15,6 +15,7 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
+        'baseUrl' => '',
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -36,14 +37,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-            ],
+                'post/page/<page:\d+>' => 'post/index',
+                '/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
+                ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

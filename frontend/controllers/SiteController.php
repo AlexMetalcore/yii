@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Post;
 
 
 /**
@@ -73,7 +74,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $posts = Post::find()->where(['publish_status' => 'publish'])->limit(6)->asArray()->all();
+        return $this->render('index' , compact('posts'));
     }
 
     /**

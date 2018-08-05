@@ -1,11 +1,15 @@
 <?php
 namespace common\models;
 
+
+use frontend\models\Category;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use frontend\models\Post;
+
 
 /**
  * User model
@@ -26,6 +30,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
+    public $password;
 
     /**
      * {@inheritdoc}
@@ -34,7 +39,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return '{{%user}}';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -44,7 +48,6 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -53,6 +56,23 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'about'], 'trim'],
+            [['username', 'email', 'password'] , 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь существует'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ИД',
+            'username' => 'Логин',
+            'password' => 'Пароль',
+            'email' => 'E-mail',
+            'about' => 'О авторе',
         ];
     }
 
@@ -185,5 +205,20 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function debug($str){
+        return '<pre>' . print_r($str , true) . '</pre>';
+    }
+
+    public function getPost()
+    {
+        return $this->hasMany(Post::className(), ['author_id' => 'id']);
+    }
+
+    public static function getAllUsers () {
+
+        return User::find();
+
     }
 }

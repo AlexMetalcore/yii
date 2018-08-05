@@ -1,0 +1,56 @@
+body {
+    background: #ededed;
+}
+.content_post {
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 10px 10px;
+    box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0 2px 10px 0 rgba(0,0,0,.12)!important;
+    background-color: white;
+    height: 270px;
+}
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.post_img {
+    width: 100%;
+    height: 190px;
+}
+.post_img:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 1s;
+}
+.preview_img {
+    width: 20%;
+    padding-bottom: 10px;
+}
+.title a {
+    color: black;
+}
+.title a:hover {
+    text-decoration: none;
+    color: #04a49c;
+    transition: 1s;
+}
+.author_name {
+    position: absolute;
+    right: 30px;
+    bottom: 12px;
+    font-size: 12px;
+}
+.author_name > .name {
+    font-weight: bold;
+}
+.site-index > .pagination {
+    position: relative;
+    left: 44%;
+}
+
+@media screen and (max-width: 480px){
+    .site-index > .pagination {
+        position: relative;
+        left: 32%;
+    }
+}
