@@ -13,7 +13,6 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\data\Pagination;
 
-
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -161,13 +160,12 @@ class PostController extends Controller
     public function actionBlog () {
 
         $query = Post::find();
+        $author = User::find()->asArray()->all();
         $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
 
-        $posts = $query->offset($pages->offset)->where(['publish_status' => 'publish'])
-            ->limit($pages->limit)
-            ->all();
+        $posts = $query->offset($pages->offset)->where(['publish_status' => 'publish'])->limit($pages->limit)->all();
 
-        return $this->render('blog' , compact('posts' ,'pages'));
+        return $this->render('blog' , compact('posts' ,'pages' , 'author'));
 
     }
 

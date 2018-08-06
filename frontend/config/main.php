@@ -13,9 +13,9 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
+            'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
         ],
-        'baseUrl' => '',
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -42,8 +42,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'post/page/<page:\d+>' => 'post/index',
-                '/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
+                //'post/page/<page:\d+>' => 'post/index',
+                //'/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
+                '' => 'site/index',
+                '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
                 ],
         ],
 

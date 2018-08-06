@@ -17,6 +17,7 @@ $this->title = 'Блог по программированию';
 ?>
 
 <?php ?>
+<?= User::debug($author) ;?>
 <div class="site-index">
     <div class="container">
         <div class="row">
