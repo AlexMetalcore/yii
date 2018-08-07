@@ -13,20 +13,24 @@ $this->title = 'Блог по программированию';
         <?php foreach ($posts as $post) : ?>
             <div class="col-md-4 block_border">
                 <div class="content_post">
-                    <?php if($post['img']): ?>
-                    <a href="<?= Url::to(['post/view' , 'id' => $post['id']]); ?>" title="<?= $post['title'];?>">
-                        <?= Html::img('@web/'.$post['img'].'' ,
+                    <?php if($post->img): ?>
+                    <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
+                        <?= Html::img('/admin/'.$post->img.'' ,
                             ['alt' => $post['title'] , 'class' => 'post_img']); ?></a>
                     <?php else: ?>
-                        <a href="<?= Url::to(['post/view' , 'id' => $post['id']]); ?>" title="<?= $post['title'];?>">
-                            <?= Html::img('@web/images/no-img.png' ,
-                                ['alt' => $post['title'] , 'class' => 'post_img']); ?></a>
+                        <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
+                            <?= Html::img('/admin/images/no-img.png' ,
+                                ['alt' => $post->title , 'class' => 'post_img']); ?></a>
                     <?php endif;?>
                     <span class="title">
-                        <a href="<?= Url::to(['post/view' , 'id' => $post['id']]); ?>"><?= strtoupper($post['title']); ?></a>
+                        <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                     <div class="content">
-                        <?= $post['content']; ?>
+                        <?php if (strlen($post->content) > 60): ?>
+                            <?= mb_substr($post->content, 0 , 60 ). '...'; ?>
+                        <?php else:?>
+                            <?= $post->content; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

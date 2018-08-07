@@ -1,18 +1,22 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
+use backend\models\Category;
 use Yii;
 use common\models\User;
+use backend\models\Post;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+
 /**
- * UserController implements the CRUD actions for User model.
+ * PostController implements the CRUD actions for Post model.
  */
-class UserController extends Controller
+class PostController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -25,7 +29,6 @@ class UserController extends Controller
                 'only' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                 'rules' => [
                     [
-                        //'actions' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -41,27 +44,30 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Post models.
      * @return mixed
      */
+
     public function actionIndex()
     {
-        /*if (Yii::$app->user->isGuest) {
-            return 'Авторизируйтесь';
-        }*/
-        $user = User::getAllUsers();
+        $post = Post::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $user,
+            'query' => $post,
+            'pagination' => [
+                'pageSize' => 3,
+                'forcePageParam' => false,
+                'pageSizeParam' => false,
+            ],
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Post model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -74,50 +80,63 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model  = new User();
-        if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model->password);
-            $model->generateAuthKey();
-            if ($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        $model = new Post();
+
+        $authors = new User();
+        $category = new Category();
+
+        $this->handlePostSave($model);
+        $category = $category->getAllCategory();
+        $authors = $authors->getAllUser();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
         return $this->render('create', [
-            'model' => $model
+            'model' => $model,
+            'category' => $category,
+            'authors' => $authors
         ]);
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Post model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * //@return getAllUser
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $authors = new User();
+        $category = new Category();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model->password);
-            $model->generateAuthKey();
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-           }
+        $model = $this->findModel($id);
+        $this->handlePostSave($model);
+
+        $category = $category->getAllCategory();
+        $authors = $authors->getAllUser();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
         return $this->render('update', [
             'model' => $model,
+            'category' => $category,
+            'authors' => $authors,
         ]);
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Post model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -131,17 +150,36 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Post::findOne($id)) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException('Страница пользователя не существует!');
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function handlePostSave(Post $model) {
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->upload = UploadedFile::getInstance($model, 'upload');
+            if ($model->validate()) {
+                if ($model->upload) {
+                    $filePath = 'images/' . $model->upload->baseName . '.' . $model->upload->extension;
+                    if ($model->upload->saveAs($filePath)) {
+                        $model->img = $filePath;
+                    }
+                }
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
     }
 }

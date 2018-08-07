@@ -1,0 +1,10 @@
+body {
+    background: #ededed;
+}
+.preview_img {
+    margin-bottom: 20px;
+    width: 20%;
+}
+.grid-view td {
+    white-space: pre-line;
+}

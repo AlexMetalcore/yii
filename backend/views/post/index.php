@@ -2,16 +2,16 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\LinkPager;
-
+use yii\widgets\Breadcrumbs;
+use common\models\User;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Записи';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="post-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

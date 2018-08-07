@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -59,6 +59,12 @@ class Category extends ActiveRecord
     public static function getQueryCategory () {
 
         return Category::find();
+
+    }
+
+    public function getAllCategory () {
+
+        return Category::find()->all();
 
     }
 }

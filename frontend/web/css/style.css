@@ -34,18 +34,38 @@ body {
     color: #04a49c;
     transition: 1s;
 }
-.author_name {
-    position: absolute;
-    right: 30px;
-    bottom: 12px;
-    font-size: 12px;
-}
 .author_name > .name {
     font-weight: bold;
 }
 .site-index > .pagination {
     position: relative;
     left: 44%;
+}
+.content_post_view {
+    background-color: white;
+    width: 75%;
+    margin: 0;
+    padding: 20px 20px;
+}
+.post {
+    position: relative;
+    width: 100%;
+    display: block;
+    height: 300px;
+    margin-top: 15px;
+}
+.date {
+    display: inline-block;
+}
+.content_text_post {
+    padding: 50px 50px;
+    font-size: 18px;
+}
+.content_post_view > a {
+    color: #000;
+}
+.content_post_view > a >.category {
+    font-weight: bold;
 }
 
 @media screen and (max-width: 480px){

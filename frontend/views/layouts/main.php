@@ -40,7 +40,7 @@ $name_blog = 'Блог по программированию';
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/']],
-        ['label' => 'Блог', 'url' => ['post/blog']],
+        ['label' => 'Блог', 'url' => ['site/blog']],
         ['label' => 'О авторе', 'url' => ['site/about']],
         ['label' => 'Связаться со мной', 'url' => ['site/contact']],
     ];
@@ -66,6 +66,7 @@ $name_blog = 'Блог по программированию';
 
     <div class="container">
         <?= Breadcrumbs::widget([
+            'homeLink' => ['label' => 'Главная', 'url' => '/'],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>

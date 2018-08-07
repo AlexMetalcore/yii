@@ -12,9 +12,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use frontend\models\Post;
-
-
+use backend\models\Post;
+use yii\data\Pagination;
+use common\models\User;
 /**
  * Site controller
  */
@@ -74,7 +74,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $posts = Post::find()->where(['publish_status' => 'publish'])->limit(6)->asArray()->all();
+        $posts = Post::find()->where(['publish_status' => 'publish'])->limit(6)->all();
         return $this->render('index' , compact('posts'));
     }
 
@@ -85,11 +85,13 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
+        print_r($model->login());
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -123,9 +125,9 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success', 'Письмо успешно отправлено');
             } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+                Yii::$app->session->setFlash('error', 'Ошибка отправки');
             }
 
             return $this->refresh();
@@ -177,11 +179,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Проверьте ваш e-mail');
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', 'Ошибка! Вы не можете восстановить данный пароль');
             }
         }
 
@@ -206,7 +208,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Новый пароль сохранен');
 
             return $this->goHome();
         }
@@ -215,5 +217,15 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-  
+
+    public function actionBlog () {
+
+        $query = Post::find();
+        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
+
+        $posts = $query->offset($pages->offset)->where(['publish_status' => 'publish'])->limit($pages->limit)->all();
+
+        return $this->render('blog' , compact('posts' ,'pages'));
+
+    }
 }

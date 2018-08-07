@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use common\models\User;
 
@@ -80,23 +80,6 @@ class Post extends ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
-    }
-
-    public function getAllCategory () {
-
-        return Category::find()->all();
-
-    }
-
-    public function getAllUser () {
-
-        return User::find()->all();
-
-    }
-    public static function getPost () {
-
-        return Post::find();
-
     }
 
 }

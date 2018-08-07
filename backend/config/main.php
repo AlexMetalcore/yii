@@ -13,6 +13,7 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'language' => 'ru-RU',
         'request' => [
             'baseUrl' => '/admin',
             'csrfParam' => '_csrf-backend',
