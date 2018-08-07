@@ -123,3 +123,9 @@ a.link_post {
 .info > a {
     text-decoration: none;
 }
+#pagination_category {
+    clear: both;
+    display: block;
+    position: relative;
+    margin: 0 25%;
+}

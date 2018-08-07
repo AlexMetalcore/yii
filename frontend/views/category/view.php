@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 $this->title = $category->title;
 ?>
@@ -31,5 +32,12 @@ $this->title = $category->title;
                 </div>
             </div>
         <?php endforeach; ?>
+        <?php echo LinkPager::widget([
+            'pagination' => $pages,
+            'options' => [
+                'id' => 'pagination_category',
+                'class' => 'pagination'
+            ],
+        ]); ?>
     </div>
 </div>

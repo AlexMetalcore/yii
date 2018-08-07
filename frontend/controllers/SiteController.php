@@ -20,9 +20,7 @@ use common\models\User;
  */
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -51,9 +49,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -67,22 +62,13 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
     public function actionIndex()
     {
-        $posts = Post::find()->where(['publish_status' => 'publish'])->limit(6)->all();
+        $posts = Post::find()->where(['publish_status' => 'publish'])
+            ->orderBy(['id' => SORT_DESC])->limit(6)->all();
         return $this->render('index' , compact('posts'));
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
     public function actionLogin()
     {
 
@@ -102,11 +88,6 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -114,11 +95,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -137,21 +113,11 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
     public function actionAbout()
     {
         return $this->render('about');
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -168,11 +134,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -191,13 +152,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
     public function actionResetPassword($token)
     {
         try {
