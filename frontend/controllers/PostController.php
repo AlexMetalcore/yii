@@ -4,8 +4,6 @@ namespace frontend\controllers;
 
 use yii\web\Controller;
 use backend\models\Post;
-use common\models\User;
-use backend\models\Category;
 
 class PostController extends Controller{
 

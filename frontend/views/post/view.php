@@ -1,12 +1,11 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 $this->title = $post->title;
 ?>
 <div class="container content_post_view">
-        <h1><?= lcfirst($post->title);?></h1>
-        <span class="date"><?= $post->publish_date; ?></span>
+        <h1><?= $post->title;?></h1>
+        <span class="date">Дата публикации: <?= $post->publish_date; ?></span>
     , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                     title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>

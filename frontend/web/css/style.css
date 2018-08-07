@@ -1,5 +1,6 @@
 body {
     background: #ededed;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 .content_post {
     text-align: center;
@@ -12,6 +13,17 @@ body {
 .title {
     font-size: 20px;
     font-weight: bold;
+    display: block;
+}
+.category_title {
+    font-size: 40px;
+    font-weight: bold;
+    display: block;
+    padding-left: 9px;
+}
+a.link_post {
+    color: #000;
+    text-decoration: none;
 }
 .post_img {
     width: 100%;
@@ -46,6 +58,7 @@ body {
     width: 75%;
     margin: 0;
     padding: 20px 20px;
+    box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0 2px 10px 0 rgba(0,0,0,.12)!important;
 }
 .post {
     position: relative;
@@ -53,6 +66,13 @@ body {
     display: block;
     height: 300px;
     margin-top: 15px;
+}
+.category_post {
+    position: relative;
+    width: 35%;
+    margin-top: 15px;
+    float: left;
+    padding: 0px 10px;
 }
 .date {
     display: inline-block;
@@ -66,8 +86,43 @@ body {
 }
 .content_post_view > a >.category {
     font-weight: bold;
+    color: #333;
 }
-
+.content_post_view > a {
+    text-decoration: none;
+}
+.category_content {
+    padding: 10px 10px;
+}
+.category_background {
+    background: white;
+    padding: 20px 20px;
+    margin: 20px 0px;
+    box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0 2px 10px 0 rgba(0,0,0,.12)!important;
+}
+.read_more a {
+    color: #04a49c;
+}
+.read_more a:hover {
+    text-decoration: none;
+    padding-left: 2px;
+    transition: 0.3s;
+    opacity: 0.9;
+}
+.info {
+    display: block;
+    position: relative;
+    top: 10px;
+    padding-left: 9px;
+    clear: both;
+}
+.info > a > .category {
+    color: #333;
+    font-weight: bold;
+}
+.info > a {
+    text-decoration: none;
+}
 @media screen and (max-width: 480px){
     .site-index > .pagination {
         position: relative;
