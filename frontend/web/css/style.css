@@ -73,4 +73,14 @@ body {
         position: relative;
         left: 32%;
     }
+    .content_post_view {
+        width: 100%;
+    }
+    .content_text_post {
+        padding: 40px 15px;
+        font-size: 16px;
+    }
+    .post {
+        height: 200px;
+    }
 }
