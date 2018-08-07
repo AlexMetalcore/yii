@@ -82,5 +82,6 @@ body {
     }
     .post {
         height: 200px;
+        position: relative;
     }
 }
