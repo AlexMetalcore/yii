@@ -6,7 +6,7 @@ jQuery('.overlay').click(function(){
     jQuery('#form_search , .overlay').fadeOut();
 });
 
-jQuery('form').submit(function(e) {
+jQuery('form#form_search').submit(function(e) {
     e.preventDefault();
     var text = jQuery('.input_search').val().trim();
     if(text.length >= 3) {
