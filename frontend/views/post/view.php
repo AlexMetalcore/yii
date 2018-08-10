@@ -1,9 +1,13 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\components\CategoryWidget;
 $this->title = $post->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container content_post_view">
+
+<div class="site-post">
+    <div class="col-md-8 content_post_view">
         <h1><?= $post->title;?></h1>
         <span class="date">Дата публикации: <?= $post->publish_date; ?></span>
     , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
@@ -11,9 +15,15 @@ $this->title = $post->title;
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
     <?= Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']); ?>
     <div class="content_text_post"><?= $post->content;?></div>
+    </div>
+    <div class="col-md-4">
+        <div class="category_widget category_top_widget">
+        <?= CategoryWidget::widget(); ?>
+        </div>
+    </div>
 </div>
-<?php
-echo newerton\fancybox\FancyBox::widget([
+
+<?= newerton\fancybox\FancyBox::widget([
     'target' => 'a[rel=fancybox]',
     'helpers' => true,
     'mouse' => true,

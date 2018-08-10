@@ -181,4 +181,22 @@ class SiteController extends Controller
         return $this->render('blog' , compact('posts' ,'pages'));
 
     }
+
+    public function actionSearch (){
+
+        if(Yii::$app->request->isAjax){
+            $this->layout = false;
+        }
+        $search_query = Yii::$app->request->get('search_query');
+        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]]);
+
+        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
+
+        $count = $query->count();
+
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+        return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
+
+    }
 }

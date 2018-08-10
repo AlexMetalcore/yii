@@ -1,3 +1,13 @@
+@media screen and (max-width: 1024px) {
+    .position_top {
+        right: 0;
+    }
+}
+@media screen and (max-width: 990px) {
+    .category_widget {
+        display: none;
+    }
+}
 @media screen and (max-width: 480px){
     .site-index > .pagination {
         position: relative;

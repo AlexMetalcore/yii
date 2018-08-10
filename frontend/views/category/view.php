@@ -2,11 +2,12 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use frontend\components\CategoryWidget;
 
 $this->title = $category->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container">
-    <div class="row">
+<div class="site-category">
         <?php foreach ($posts as $post): ?>
             <div class="col-md-8 category_background">
                 <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" class="link_post" title="<?= $post->title;?>">
@@ -32,6 +33,11 @@ $this->title = $category->title;
                 </div>
             </div>
         <?php endforeach; ?>
+        <div class="col-md-4 position_top">
+            <div class="category_widget">
+                <?= CategoryWidget::widget(); ?>
+            </div>
+        </div>
         <?php echo LinkPager::widget([
             'pagination' => $pages,
             'options' => [
@@ -39,5 +45,4 @@ $this->title = $category->title;
                 'class' => 'pagination'
             ],
         ]); ?>
-    </div>
 </div>

@@ -9,10 +9,9 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-
+use yii\helpers\Url;
 
 AppAsset::register($this);
-//Yii::$app->name;
 $name_blog = 'Блог по программированию';
 ?>
 <?php $this->beginPage() ?>
@@ -47,6 +46,7 @@ $name_blog = 'Блог по программированию';
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['site/signup']];
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['site/login']];
+        $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -56,6 +56,7 @@ $name_blog = 'Блог по программированию';
             )
             . Html::endForm()
             . '</li>';
+        $menuItems[] = Html::img('/admin/images/found.jpg' , ['class' => 'icon_search']);
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -63,6 +64,15 @@ $name_blog = 'Блог по программированию';
     ]);
     NavBar::end();
     ?>
+
+    <form action="<?= Url::to(['site/search']); ?>" method="get" id="form_search">
+        <input name="search_query" type="text" placeholder="Введите поисковый запрос" class="input_search">
+        <button type="submit" class="search">
+            <?=Html::img('/admin/images/search_icon.png' , ['class' => 'search_icon_field'])?>
+        </button>
+    </form>
+    <ul class="search_result"></ul>
+    <div class="overlay"></div>
 
     <div class="container">
         <?= Breadcrumbs::widget([

@@ -9,6 +9,7 @@ $this->title = 'Блог по программированию';
 ?>
 <div class="site-index">
     <div class="container">
+        <?php ///echo Yii::$app->request->userIP;?>
     <div class="row">
         <?php foreach ($posts as $post) : ?>
             <div class="col-md-4 block_border">

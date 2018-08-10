@@ -46,6 +46,7 @@ return [
                 //'/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
                 '' => 'site/index',
                 '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
+                'search' => 'site/search',
                 ],
         ],
 
