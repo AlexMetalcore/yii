@@ -16,6 +16,9 @@ jQuery('form#form_search').submit(function(e) {
             success: function (res) {
                 jQuery('.site-about , .site-contact , .site-index ' +
                     ', .site-post , .site-signup , .site-login , .site-category').replaceWith(res);
+                if(jQuery(window).width() <= 480){
+                    jQuery('#w0-collapse').fadeOut();
+                }
                 jQuery('#form_search , .overlay').fadeOut();
             },
             error: function () {
