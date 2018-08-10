@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']); ?>
     <div class="content_text_post"><?= $post->content;?></div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 full-width">
         <div class="category_widget category_top_widget">
         <?= CategoryWidget::widget(); ?>
         </div>
