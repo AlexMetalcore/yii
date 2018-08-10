@@ -17,7 +17,7 @@ jQuery('form#form_search').submit(function(e) {
                 jQuery('.site-about , .site-contact , .site-index ' +
                     ', .site-post , .site-signup , .site-login , .site-category').replaceWith(res);
                 if(jQuery(window).width() <= 480){
-                    jQuery('#w0-collapse').fadeOut();
+                    jQuery('#w0-collapse').removeClass('in');
                 }
                 jQuery('#form_search , .overlay').fadeOut();
             },
