@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="col-md-4 position_top">
+        <div class="col-md-4 position_top full-width">
             <div class="category_widget">
                 <?= CategoryWidget::widget(); ?>
             </div>

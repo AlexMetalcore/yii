@@ -8,6 +8,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="site-index">
+    <div class="container">
             <?php if ($posts): ?>
             <div class="query_info">
                 <span class="query">Найдено по запросу: <?= $search_query; ?></span>
@@ -41,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php else: ?>
                 <span class="query">По запросу ничего не найдено</span>
             <?php endif; ?>
+    </div>
     <?= LinkPager::widget([
         'pagination' => $pages,
     ]); ?>

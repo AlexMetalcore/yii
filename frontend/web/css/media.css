@@ -7,11 +7,21 @@
     .full-width {
         padding: 0;
     }
+    .position_top {
+        position: relative;
+        top: unset;
+    }
 }
 @media screen and (max-width: 480px){
+    .search {
+        top: 0;
+    }
+    #form_search {
+        top: 150px;
+    }
     .site-index > .pagination {
         position: relative;
-        left: 32%;
+        left: 25%;
     }
     .content_post_view {
         width: 100%;
