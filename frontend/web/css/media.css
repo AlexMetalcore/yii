@@ -12,7 +12,17 @@
         top: unset;
     }
 }
+@media screen and (max-width: 768px) {
+    .site-index > .pagination {
+        position: relative;
+        left: 35%;
+       }
+}
 @media screen and (max-width: 480px){
+    #pagination_category {
+        margin: 15px 25%;
+        left: 10%;
+    }
     .search {
         top: 0;
     }
