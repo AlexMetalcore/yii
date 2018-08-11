@@ -50,5 +50,15 @@ return [
         ],
 
     ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'],
+            'root' => [
+                'path' => 'images',
+                'name' => 'Images'
+            ],
+        ]
+    ],
     'params' => $params,
 ];

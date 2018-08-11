@@ -29,8 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'anons:ntext',
-            'content:ntext',
+            'anons:html',
+            'content:html',
+            [
+                    'attribute' => 'img',
+                    'value' => '<img src="/admin/'.$model->img.'" height="200" width="300"/>',
+                    'format'    => 'raw',
+            ],
             'category.title',
             'author.username',
             'publish_status',

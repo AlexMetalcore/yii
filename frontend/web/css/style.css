@@ -185,12 +185,16 @@ a.link_post {
 .search {
     background: rgba(0,0,0,0);
     border: none;
+    position: absolute;
+    right: 0;
+    top: 7px;
+    outline: none;
 }
 .search_icon_field {
     width: 40px;
-    right: 15px;
+    /*right: 15px;
     position: absolute;
-    top: 7px;
+    top: 7px;*/
 }
 .query_info {
     margin-left: 25px;

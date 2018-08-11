@@ -4,9 +4,6 @@
     }
 }
 @media screen and (max-width: 990px) {
-    /*.category_widget {
-        display: none;
-    }*/
     .full-width {
         padding: 0;
     }

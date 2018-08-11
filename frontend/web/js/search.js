@@ -9,7 +9,7 @@ jQuery('.overlay').click(function(){
 jQuery('form#form_search').submit(function(e) {
     e.preventDefault();
     var text = jQuery('.input_search').val().trim();
-    if(text.length >= 3) {
+    if(text.length >= 2) {
         $.ajax({
             url: '/search?search_query=' + text,
             type: 'GET',
@@ -28,6 +28,6 @@ jQuery('form#form_search').submit(function(e) {
         jQuery('.input_search').attr('style' , '');
     }
     else {
-        jQuery('.input_search').css('border' , '1px solid red');
+        jQuery('.input_search').css('border' , '2px solid red');
     }
 });

@@ -58,6 +58,7 @@ class Post extends ActiveRecord
             'id' => 'ID',
             'title' => 'Заголовок',
             'content' => 'Описание',
+            'img'   => 'Фото',
             'category_id' => 'Категория',
             'author_id' => 'Автор',
             'publish_status' => 'Статус статьи',

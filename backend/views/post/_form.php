@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use common\models\User;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
+mihaildev\elfinder\Assets::noConflict($this);
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Post */
+/* @var $model backend\models\Post */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,16 +19,19 @@ use common\models\User;
 
     <?= $form->field($model, 'anons')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'content')->widget(CKEditor::className(),[
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder',[]),
+    ]);?>
 
-    <?php echo $form->field($model, 'category_id')->dropDownList(
+    <?= $form->field($model, 'category_id')->dropDownList(
         ArrayHelper::map($category, 'id', 'title')
     ) ?>
 
     <?= $form->field($model, 'author_id')->dropDownList(
         ArrayHelper::map($authors, 'id', 'username')
     ) ?>
-    <?= $form->field($model, 'publish_status')->dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'publish_status')->
+    dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'publish_date')->textInput() ?>
 

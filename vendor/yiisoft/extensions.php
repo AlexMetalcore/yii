@@ -57,4 +57,41 @@ return array (
       '@newerton/fancybox' => $vendorDir . '/newerton/yii2-fancybox',
     ),
   ),
+  'mihaildev/yii2-ckeditor' => 
+  array (
+    'name' => 'mihaildev/yii2-ckeditor',
+    'version' => '1.0.1.0',
+    'alias' => 
+    array (
+      '@mihaildev/ckeditor' => $vendorDir . '/mihaildev/yii2-ckeditor',
+    ),
+  ),
+  'yiisoft/yii2-jui' => 
+  array (
+    'name' => 'yiisoft/yii2-jui',
+    'version' => '2.0.7.0',
+    'alias' => 
+    array (
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
+    ),
+  ),
+  'mihaildev/yii2-elfinder' => 
+  array (
+    'name' => 'mihaildev/yii2-elfinder',
+    'version' => '1.2.2.0',
+    'alias' => 
+    array (
+      '@mihaildev/elfinder' => $vendorDir . '/mihaildev/yii2-elfinder',
+    ),
+  ),
+  'yiisoft/yii2-dev' => 
+  array (
+    'name' => 'yiisoft/yii2-dev',
+    'version' => '2.0.15.1',
+    'alias' => 
+    array (
+      '@yii' => $vendorDir . '/yiisoft/yii2-dev/framework',
+      '@yii/cs' => $vendorDir . '/yiisoft/yii2-dev/cs/src',
+    ),
+  ),
 );

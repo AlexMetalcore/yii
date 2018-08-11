@@ -1,10 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use frontend\models\Category;
+use backend\models\Category;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Post */
+/* @var $model backend\models\Post */
 
 $this->title = 'Обновить запись: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Записи', 'url' => ['index']];
