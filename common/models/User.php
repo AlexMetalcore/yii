@@ -25,10 +25,10 @@ use backend\models\Post;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const ROLE_ADMIN = 20;
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
-    //public $password;
+    const ROLE_USER = 10;
 
     /**
      * {@inheritdoc}
@@ -53,7 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
             [['username', 'about'], 'trim'],
             [['username', 'email', 'password'] , 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь существует'],
@@ -77,9 +77,10 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    public static function findIdentity($id) {
+
+        return static::findOne(['id' => $id, 'status' => [self::ROLE_USER, self::ROLE_ADMIN]]);
+
     }
 
     /**
@@ -98,7 +99,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN]]);
     }
 
     /**
@@ -221,4 +222,15 @@ class User extends ActiveRecord implements IdentityInterface
         return User::find()->all();
 
     }
+
+    public static function isUserAdmin($username) {
+        if (static::findOne(['username' => $username, 'status' => self::ROLE_ADMIN]))
+        {
+            return true;
+        } else {
+            Yii::$app->session->setFlash('error' , 'Вы не имеете достаточно прав');
+            return false;
+        }
+    }
+
 }

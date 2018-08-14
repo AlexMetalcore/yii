@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
+use kartik\datetime\DateTimePicker;
 mihaildev\elfinder\Assets::noConflict($this);
 
 /* @var $this yii\web\View */
@@ -31,9 +32,22 @@ mihaildev\elfinder\Assets::noConflict($this);
         ArrayHelper::map($authors, 'id', 'username')
     ) ?>
     <?= $form->field($model, 'publish_status')->
-    dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ], ['prompt' => '']) ?>
+    dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ]) ?>
 
-    <?= $form->field($model, 'publish_date')->textInput() ?>
+    <?= $form->field($model, 'publish_date')->widget(DateTimePicker::className(),[
+    'name' => 'dp_1',
+    'type' => DateTimePicker::TYPE_INPUT,
+    'options' => ['placeholder' => 'Ввод даты/времени...'],
+    'convertFormat' => true,
+    'value'=> date("d.m.Y h:i",(integer) $model->publish_date),
+    'pluginOptions' => [
+        'format' => 'dd.MM.yyyy hh:i',
+        'autoclose'=>true,
+        'weekStart'=>1,
+        'startDate' => '01.05.2015 00:00',
+        'todayBtn'=>true,
+    ]
+]); ?>
 
     <?= $form->field($model, 'upload')->fileInput() ?>
     <?php if ($model->img): ?>

@@ -14,11 +14,13 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
+        '9a4d9b2dc09f1ad978b28fc9a8420755' => __DIR__ . '/..' . '/yiithings/yii2-dotenv/src/autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'y' => 
         array (
+            'yiithings\\dotenv\\' => 17,
             'yii\\swiftmailer\\' => 16,
             'yii\\jui\\' => 8,
             'yii\\gii\\' => 8,
@@ -28,6 +30,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'yii\\composer\\' => 13,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
+        ),
+        's' => 
+        array (
+            'spanjeta\\comments\\' => 18,
         ),
         'p' => 
         array (
@@ -41,6 +47,12 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             'mihaildev\\elfinder\\' => 19,
             'mihaildev\\ckeditor\\' => 19,
+            'mdm\\admin\\' => 10,
+        ),
+        'k' => 
+        array (
+            'kartik\\datetime\\' => 16,
+            'kartik\\base\\' => 12,
         ),
         'c' => 
         array (
@@ -80,6 +92,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         ),
         'D' => 
         array (
+            'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
@@ -92,6 +105,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
     );
 
     public static $prefixDirsPsr4 = array (
+        'yiithings\\dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiithings/yii2-dotenv/src',
+        ),
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src',
@@ -128,6 +145,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-dev/framework',
         ),
+        'spanjeta\\comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spanjeta/yii2-comments',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -145,6 +166,18 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'mihaildev\\ckeditor\\' => 
         array (
             0 => __DIR__ . '/..' . '/mihaildev/yii2-ckeditor',
+        ),
+        'mdm\\admin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mdmsoft/yii2-admin',
+        ),
+        'kartik\\datetime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -205,6 +238,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

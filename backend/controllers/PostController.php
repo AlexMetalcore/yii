@@ -78,7 +78,6 @@ class PostController extends Controller
     public function actionCreate()
     {
         $model = new Post();
-
         $authors = new User();
         $category = new Category();
 

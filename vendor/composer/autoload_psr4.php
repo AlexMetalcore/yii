@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'yiithings\\dotenv\\' => array($vendorDir . '/yiithings/yii2-dotenv/src'),
     'yii\\swiftmailer\\' => array($vendorDir . '/yiisoft/yii2-swiftmailer/src'),
     'yii\\jui\\' => array($vendorDir . '/yiisoft/yii2-jui'),
     'yii\\gii\\' => array($vendorDir . '/yiisoft/yii2-gii/src'),
@@ -15,10 +16,14 @@ return array(
     'yii\\composer\\' => array($vendorDir . '/yiisoft/yii2-composer'),
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2-dev/framework'),
+    'spanjeta\\comments\\' => array($vendorDir . '/spanjeta/yii2-comments'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'newerton\\fancybox\\' => array($vendorDir . '/newerton/yii2-fancybox'),
     'mihaildev\\elfinder\\' => array($vendorDir . '/mihaildev/yii2-elfinder'),
     'mihaildev\\ckeditor\\' => array($vendorDir . '/mihaildev/yii2-ckeditor'),
+    'mdm\\admin\\' => array($vendorDir . '/mdmsoft/yii2-admin'),
+    'kartik\\datetime\\' => array($vendorDir . '/kartik-v/yii2-widget-datetimepicker'),
+    'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
@@ -34,6 +39,7 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/EmailValidator'),
+    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Codeception\\PHPUnit\\' => array($vendorDir . '/codeception/phpunit-wrapper/src'),

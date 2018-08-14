@@ -94,4 +94,49 @@ return array (
       '@yii/cs' => $vendorDir . '/yiisoft/yii2-dev/cs/src',
     ),
   ),
+  'mdmsoft/yii2-admin' => 
+  array (
+    'name' => 'mdmsoft/yii2-admin',
+    'version' => '2.8.0.0',
+    'alias' => 
+    array (
+      '@mdm/admin' => $vendorDir . '/mdmsoft/yii2-admin',
+    ),
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '1.8.9.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
+    ),
+  ),
+  'kartik-v/yii2-widget-datetimepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datetimepicker',
+    'version' => '1.4.4.0',
+    'alias' => 
+    array (
+      '@kartik/datetime' => $vendorDir . '/kartik-v/yii2-widget-datetimepicker',
+    ),
+  ),
+  'spanjeta/yii2-comments' => 
+  array (
+    'name' => 'spanjeta/yii2-comments',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@spanjeta/comments' => $vendorDir . '/spanjeta/yii2-comments',
+    ),
+  ),
+  'yiithings/yii2-dotenv' => 
+  array (
+    'name' => 'yiithings/yii2-dotenv',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@yiithings/dotenv' => $vendorDir . '/yiithings/yii2-dotenv/src',
+    ),
+  ),
 );

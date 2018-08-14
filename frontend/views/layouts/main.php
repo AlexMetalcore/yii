@@ -51,12 +51,12 @@ $name_blog = 'Блог по программированию';
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выход (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
             . '</li>';
-        $menuItems[] = Html::img('/admin/images/found.jpg' , ['class' => 'icon_search']);
+        $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

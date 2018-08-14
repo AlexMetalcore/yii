@@ -13,4 +13,5 @@ return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     '2c102faa651ef8ea5874edb585946bce' => $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
     '180092cfc969a12e06f2132a203a3184' => $vendorDir . '/codeception/verify/src/Codeception/function.php',
+    '9a4d9b2dc09f1ad978b28fc9a8420755' => $vendorDir . '/yiithings/yii2-dotenv/src/autoload.php',
 );

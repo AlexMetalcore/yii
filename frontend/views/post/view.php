@@ -2,8 +2,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\CategoryWidget;
+use spanjeta\comments\CommentsWidget;
 $this->title = $post->title;
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="site-post">

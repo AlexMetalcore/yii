@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->label('Статус')
+        ->dropDownList(['20' => 'Администратор' , '10' => 'Пользователь']) ?>
     <?= $form->field($model, 'about')->textarea(['rows' => 6]) ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

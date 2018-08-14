@@ -38,14 +38,14 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Перести на сайт', 'url' => '/../'];
+        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
         $menuItems[] = ['label' => 'Записи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выход (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
