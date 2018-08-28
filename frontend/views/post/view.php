@@ -2,10 +2,11 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\CategoryWidget;
-use spanjeta\comments\CommentsWidget;
-$this->title = $post->title;
-$this->params['breadcrumbs'][] = $this->title;
 
+
+$this->title = $post->title;
+$this->params['breadcrumbs'][] = $post->category->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="site-post">
@@ -17,6 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
     <?= Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']); ?>
     <div class="content_text_post"><?= $post->content;?></div>
+        <?= \yii2mod\comments\widgets\Comment::widget([
+            'model' => $model,
+            'maxLevel' => 2,
+            'dataProviderConfig' => [
+                'pagination' => [
+                    'pageSize' => 10
+                ],
+            ],
+            'listViewConfig' => [
+                'emptyText' => Yii::t(  'app', 'Комментариев нету'),
+            ],
+        ]); ?>
     </div>
     <div class="col-md-4 full-width">
         <div class="category_widget category_top_widget">

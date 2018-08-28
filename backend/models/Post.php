@@ -5,6 +5,7 @@ namespace backend\models;
 use common\models\User;
 
 use yii\db\ActiveRecord;
+use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
 
 /**
  * This is the model class for table "post".
@@ -27,6 +28,14 @@ class Post extends ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function behaviors()
+    {
+        return [
+            'comments'=>[
+                'class'=>CommentsBehavior::className(),
+            ],
+        ];
+    }
     public static function tableName()
     {
         return 'post';
@@ -67,17 +76,11 @@ class Post extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAuthor()
     {
        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);

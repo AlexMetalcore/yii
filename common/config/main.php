@@ -9,5 +9,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-    ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['user','moder','admin'],
+            'itemFile' => '@common/components/rbac/items.php',
+            'ruleFile' => '@common/components/rbac/rules.php'
+        ],
+    ]
 ];

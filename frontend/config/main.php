@@ -16,6 +16,14 @@ return [
             'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
         ],
+        'i18n' => [
+            'translations' => [
+                'yii2mod.comments' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/comments/messages',
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -44,12 +52,17 @@ return [
             'rules' => [
                 //'post/page/<page:\d+>' => 'post/index',
                 //'/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
-                '' => 'site/index',
-                '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
-                'search' => 'site/search',
+                //'' => 'site/index',
+                //'<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
+                //'search' => 'site/search',
                 ],
+        ]
+    ],
+    'modules' => [
+        'comment' => [
+            'class' => 'yii2mod\comments\Module',
+            'enableInlineEdit' => true,
         ],
-
     ],
     'params' => $params,
 ];

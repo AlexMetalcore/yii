@@ -1,0 +1,38 @@
+{
+	"name": "asinfotrack/yii2-toolbox",
+	"type": "yii2-extension",
+
+	"description": "Yii2-Toolbox is a collection of useful helpers, widgets etc. extending the basic functionality of Yii2",
+	"keywords": ["yii2", "toolbox", "widgets", "helpers", "bundle"],
+
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Pascal Mueller",
+			"email": "pascal.mueller@asinfotrack.ch",
+			"homepage": "http://www.asinfotrack.ch"
+		}
+	],
+
+	"minimum-stability": "stable",
+	"support": {
+		"source": "https://github.com/asinfotrack/yii2-toolbox",
+		"issues": "https://github.com/asinfotrack/yii2-toolbox/issues"
+	},
+
+	"require": {
+		"php": ">=5.4.0",
+
+		"yiisoft/yii2": "~2.0.6",
+		"yiisoft/yii2-bootstrap": "~2.0.0",
+		"yiisoft/yii2-gii": "~2.0.0",
+
+		"yurkinx/yii2-image": "~1.1"
+	},
+
+	"autoload": {
+		"psr-4": {
+			"asinfotrack\\yii2\\toolbox\\": ""
+		}
+	}
+}

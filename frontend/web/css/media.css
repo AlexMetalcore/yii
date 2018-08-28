@@ -19,6 +19,9 @@
        }
 }
 @media screen and (max-width: 480px){
+    .category_top_widget {
+        margin: unset;
+    }
     #pagination_category {
         margin: 15px 25%;
         left: 10%;

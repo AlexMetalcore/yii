@@ -226,3 +226,6 @@ a.link_post {
 .search_result li:hover{
     background: #F9FF00;
 }
+.position_text {
+    padding: 10px 0;
+}

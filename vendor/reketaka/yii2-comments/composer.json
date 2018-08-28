@@ -1,0 +1,18 @@
+{
+    "name": "reketaka/yii2-comments",
+    "description": "Позволяет пользователям оставлять комментарии",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Александр Смуткин",
+            "email": "info@double-a.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "reketaka\\comments\\": ""
+        }
+    }
+}

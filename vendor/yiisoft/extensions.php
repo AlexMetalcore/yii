@@ -139,4 +139,121 @@ return array (
       '@yiithings/dotenv' => $vendorDir . '/yiithings/yii2-dotenv/src',
     ),
   ),
+  'reketaka/yii2-comments' => 
+  array (
+    'name' => 'reketaka/yii2-comments',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@reketaka/comments' => $vendorDir . '/reketaka/yii2-comments',
+    ),
+  ),
+  'cebe/yii2-gravatar' => 
+  array (
+    'name' => 'cebe/yii2-gravatar',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@cebe/gravatar' => $vendorDir . '/cebe/yii2-gravatar/cebe/gravatar',
+    ),
+  ),
+  'yurkinx/yii2-image' => 
+  array (
+    'name' => 'yurkinx/yii2-image',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@yii/image' => $vendorDir . '/yurkinx/yii2-image/yii/image',
+    ),
+  ),
+  'asinfotrack/yii2-toolbox' => 
+  array (
+    'name' => 'asinfotrack/yii2-toolbox',
+    'version' => '0.8.10.0',
+    'alias' => 
+    array (
+      '@asinfotrack/yii2/toolbox' => $vendorDir . '/asinfotrack/yii2-toolbox',
+    ),
+  ),
+  'asinfotrack/yii2-comments' => 
+  array (
+    'name' => 'asinfotrack/yii2-comments',
+    'version' => '0.8.0.0',
+    'alias' => 
+    array (
+      '@asinfotrack/yii2/comments' => $vendorDir . '/asinfotrack/yii2-comments',
+    ),
+  ),
+  'yii2mod/yii2-enum' => 
+  array (
+    'name' => 'yii2mod/yii2-enum',
+    'version' => '1.7.1.0',
+    'alias' => 
+    array (
+      '@yii2mod/enum' => $vendorDir . '/yii2mod/yii2-enum',
+    ),
+  ),
+  'yii2mod/yii2-moderation' => 
+  array (
+    'name' => 'yii2mod/yii2-moderation',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/moderation' => $vendorDir . '/yii2mod/yii2-moderation',
+    ),
+  ),
+  'yii2mod/yii2-editable' => 
+  array (
+    'name' => 'yii2mod/yii2-editable',
+    'version' => '1.5.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/editable' => $vendorDir . '/yii2mod/yii2-editable',
+    ),
+  ),
+  'yii2mod/yii2-behaviors' => 
+  array (
+    'name' => 'yii2mod/yii2-behaviors',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/behaviors' => $vendorDir . '/yii2mod/yii2-behaviors',
+    ),
+  ),
+  'paulzi/yii2-sortable' => 
+  array (
+    'name' => 'paulzi/yii2-sortable',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@paulzi/sortable' => $vendorDir . '/paulzi/yii2-sortable',
+    ),
+  ),
+  'paulzi/yii2-adjacency-list' => 
+  array (
+    'name' => 'paulzi/yii2-adjacency-list',
+    'version' => '2.2.0.0',
+    'alias' => 
+    array (
+      '@paulzi/adjacencyList' => $vendorDir . '/paulzi/yii2-adjacency-list',
+    ),
+  ),
+  'asofter/yii2-imperavi-redactor' => 
+  array (
+    'name' => 'asofter/yii2-imperavi-redactor',
+    'version' => '0.0.3.0',
+    'alias' => 
+    array (
+      '@yii/imperavi' => $vendorDir . '/asofter/yii2-imperavi-redactor/yii/imperavi',
+    ),
+  ),
+  'yii2mod/yii2-comments' => 
+  array (
+    'name' => 'yii2mod/yii2-comments',
+    'version' => '1.9.9.2',
+    'alias' => 
+    array (
+      '@yii2mod/comments' => $vendorDir . '/yii2mod/yii2-comments',
+    ),
+  ),
 );

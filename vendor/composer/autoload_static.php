@@ -30,14 +30,25 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'yii\\composer\\' => 13,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
+            'yii2mod\\moderation\\' => 19,
+            'yii2mod\\enum\\' => 13,
+            'yii2mod\\editable\\' => 17,
+            'yii2mod\\comments\\' => 17,
+            'yii2mod\\behaviors\\' => 18,
         ),
         's' => 
         array (
             'spanjeta\\comments\\' => 18,
         ),
+        'r' => 
+        array (
+            'reketaka\\comments\\' => 18,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+            'paulzi\\sortable\\' => 16,
+            'paulzi\\adjacencyList\\' => 21,
         ),
         'n' => 
         array (
@@ -58,6 +69,11 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             'cebe\\markdown\\' => 14,
         ),
+        'a' => 
+        array (
+            'asinfotrack\\yii2\\toolbox\\' => 25,
+            'asinfotrack\\yii2\\comments\\' => 26,
+        ),
         'W' => 
         array (
             'Webmozart\\Assert\\' => 17,
@@ -67,6 +83,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DomCrawler\\' => 29,
@@ -145,15 +162,47 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-dev/framework',
         ),
+        'yii2mod\\moderation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-moderation',
+        ),
+        'yii2mod\\enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-enum',
+        ),
+        'yii2mod\\editable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-editable',
+        ),
+        'yii2mod\\comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-comments',
+        ),
+        'yii2mod\\behaviors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-behaviors',
+        ),
         'spanjeta\\comments\\' => 
         array (
             0 => __DIR__ . '/..' . '/spanjeta/yii2-comments',
+        ),
+        'reketaka\\comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/reketaka/yii2-comments',
         ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'paulzi\\sortable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paulzi/yii2-sortable',
+        ),
+        'paulzi\\adjacencyList\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paulzi/yii2-adjacency-list',
         ),
         'newerton\\fancybox\\' => 
         array (
@@ -183,6 +232,14 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),
+        'asinfotrack\\yii2\\toolbox\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asinfotrack/yii2-toolbox',
+        ),
+        'asinfotrack\\yii2\\comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asinfotrack/yii2-comments',
+        ),
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
@@ -198,6 +255,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
         ),
         'Symfony\\Component\\Finder\\' => 
         array (
@@ -266,7 +327,29 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
+    );
+
     public static $prefixesPsr0 = array (
+        'y' => 
+        array (
+            'yii\\imperavi\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/asofter/yii2-imperavi-redactor',
+            ),
+            'yii\\image\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/yurkinx/yii2-image',
+            ),
+        ),
+        'c' => 
+        array (
+            'cebe\\gravatar\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/cebe/yii2-gravatar',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 
@@ -875,6 +958,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc::$classMap;
 

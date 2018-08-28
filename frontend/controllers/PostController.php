@@ -9,8 +9,9 @@ class PostController extends Controller{
 
     public function actionView ($id) {
 
+        $model = Post::find()->where(['id' => $id])->one();
         $post = Post::findOne($id);
-        return $this->render('view' , compact('post'));
+        return $this->render('view' , compact('post','model'));
 
     }
 }
