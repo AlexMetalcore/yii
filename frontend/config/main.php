@@ -53,8 +53,10 @@ return [
                 //'post/page/<page:\d+>' => 'post/index',
                 //'/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
                 //'' => 'site/index',
-                //'<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
-                //'search' => 'site/search',
+                '/comment/default/create' => '/comment/default/create',
+                '/comment/default/delete' => '/comment/default/delete',
+                '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
+                'search' => 'site/search',
                 ],
         ]
     ],
