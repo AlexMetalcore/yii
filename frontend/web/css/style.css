@@ -229,3 +229,38 @@ a.link_post {
 .position_text {
     padding: 10px 0;
 }
+.heart-like , .heart-like-active {
+    width: 15px;
+}
+.heart-like:hover , .heart-like-active {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+#pjaxCountLikes {
+    display: inline-block;
+    top: 1px;
+    position: relative;
+}
+#pjaxCountLikes:hover {
+    cursor: pointer;
+}
+#pjaxCountLikes .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: -35px;
+    left: 15px;
+}
+#pjaxCountLikes:hover .tooltiptext {
+    visibility: visible;
+}
+.author_likes {
+    display: block;
+}
