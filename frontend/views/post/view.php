@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
         <?php if (!Yii::$app->user->isGuest): ?>
-            Нравится :
+            , Нравится :
         <?= (!isset($model_author->like_author) && empty($model_author->like_author)) ? Html::img('/admin/images/heart-outline.png' , ['class' => 'heart-like']) : Html::img('/admin/images/heart_red.png' , ['class' => 'heart-like-active']); ?>
             <?php Pjax::begin([ 'id' => 'pjaxCountLikes']); ?>
         <span class="count_like"><?= $count == 0 ? '' : $count; ?></span>
