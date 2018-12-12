@@ -3,6 +3,7 @@ jQuery('.icon_search').click(function() {
    jQuery('#form_search , .overlay').fadeIn();
 });
 jQuery('.overlay').click(function(){
+    jQuery('.input_search').attr('style' , '');
     jQuery('#form_search , .overlay').fadeOut();
 });
 
