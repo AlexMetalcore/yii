@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
     <?php echo $form->field($commentModel, 'parentId', ['template' => '{input}'])->hiddenInput(['data' => ['comment' => 'parent-id']]); ?>
     <div class="comment-box-partial">
         <div class="button-container show">
-            <?php echo Html::a(Yii::t('yii2mod.comments', 'Click here to cancel reply.'), '#', ['id' => 'cancel-reply', 'class' => 'pull-right', 'data' => ['action' => 'cancel-reply']]); ?>
+            <?php echo Html::a(Yii::t('yii2mod.comments', 'Нажмите тут что бы отменить ответ.'), '#', ['id' => 'cancel-reply', 'class' => 'pull-right', 'data' => ['action' => 'cancel-reply']]); ?>
             <?php echo Html::submitButton(Yii::t('yii2mod.comments', 'Добавить комментарий'), ['class' => 'btn btn-primary btn-success']); ?>
         </div>
     </div>

@@ -48,6 +48,20 @@ class Category extends ActiveRecord
     }
 
     /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            \Yii::$app->session->setFlash('success', 'Запись добавлена');
+        } else {
+            \Yii::$app->session->setFlash('success', 'Запись обновлена');
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPosts()
@@ -56,12 +70,18 @@ class Category extends ActiveRecord
     }
 
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public static function getQueryCategory () {
 
         return Category::find();
 
     }
 
+    /**
+     * @return array|ActiveRecord[]
+     */
     public function getAllCategory () {
 
         return Category::find()->all();

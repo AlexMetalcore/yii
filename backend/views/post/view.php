@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:html',
             [
                     'attribute' => 'img',
-                    'value' => '<img src="/admin/'.$model->img.'" height="200" width="300"/>',
+                    'value' => $model->img ? '<img src="/admin/'.$model->img.'" height="200" width="300"/>' : 'фото нету',
                     'format'    => 'raw',
             ],
             'category.title',

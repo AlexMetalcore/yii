@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\LikePosts;
 use common\models\User;
 
 use yii\db\ActiveRecord;
@@ -24,6 +25,9 @@ use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
  */
 class Post extends ActiveRecord
 {
+    /**
+     * @var string
+     */
     public $upload;
     /**
      * {@inheritdoc}
@@ -36,6 +40,10 @@ class Post extends ActiveRecord
             ],
         ];
     }
+
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'post';
@@ -76,14 +84,42 @@ class Post extends ActiveRecord
         ];
     }
 
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            \Yii::$app->session->setFlash('success', 'Запись добавлена');
+        } else {
+            \Yii::$app->session->setFlash('success', 'Запись обновлена');
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getAuthor()
     {
        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLike()
+    {
+        return $this->hasMany(LikePosts::className(), ['id' => 'post_id']);
+    }
 }

@@ -137,7 +137,7 @@ class DefaultController extends Controller
         if ($commentModel->markRejected()) {
             $this->trigger(self::EVENT_AFTER_DELETE, $event);
 
-            return Yii::t('yii2mod.comments', 'Comment has been deleted.');
+            return Yii::t('yii2mod.comments', 'Комментарий удален.');
         } else {
             Yii::$app->response->setStatusCode(500);
 

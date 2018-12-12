@@ -136,7 +136,7 @@ a.link_post {
     background: white;
     padding: 20px 20px;
 }
-.category_widget > a {
+.category_widget > .block-category > a {
     color: #333;
     font-weight: bold;
 }
@@ -263,4 +263,17 @@ a.link_post {
 }
 .author_likes {
     display: block;
+}
+.block-category , .post-data{
+    display: block;
+}
+.post-data {
+    margin-left: 10px;
+    display: none;
+}
+.post-data > .post-name > a {
+    color: black;
+}
+.count_post:hover {
+    cursor: pointer;
 }

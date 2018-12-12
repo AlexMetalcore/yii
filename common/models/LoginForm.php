@@ -43,7 +43,7 @@ class LoginForm extends Model
         }
     }
 
-    /*Авторизация пользоваиеля*/
+    /*Авторизация пользователя*/
     public function login()
     {
         if ($this->validate()) {

@@ -2,26 +2,38 @@
 namespace frontend\components;
 
 use backend\models\Category;
-use backend\models\Post;
 use yii\base\Widget;
-use yii\helpers\Url;
-use Yii;
 
+/**
+ * Class CategoryWidget
+ * @package frontend\components
+ */
 class CategoryWidget extends Widget {
 
+    /**
+     * @var array
+     */
+    public $data_category = [];
+
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
     }
 
+    /**
+     * @return string
+     */
     public function run() {
 
-        $categories = Category::find()->asArray()->all();
+        $categories = Category::find()->all();
         foreach ($categories as $category){
-            $post = Post::find()->where(['category_id' => $category['id']])->count();
-            echo "<a href=". Url::to(['category/view' , 'id' => $category['id']]).">".$category["title"]."</a>  "
-                .'<span class="count_post">('.$post.')</span>'."<br>";
+            $this->data_category[] = $category;
         }
+        $data_category = $this->data_category;
+        return $this->render('block-category' , compact('data_category'));
     }
 
 }

@@ -50,6 +50,7 @@ class PostController extends Controller
             ),
         );
     }
+
     public function actionIndex()
     {
         $post = Post::find();

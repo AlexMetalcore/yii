@@ -21,13 +21,31 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 'id',
                 'title',
-                'content:html',
+                [
+                        'header' => 'Описание',
+                        'value'  => function($model){
+                            return strlen($model->content) < 200 ? $model->content : mb_substr($model->content , '0' , 200).'...';
+                        },
+                        'format' => 'raw'
+                ],
                 'category.title',
                 'author.username',
                 'publish_status',
                 'publish_date',
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',
+                    'buttons' => [
+                        'view' => function ($url) {
+                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-eye-open' , 'title' => 'View']);
+                        },
+                        'update' => function ($url) {
+                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-pencil' , 'title' => 'Update']);
+                        },
+                        'delete' => function ($url) {
+                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную запись?")']);
+
+                        },
+                    ],
                 ],
             ],
     ]); ?>

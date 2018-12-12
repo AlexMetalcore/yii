@@ -14,6 +14,7 @@ mihaildev\elfinder\Assets::noConflict($this);
 ?>
 
 <div class="post-form">
+
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'title')->label('Заголовок')->textInput(['maxlength' => true]) ?>
