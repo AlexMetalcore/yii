@@ -120,6 +120,6 @@ class Post extends ActiveRecord
      */
     public function getLike()
     {
-        return $this->hasMany(LikePosts::className(), ['id' => 'post_id']);
+        return $this->hasMany(LikePosts::class, ['id' => 'post_id']);
     }
 }

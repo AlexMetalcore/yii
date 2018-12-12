@@ -11,7 +11,6 @@ use Yii;
 class PostController extends Controller{
 
     public function actionView ($id) {
-        $model = Post::find()->where(['id' => $id])->one();
         $post = Post::findOne($id);
         $count = LikePosts::getAllLikes($post->id);
         $author_likes = LikePosts::getAllAuthorLikes($post->id);
@@ -19,10 +18,10 @@ class PostController extends Controller{
             if(User::findIdentity(\Yii::$app->user->identity->getId())->username){
                 $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
                 $model_author = LikePosts::find()->where(['post_id' => $id])->andWhere(['like_author' => $user])->one();
-                return $this->render('view' , compact('post','model' , 'count' , 'author_likes' ,'model_author'));
+                return $this->render('view' , compact('post' , 'count' , 'author_likes' ,'model_author'));
             }
         }
-        return $this->render('view' , compact('post','model' , 'count' , 'author_likes'));
+        return $this->render('view' , compact('post' ,'count' , 'author_likes'));
 
     }
     public function actionLike($id) {

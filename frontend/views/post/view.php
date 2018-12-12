@@ -9,6 +9,7 @@ use common\models\User;
 $this->title = $post->title;
 $this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id]];
 $this->params['breadcrumbs'][] = $this->title;
+//print_r($post->like);
 ?>
 
 <div class="site-post">
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']); ?>
     <div class="content_text_post"><?= $post->content;?></div>
         <?= \yii2mod\comments\widgets\Comment::widget([
-            'model' => $model,
+            'model' => $post,
             'maxLevel' => 2,
             'dataProviderConfig' => [
                 'pagination' => [

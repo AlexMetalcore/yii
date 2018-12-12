@@ -88,7 +88,7 @@ $name_blog = 'Блог по программированию';
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode($name_blog) ?> <?= date('Y') ?></p>
 
-        <p class="pull-right">Powered by Alex</p>
+        <p class="pull-right">Powered by <a href="https://github.com/AlexMetalcore/" target="_blank">Alex</a></p>
     </div>
 </footer>
 

@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-    jQuery('.title-separator').css('display' , 'none');
+    jQuery('.title-separator').remove();
 
     $('.count_post').click(function(){
         $(this).parent().next().slideToggle();
