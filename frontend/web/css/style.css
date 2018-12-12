@@ -65,9 +65,8 @@ a.link_post {
 }
 .post {
     position: relative;
-    width: 100%;
+    width: 50%;
     display: block;
-    height: 300px;
     margin-top: 15px;
 }
 .category_post {
