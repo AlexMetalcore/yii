@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
+use backend\models\Post;
 $this->title = 'Блог по программированию';
 ?>
 <div class="site-index">
@@ -27,10 +27,10 @@ $this->title = 'Блог по программированию';
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                     <div class="content">
-                        <?php if (strlen($post->content) > 60): ?>
-                            <?= mb_substr($post->content, 0 , 60 ). '...'; ?>
+                        <?php if (strlen(Post::removeImgTags($post->content)) > 60): ?>
+                            <?= mb_substr($post->content , 0 , 60 ). '...'; ?>
                         <?php else:?>
-                            <?= $post->content; ?>
+                            <?= Post::removeImgTags($post->content); ?>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -67,7 +67,7 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
-        $count = Post::find()->where(['category_id' => ''.$id.''])->count();
+        $count = Post::find()->where(['category_id' => $id])->count();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -102,7 +102,7 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -122,8 +122,14 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
+        foreach ($this->findModel($id)->posts as $post){
+            $model = Post::findOne($post->id);
+            if($model){
+                $model->publish_status = 'draft';
+                $model->save(false);
+            }
+        }
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

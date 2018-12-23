@@ -68,6 +68,8 @@ a.link_post {
     width: 50%;
     display: block;
     margin-top: 15px;
+    float: left;
+    margin-right: 20px;
 }
 .category_post {
     position: relative;
@@ -80,8 +82,9 @@ a.link_post {
     display: inline-block;
 }
 .content_text_post {
-    padding: 50px 50px;
-    font-size: 18px;
+    padding: 10px 0px;
+    font-size: 14px;
+    line-height: 30px;
 }
 .content_post_view > a {
     color: #000;
@@ -134,6 +137,7 @@ a.link_post {
 .category_widget {
     background: white;
     padding: 20px 20px;
+    width: 82%;
 }
 .category_widget > .block-category > a {
     color: #333;
@@ -146,6 +150,7 @@ a.link_post {
 }
 .category_top_widget {
     margin: 20px 20px;
+    width: 100%;
 }
 .icon_search {
     width: 35px;
@@ -274,5 +279,34 @@ a.link_post {
     color: black;
 }
 .count_post:hover {
+    cursor: pointer;
+}
+.site-index > .pagination > li > a, .site-index >.pagination > li > span {
+    color: black;
+}
+.title-block {
+    margin-top: 20px;
+}
+.viewed {
+    width: 20px;
+}
+.count_viewed {
+    top: 1.4px;
+    margin-left: 2px;
+    position: relative;
+}
+.navbar-inverse .navbar-nav > li > a {
+    letter-spacing: 1px;
+}
+.navbar-inverse .navbar-nav > li > a:hover , .nav li > form > button.logout:hover {
+    color: black;
+}
+.navbar-nav > li:hover {
+    background-color: white;
+}
+.navbar {
+    border: none;
+}
+.history-back {
     cursor: pointer;
 }

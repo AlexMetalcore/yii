@@ -2,6 +2,7 @@
 namespace frontend\components;
 
 use backend\models\Category;
+use backend\models\Post;
 use yii\base\Widget;
 
 /**
@@ -10,11 +11,7 @@ use yii\base\Widget;
  */
 class CategoryWidget extends Widget {
 
-    /**
-     * @var array
-     */
-    public $data_category = [];
-
+    const STATUS_DRAFT = 'draft';
     /**
      *
      */
@@ -27,13 +24,20 @@ class CategoryWidget extends Widget {
      * @return string
      */
     public function run() {
-
+        $count_posts = [];
         $categories = Category::find()->all();
         foreach ($categories as $category){
-            $this->data_category[] = $category;
+            foreach ($category->posts as $post){
+                if($post->publish_status == 'publish') {
+                    if($category->id == $post->category_id) {
+                        $count_posts[$category->id][] = [
+                            $category->id => $post->category_id
+                        ];
+                    }
+                }
+            }
         }
-        $data_category = $this->data_category;
-        return $this->render('block-category' , compact('data_category'));
+        return $this->render('block-category' , compact('categories' ,'count_posts'));
     }
 
 }

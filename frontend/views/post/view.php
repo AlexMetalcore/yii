@@ -7,15 +7,15 @@ use yii\widgets\Pjax;
 use common\models\User;
 
 $this->title = $post->title;
-$this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id]];
+$this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id ? $post->category->id : '']];
 $this->params['breadcrumbs'][] = $this->title;
-//print_r($post->like);
+
 ?>
 
 <div class="site-post">
     <div class="col-md-8 content_post_view">
         <h1><?= $post->title;?></h1>
-        <span class="date">Дата публикации: <?= $post->publish_date; ?></span>
+        <span class="date">Дата публикации: <?= $post->getDate(); ?></span>
     , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                     title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php Pjax::end(); ?>
             <input type="hidden" class="post-id" value="<?= $post->id;?>"/>
         <?php endif; ?>
-    <?= Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']); ?>
+        <span>, <?= Html::img('/admin/images/viewed.png' , ['class' => 'viewed']);?><span class="count_viewed"><?= $post->viewed;?></span></span>
+    <?= $post->img ? Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']) : ''; ?>
     <div class="content_text_post"><?= $post->content;?></div>
         <?= \yii2mod\comments\widgets\Comment::widget([
             'model' => $post,
@@ -45,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             'listViewConfig' => [
-                'emptyText' => Yii::t(  'app', 'Комментариев нету'),
+                'emptyText' => Yii::t('app', 'Комментариев нету'),
             ],
         ]); ?>
     </div>

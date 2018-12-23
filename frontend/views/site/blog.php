@@ -2,6 +2,7 @@
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use backend\models\Post;
 
 $this->title = 'Все статьи';
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                         <div class="content">
-                            <?php if (strlen($post->content) > 40): ?>
-                            <?= mb_substr($post->content, 0 , 40 ). '...'; ?>
+                            <?php if (strlen(Post::removeImgTags($post->content)) > 40): ?>
+                            <?= mb_substr(Post::removeImgTags($post->content), 0 , 40 ). '...'; ?>
                             <?php else:?>
-                                <?= $post->content; ?>
+                                <?= Post::removeImgTags($post->content); ?>
                             <?php endif; ?>
                         </div>
                     </div>

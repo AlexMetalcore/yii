@@ -3,8 +3,6 @@ use yii\widgets\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Все статьи';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="site-index">

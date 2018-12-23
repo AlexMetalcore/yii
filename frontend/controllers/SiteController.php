@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Portfolio;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -71,7 +72,6 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -116,6 +116,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionPortfolio()
+    {
+        $model = Portfolio::tableName();
+        return $this->render('portfolio' , compact('model'));
     }
 
     public function actionSignup()
@@ -188,7 +194,7 @@ class SiteController extends Controller
             $this->layout = false;
         }
         $search_query = Yii::$app->request->get('search_query');
-        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]]);
+        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]])->andWhere(['publish_status' => 'publish']);
 
         $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
 
@@ -198,5 +204,9 @@ class SiteController extends Controller
 
         return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
 
+    }
+    public function actionPageDraft ($id) {
+        $post = Post::findOne($id);
+        return $this->render('page-draft' , compact('post'));
     }
 }

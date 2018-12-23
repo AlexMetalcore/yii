@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use frontend\components\CategoryWidget;
+use backend\models\Post;
 
 $this->title = $category->title;
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['alt' => $post->title , 'class' => 'category_post']); ?></a>
                 <?php endif;?>
                 <div class="category_content">
-                    <?= mb_substr($post->content, 0 , 400);?><span class="read_more"><a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>">...Читать далее</a></span>
+                    <?= mb_substr(Post::removeImgTags($post->content), 0 , 400);?><span class="read_more"><a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>">...Читать далее</a></span>
                 </div>
                 <div class="info">
                     Дата публикации: <span class="date"><?= $post->publish_date; ?></span>

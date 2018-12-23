@@ -6,15 +6,23 @@
  * Time: 18:27
  */
 use yii\helpers\Url;
+
 ?>
-<?php foreach ($data_category as $category): ?>
+<?php foreach ($categories as $category): ?>
+<?php if(isset($count_posts[$category->id])): ?>
     <div class="block-category">
         <a href="<?= Url::to(['category/view' , 'id' => $category->id]);?>"><?= $category->title;?></a>
-    <span class="count_post">(<?= count($category->posts); ?>)</span>
+    <span class="count_post">(<?= count($count_posts[$category->id]); ?>)</span>
     </div>
     <div class="post-data">
         <?php foreach ($category->posts as $post):?>
+        <?php if ($post->publish_status != 'draft'): ?>
                 <div class="post-name">- <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>"><?= ucfirst($post->title);?></a></div>
+            <?php else:?>
+                <div class="post-name">- <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>"><?= ucfirst($post->title);?></a> <span style="color:red;">(<?=$post->publish_status; ?>)</span></div>
+            <?php endif;?>
     <?php endforeach; ?>
     </div>
+    <hr/>
+    <?php endif;?>
 <?php endforeach; ?>

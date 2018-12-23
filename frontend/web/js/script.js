@@ -4,4 +4,20 @@ jQuery(document).ready(function(){
     $('.count_post').click(function(){
         $(this).parent().next().slideToggle();
     });
+    function positionSlide() {
+        jQuery(window).scroll(function() {
+            var scrollposition = $('.category_widget');
+            var css = {
+                'position': 'fixed',
+                'width': '26%',
+                'top': '93px'
+            };
+            if ($(window).scrollTop() > 93) {
+                scrollposition.css(css)
+            } else {
+                scrollposition.attr('style', '');
+            }
+        });
+    }
+    positionSlide();
 });

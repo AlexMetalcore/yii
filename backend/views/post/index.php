@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\models\Post;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Записи';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="post-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -16,20 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php echo GridView::widget([
+    <?= GridView::widget([
             'dataProvider' => $dataProvider,
+            'layout'=>"{summary}\n{items}\n{pager}",
+            'summary' => 'Показано {count} из {totalCount} статтей',
+            'summaryOptions' => [
+                'tag' => 'span',
+                'class' => 'summary'
+            ],
             'columns' => [
                 'id',
                 'title',
                 [
                         'header' => 'Описание',
                         'value'  => function($model){
-                            return strlen($model->content) < 200 ? $model->content : mb_substr($model->content , '0' , 200).'...';
+                            return strlen(Post::removeImgTags($model->content)) < 200 ? $model->content : mb_substr($model->content , '0' , 200).'...';
                         },
                         'format' => 'raw'
                 ],
-                'category.title',
-                'author.username',
+                [
+                        'header' => 'Категория',
+                        'value' => 'category.title',
+                ],
+                [
+                    'header' => 'Автор',
+                    'value' => 'author.username',
+                ],
                 'publish_status',
                 'publish_date',
                 ['class' => 'yii\grid\ActionColumn',

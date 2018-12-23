@@ -12,7 +12,7 @@ class m181212_184139_add_column_in_post_table extends Migration
      */
     public function safeUp()
     {
-
+        $this->addColumn('post', 'viewed', 'INT(11)');
     }
 
     /**
@@ -20,8 +20,6 @@ class m181212_184139_add_column_in_post_table extends Migration
      */
     public function safeDown()
     {
-        echo "m181212_184139_add_column_in_post_table cannot be reverted.\n";
-
-        return false;
+        $this->dropColumn('post', 'viewed');
     }
 }

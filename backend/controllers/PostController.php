@@ -42,13 +42,11 @@ class PostController extends Controller
     }
 
     public function filters() {
-        return array(
-            array(
+        return [[
                 'COutputCache',
                 'duration'=> 60,
                 'varyByParam'=>array('id'),
-            ),
-        );
+            ],];
     }
 
     public function actionIndex()
@@ -65,7 +63,7 @@ class PostController extends Controller
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -120,15 +118,15 @@ class PostController extends Controller
     }
 
 
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
+
         if (($model = Post::findOne($id)) !== null) {
             return $model;
         }
@@ -137,15 +135,11 @@ class PostController extends Controller
     }
 
     protected function handlePostSave(Post $model) {
-
         if ($model->load(Yii::$app->request->post())) {
-            $model->upload = UploadedFile::getInstance($model, 'upload');
             if ($model->validate()) {
-                if ($model->upload) {
-                    $filePath = 'images/' . $model->upload->baseName . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($filePath)) {
-                        $model->img = $filePath;
-                    }
+                $filePath = $model->createFilePath();
+                if ($model->upload->saveAs($filePath)) {
+                    $model->img = $filePath;
                 }
                 if ($model->save(false)) {
                     return $this->redirect(['view', 'id' => $model->id]);

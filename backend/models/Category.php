@@ -30,8 +30,8 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
+            [['title_category'], 'required'],
+            [['title_category'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,7 +42,7 @@ class Category extends ActiveRecord
     {
         return [
             'id' => 'ИД',
-            'title' => 'Название',
+            'title_category' => 'Название',
             'count' => 'Количество записей',
         ];
     }

@@ -40,7 +40,7 @@ $name_blog = 'Блог по программированию';
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/']],
         ['label' => 'Блог', 'url' => ['site/blog']],
-        //['label' => 'О авторе', 'url' => ['site/about']],
+        ['label' => 'Портфолио', 'url' => ['site/portfolio']],
         ['label' => 'Связаться со мной', 'url' => ['site/contact']],
     ];
     if (Yii::$app->user->isGuest) {

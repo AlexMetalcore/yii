@@ -4,9 +4,9 @@ namespace backend\models;
 
 use common\models\LikePosts;
 use common\models\User;
-
 use yii\db\ActiveRecord;
 use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "post".
@@ -104,7 +104,7 @@ class Post extends ActiveRecord
      */
     public function getAuthor()
     {
-       return $this->hasOne(User::className(), ['id' => 'author_id']);
+       return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
     /**
@@ -112,7 +112,7 @@ class Post extends ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
     /**
@@ -121,5 +121,39 @@ class Post extends ActiveRecord
     public function getLike()
     {
         return $this->hasMany(LikePosts::class, ['id' => 'post_id']);
+    }
+
+    /**
+     * @return bool
+     */
+    public function ViwedCounter(Post $model) {
+        $this->viewed += 1;
+        if(!\Yii::$app->request->post()){
+            $model->save(false);
+        }
+        \Yii::$app->session->removeAllFlashes();
+
+    }
+
+    /**
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getDate() {
+        \Yii::$app->formatter->locale = 'ru-RU';
+        return \Yii::$app->formatter->asDate($this->publish_date);
+    }
+
+    /**
+     * @param $str
+     * @return string|string[]|null
+     */
+    public static function removeImgTags ($str) {
+        return preg_replace('#<img[^>]*>#i', '', $str);
+    }
+
+    public function createFilePath (){
+        $this->upload = UploadedFile::getInstance($this, 'upload');
+        return 'images/' . $this->upload->baseName . '.' . $this->upload->extension;
     }
 }

@@ -26,7 +26,7 @@ class LikePosts extends ActiveRecord
     }
 
     public function getPost () {
-        return $this->hasMany(Post::class , ['post_id' => 'id']);
+        return $this->hasMany(Post::class , ['id' => 'id']);
     }
 
     public static function getAllLikes ($post_id) {
