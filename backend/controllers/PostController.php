@@ -138,7 +138,7 @@ class PostController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->createFilePath($model) && $model->upload) {
-                    $filePath = $model->createFilePath($model);
+                    $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
                         $model->img = $filePath;
                     }
