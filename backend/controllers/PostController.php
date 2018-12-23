@@ -137,9 +137,11 @@ class PostController extends Controller
     protected function handlePostSave(Post $model) {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $filePath = $model->createFilePath();
-                if ($model->upload->saveAs($filePath)) {
-                    $model->img = $filePath;
+                if ($model->createFilePath($model) && $model->upload) {
+                    $filePath = $model->createFilePath($model);
+                    if ($model->upload->saveAs($filePath)) {
+                        $model->img = $filePath;
+                    }
                 }
                 if ($model->save(false)) {
                     return $this->redirect(['view', 'id' => $model->id]);
