@@ -152,8 +152,8 @@ class Post extends ActiveRecord
         return preg_replace('#<img[^>]*>#i', '', $str);
     }
 
-    public function createFilePath (Post $model){
-        $model->upload = UploadedFile::getInstance($model, 'upload');
-        return $model->upload ? 'images/' . $model->upload->baseName . '.' . $model->upload->extension : $model->img;
+    public function createFilePath (){
+        $this->upload = UploadedFile::getInstance($this, 'upload');
+        return $this->upload ? 'images/' . $this->upload->baseName . '.' . $this->upload->extension : $this->img;
     }
 }
