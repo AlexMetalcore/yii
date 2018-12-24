@@ -28,8 +28,8 @@ class PostController extends Controller{
             $this->redirect(['/site/page-draft' , 'id' => $id]);
         }
         else {
-                if(!Yii::$app->request->isAjax && $model->save()){
-                    $model->ViwedCounter();
+                if(!Yii::$app->request->isAjax){
+                    $model->ViwedCounter($id);
                 }
                 $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
                 $count = LikePosts::getAllLikes($post->id);

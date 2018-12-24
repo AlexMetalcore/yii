@@ -126,9 +126,10 @@ class Post extends ActiveRecord
     /**
      * @return bool
      */
-    public function ViwedCounter() {
-        $this->viewed += 1;
-        $this->save(false);
+    public function ViwedCounter($id) {
+        $post = Post::findOne($id);
+        $post->viewed += 1;
+        $post->updateCounters(['viewed' => 1]);
         \Yii::$app->session->removeAllFlashes();
 
     }
