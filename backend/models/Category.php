@@ -30,8 +30,8 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['title_category'], 'required'],
-            [['title_category'], 'string', 'max' => 255],
+            [['title'], 'required'],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -82,7 +82,7 @@ class Category extends ActiveRecord
     /**
      * @return array|ActiveRecord[]
      */
-    public function getAllCategory () {
+    public static function getAllCategory () {
 
         return Category::find()->all();
 

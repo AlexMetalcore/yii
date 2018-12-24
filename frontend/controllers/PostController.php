@@ -24,12 +24,12 @@ class PostController extends Controller{
         if(!$model) {
             $this->redirect(['/site/error']);
         }
-        if ($model->publish_status == CategoryWidget::STATUS_DRAFT) {
+        else if ($model->publish_status == CategoryWidget::STATUS_DRAFT) {
             $this->redirect(['/site/page-draft' , 'id' => $id]);
         }
         else {
-                if(!Yii::$app->request->isAjax){
-                    $model->ViwedCounter($model);
+                if(!Yii::$app->request->isAjax && $model->save()){
+                    $model->ViwedCounter();
                 }
                 $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
                 $count = LikePosts::getAllLikes($post->id);

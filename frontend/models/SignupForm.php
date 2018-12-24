@@ -3,11 +3,12 @@ namespace frontend\models;
 
 use yii\base\Model;
 use common\models\User;
+use yii\db\ActiveRecord;
 
 /**
  * Signup form
  */
-class SignupForm extends Model
+class SignupForm extends ActiveRecord
 {
     public $username;
     public $email;

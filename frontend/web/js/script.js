@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
                 'width': '26%',
                 'top': '93px'
             };
-            if ($(window).scrollTop() > 93) {
+            if ($(window).scrollTop() > 93 && $(window).width() > 768) {
                 scrollposition.css(css)
             } else {
                 scrollposition.attr('style', '');

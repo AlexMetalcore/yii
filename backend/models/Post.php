@@ -36,7 +36,7 @@ class Post extends ActiveRecord
     {
         return [
             'comments'=>[
-                'class'=>CommentsBehavior::className(),
+                'class' => CommentsBehavior::className(),
             ],
         ];
     }
@@ -62,7 +62,7 @@ class Post extends ActiveRecord
             [['title'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['upload'], 'file', 'extensions' => 'png, jpg , jpeg , jpg'],
+            [['upload'], 'file', 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }
 
@@ -126,11 +126,9 @@ class Post extends ActiveRecord
     /**
      * @return bool
      */
-    public function ViwedCounter(Post $model) {
+    public function ViwedCounter() {
         $this->viewed += 1;
-        if(!\Yii::$app->request->post()){
-            $model->save(false);
-        }
+        $this->save(false);
         \Yii::$app->session->removeAllFlashes();
 
     }
@@ -152,6 +150,9 @@ class Post extends ActiveRecord
         return preg_replace('#<img[^>]*>#i', '', $str);
     }
 
+    /**
+     * @return mixed|string
+     */
     public function createFilePath (){
         $this->upload = UploadedFile::getInstance($this, 'upload');
         return $this->upload ? 'images/' . $this->upload->baseName . '.' . $this->upload->extension : $this->img;

@@ -11,7 +11,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
+use common\models\LikePosts;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -19,6 +19,9 @@ use yii\web\UploadedFile;
 class PostController extends Controller
 {
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -35,20 +38,26 @@ class PostController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET' , 'POST' , 'DELETE'],
                 ],
             ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function filters() {
         return [[
                 'COutputCache',
                 'duration'=> 60,
-                'varyByParam'=>array('id'),
+                'varyByParam'=>['id'],
             ],];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         $post = Post::find();
@@ -67,6 +76,11 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -74,15 +88,15 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new Post();
-        $authors = new User();
-        $category = new Category();
-
         $this->handlePostSave($model);
-        $category = $category->getAllCategory();
-        $authors = $authors->getAllUser();
+        $category = Category::getAllCategory();
+        $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -95,16 +109,17 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionUpdate($id)
     {
-        $authors = new User();
-        $category = new Category();
-
         $model = $this->findModel($id);
         $this->handlePostSave($model);
-
-        $category = $category->getAllCategory();
-        $authors = $authors->getAllUser();
+        $category = Category::getAllCategory();
+        $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -118,13 +133,27 @@ class PostController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function actionDelete($id) {
 
         $this->findModel($id)->delete();
+        $model = LikePosts::find()->where(['post_id' => $id])->one();
+        $model->delete();
 
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     * @return Post|null
+     * @throws NotFoundHttpException
+     */
     protected function findModel($id) {
 
         if (($model = Post::findOne($id)) !== null) {
@@ -134,10 +163,14 @@ class PostController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * @param Post $model
+     * @return \yii\web\Response
+     */
     protected function handlePostSave(Post $model) {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($model->createFilePath($model) && $model->upload) {
+                if ($model->createFilePath() && $model->upload) {
                     $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
                         $model->img = $filePath;

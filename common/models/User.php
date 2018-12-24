@@ -142,7 +142,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getId()
     {
-        //return $this->getPrimaryKey();
         return $this->id;
     }
 
@@ -217,17 +216,17 @@ class User extends ActiveRecord implements IdentityInterface
         return User::find();
 
     }
-    public function getAllUser() {
+    public static function getAllUser() {
 
         return User::find()->all();
 
     }
 
     public static function isUserAdmin($username) {
-        if (static::findOne(['username' => $username, 'status' => self::ROLE_ADMIN]))
-        {
+        if (static::findOne(['username' => $username, 'status' => self::ROLE_ADMIN])) {
             return true;
-        } else {
+        }
+        else {
             Yii::$app->session->setFlash('error' , 'Вы не имеете достаточно прав');
             return false;
         }
