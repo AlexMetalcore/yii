@@ -22,6 +22,9 @@
     .post {
         width: 100%;
     }
+    .category_widget {
+        width: unset;
+    }
 }
 @media screen and (max-width: 480px){
     .category_top_widget {
