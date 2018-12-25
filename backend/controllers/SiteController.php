@@ -1,13 +1,12 @@
 <?php
 namespace backend\controllers;
 
-use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-
+use common\models\User;
 /**
  * Site controller
  */
@@ -19,6 +18,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
@@ -51,6 +51,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        if(\Yii::$app->user->getId()) {
+            if(!User::isUserAdmin(User::findIdentity(\Yii::$app->user->getId())->username)) {
+                Yii::$app->user->logout();
+                return $this->redirect(['/site/login']);
+            }
+        }
         return $this->render('index');
     }
 
@@ -62,7 +68,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
+        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin() && User::isUserAdmin($model->username)) {
             Yii::$app->session->setFlash('success' , 'Вы авторизировались как '.$model->username.' ');
             return Yii::$app->getResponse()->redirect(['post/index']);
         } else {
