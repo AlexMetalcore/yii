@@ -121,3 +121,6 @@ a.desc:after {
 .title-block > .title-separator {
     display: none;
 }
+#portfolio-gallery {
+    display: none;
+}

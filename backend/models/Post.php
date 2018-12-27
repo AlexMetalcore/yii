@@ -156,6 +156,6 @@ class Post extends ActiveRecord
      */
     public function createFilePath (){
         $this->upload = UploadedFile::getInstance($this, 'upload');
-        return $this->upload ? 'images/' . $this->upload->baseName . '.' . $this->upload->extension : $this->img;
+        return $this->upload ? 'images/' . md5($this->upload->baseName) . '.' . $this->upload->extension : $this->img;
     }
 }

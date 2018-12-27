@@ -39,6 +39,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
+        $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
         $menuItems[] = ['label' => 'Записи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
@@ -74,14 +75,6 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
-<!--<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>-->
 
 <?php $this->endBody() ?>
 </body>

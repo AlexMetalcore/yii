@@ -18,7 +18,6 @@ use common\models\LikePosts;
  */
 class PostController extends Controller
 {
-
     /**
      * @return array
      */
@@ -98,8 +97,18 @@ class PostController extends Controller
         $category = Category::getAllCategory();
         $authors = User::getAllUser();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $post_title = Yii::$app->request->post('Post')['title'];
+            $post = Post::find()->where(['title' => $post_title])->one();
+            if($post) {
+                if($post->title == $post_title) {
+                    Yii::$app->session->setFlash('error' , 'Запись существует');
+                }
+            }
+            else {
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -142,10 +151,15 @@ class PostController extends Controller
      */
     public function actionDelete($id) {
 
+        $file_path = \Yii::$app->basePath.'/web/'.$this->findModel($id)->img.'';
+        if(file_exists($file_path) && $this->findModel($id)->img){
+            unlink($file_path);
+        }
         $this->findModel($id)->delete();
         $model = LikePosts::find()->where(['post_id' => $id])->one();
-        $model->delete();
-
+        if($model) {
+            $model->delete();
+        }
         return $this->redirect(['index']);
     }
 
@@ -175,9 +189,6 @@ class PostController extends Controller
                     if ($model->upload->saveAs($filePath)) {
                         $model->img = $filePath;
                     }
-                }
-                if ($model->save(false)) {
-                    return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
         }

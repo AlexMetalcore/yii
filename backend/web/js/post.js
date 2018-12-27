@@ -3,7 +3,7 @@ function add_previw_img(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             if(!jQuery('.preview_img').attr('src')){
-                jQuery('#post-upload').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
+                jQuery('#post-upload , #portfolio-gallery').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
             }
             else{
                 $('.preview_img').attr('src', e.target.result);
@@ -13,6 +13,9 @@ function add_previw_img(input) {
     }
 }
 
-$("#post-upload").change(function(){
+$("#post-upload , #portfolio-gallery").change(function(){
     add_previw_img(this);
+});
+$('.upload_gallary').click(function() {
+    $('#portfolio-gallery').trigger('click');
 });

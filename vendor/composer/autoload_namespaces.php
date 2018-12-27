@@ -10,6 +10,7 @@ return array(
     'yii\\image\\' => array($vendorDir . '/yurkinx/yii2-image'),
     'cebe\\gravatar\\' => array($vendorDir . '/cebe/yii2-gravatar'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Imagick' => array($vendorDir . '/calcinai/php-imagick/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),

@@ -83,8 +83,18 @@ class CategoryController extends Controller
     {
         $model = new Category();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $category_title = Yii::$app->request->post('Category')['title'];
+            $category = Category::find()->where(['title' => $category_title])->one();
+            if($category) {
+                if($category->title == $category_title) {
+                    Yii::$app->session->setFlash('error' , 'Категория существует');
+                }
+            }
+            else {
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [

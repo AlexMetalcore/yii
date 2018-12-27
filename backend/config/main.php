@@ -26,6 +26,7 @@ return [
         ],
         'session' => [
             'name' => 'advanced',
+            'timeout'=> 60,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

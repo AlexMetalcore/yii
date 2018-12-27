@@ -42,7 +42,7 @@ class Category extends ActiveRecord
     {
         return [
             'id' => 'ИД',
-            'title_category' => 'Название',
+            'title' => 'Категория',
             'count' => 'Количество записей',
         ];
     }

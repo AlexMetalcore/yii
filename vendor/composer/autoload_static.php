@@ -9,8 +9,8 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
@@ -35,6 +35,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'yii2mod\\editable\\' => 17,
             'yii2mod\\comments\\' => 17,
             'yii2mod\\behaviors\\' => 18,
+        ),
+        't' => 
+        array (
+            'tpmanc\\imagick\\' => 15,
         ),
         's' => 
         array (
@@ -94,6 +98,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+        ),
+        'I' => 
+        array (
+            'Intervention\\Image\\' => 19,
         ),
         'G' => 
         array (
@@ -181,6 +189,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'yii2mod\\behaviors\\' => 
         array (
             0 => __DIR__ . '/..' . '/yii2mod/yii2-behaviors',
+        ),
+        'tpmanc\\imagick\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tpmanc/yii2-imagick',
         ),
         'spanjeta\\comments\\' => 
         array (
@@ -288,6 +300,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -355,6 +371,13 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+        ),
+        'I' => 
+        array (
+            'Imagick' => 
+            array (
+                0 => __DIR__ . '/..' . '/calcinai/php-imagick/src',
             ),
         ),
         'H' => 

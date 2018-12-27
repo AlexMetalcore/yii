@@ -310,3 +310,40 @@ a.link_post {
 .history-back {
     cursor: pointer;
 }
+.portfolio_img {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+.block-portfolio {
+    margin: 10px 10px;
+}
+.block-portfolio:hover , .overlay-portfolio:hover {
+    cursor: pointer;
+}
+.block-portfolio:hover .overlay-portfolio {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.7);
+}
+.overlay-portfolio {
+    position: absolute;
+    width: 91.5%;
+    transition: 1s;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0 auto;
+    opacity: 0;
+}
+.portfolio-name {
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    margin: 0 40.5%;
+    vertical-align: middle;
+    top: 45%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+

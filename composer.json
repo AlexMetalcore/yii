@@ -29,7 +29,10 @@
         "yiithings/yii2-dotenv": "*",
         "reketaka/yii2-comments": "*",
         "asinfotrack/yii2-comments": "^0.8.0",
-        "yii2mod/yii2-comments": "*"
+        "yii2mod/yii2-comments": "*",
+        "intervention/image": "^2.4",
+        "calcinai/php-imagick": "^0.1.2",
+        "tpmanc/yii2-imagick": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

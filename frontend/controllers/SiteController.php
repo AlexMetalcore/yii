@@ -118,8 +118,8 @@ class SiteController extends Controller
 
     public function actionPortfolio()
     {
-        $model = Portfolio::tableName();
-        return $this->render('portfolio' , compact('model'));
+        $portfolios = Portfolio::find()->all();
+        return $this->render('portfolio' , compact('portfolios'));
     }
 
     public function actionSignup()
@@ -176,25 +176,25 @@ class SiteController extends Controller
     }
 
     public function actionBlog () {
-
+        $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
-        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 3]);
 
-        $posts = $query->offset($pages->offset)->where(['publish_status' => 'publish'])->limit($pages->limit)->all();
+        $posts = $query->offset($pages->offset)->where($where_publish)->limit($pages->limit)->all();
 
         return $this->render('blog' , compact('posts' ,'pages'));
 
     }
 
     public function actionSearch (){
-
+        $where_publish = ['publish_status' => 'publish'];
         if(Yii::$app->request->isAjax){
             $this->layout = false;
         }
         $search_query = Yii::$app->request->get('search_query');
         $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]])->andWhere(['publish_status' => 'publish']);
 
-        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 3]);
 
         $count = $query->count();
 
@@ -205,6 +205,9 @@ class SiteController extends Controller
     }
     public function actionPageDraft ($id) {
         $post = Post::findOne($id);
+        if($post->publish_status != 'draft') {
+            $this->redirect(['/post/view' , 'id' => $id]);
+        }
         return $this->render('page-draft' , compact('post'));
     }
 }
