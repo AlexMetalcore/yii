@@ -49,6 +49,9 @@ mihaildev\elfinder\Assets::noConflict($this);
         'todayBtn'=>true,
     ]
 ]); ?>
+    <div class="form-group">
+        <?= Html::button(Yii::t('app', 'Загрузить фото'), ['class' => 'btn btn-success upload_gallary']) ?>
+    </div>
 
     <?= $form->field($model, 'upload')->fileInput() ?>
     <?php if ($model->img): ?>

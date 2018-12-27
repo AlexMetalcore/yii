@@ -17,5 +17,5 @@ $("#post-upload , #portfolio-gallery").change(function(){
     add_previw_img(this);
 });
 $('.upload_gallary').click(function() {
-    $('#portfolio-gallery').trigger('click');
+    $('#portfolio-gallery , #post-upload').trigger('click');
 });
