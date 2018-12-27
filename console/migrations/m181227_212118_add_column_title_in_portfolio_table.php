@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m181227_211709_add_column_title_in_portfolio_table
+ * Class m181227_212118_add_column_title_in_portfolio_table
  */
-class m181227_211709_add_column_title_in_portfolio_table extends Migration
+class m181227_212118_add_column_title_in_portfolio_table extends Migration
 {
     /**
      * {@inheritdoc}
