@@ -402,3 +402,13 @@ a.link_post {
     left: 40%;
     display: none;
 }
+.field-loginform-rememberme > .radio, .field-loginform-rememberme > .checkbox {
+    position: relative;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    float: left;
+}
+#fix-margin {
+    padding: 0;
+}

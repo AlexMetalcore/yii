@@ -12,7 +12,7 @@ use common\widgets\Alert;
 use yii\helpers\Url;
 
 AppAsset::register($this);
-$name_blog = 'Блог по программированию';
+$name_blog = 'Веб заметки';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -44,8 +44,8 @@ $name_blog = 'Блог по программированию';
         ['label' => 'Связаться со мной', 'url' => ['site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Регистрация', 'url' => ['site/signup']];
-        $menuItems[] = ['label' => 'Авторизация', 'url' => ['site/login']];
+        //$menuItems[] = ['label' => 'Регистрация', 'url' => ['site/signup']];
+        $menuItems[] = ['label' => 'Войти', 'url' => ['site/login']];
         $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
     } else {
         $menuItems[] = '<li>'

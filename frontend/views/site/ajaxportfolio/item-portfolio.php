@@ -7,7 +7,7 @@
  */
 use yii\helpers\Html;
 ?>
-<div class="container">
+<div class="container-fluid" id="fix-margin">
     <div class="item-content-portfolio">
         <div class="row">
             <div class="col-md-8">
