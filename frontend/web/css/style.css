@@ -329,12 +329,13 @@ a.link_post {
     position: absolute;
     width: 91.5%;
     transition: 1s;
-    top: 0;
+    top: 10px;
     right: 0;
     left: 0;
     bottom: 0;
     margin: 0 auto;
     opacity: 0;
+    height: 94.5%;
 }
 .portfolio-name {
     color: white;
