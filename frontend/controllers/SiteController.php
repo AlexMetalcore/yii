@@ -15,13 +15,18 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use backend\models\Post;
 use yii\data\Pagination;
-use common\models\User;
+
+
 /**
- * Site controller
+ * Class SiteController
+ * @package frontend\controllers
  */
 class SiteController extends Controller
 {
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -50,6 +55,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -63,6 +71,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         $posts = Post::find()->where(['publish_status' => 'publish'])
@@ -70,6 +81,9 @@ class SiteController extends Controller
         return $this->render('index' , compact('posts'));
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -86,6 +100,9 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -93,6 +110,9 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -111,17 +131,26 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return string
+     */
     public function actionAbout()
     {
         return $this->render('about');
     }
 
+    /**
+     * @return string
+     */
     public function actionPortfolio()
     {
         $portfolios = Portfolio::find()->all();
         return $this->render('portfolio' , compact('portfolios'));
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -138,6 +167,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -156,6 +188,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @param $token
+     * @return string|\yii\web\Response
+     * @throws BadRequestHttpException
+     */
     public function actionResetPassword($token)
     {
         try {
@@ -175,7 +212,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionBlog () {
+
         $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
         $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 3]);
@@ -186,15 +227,20 @@ class SiteController extends Controller
 
     }
 
+    /**
+     * @return string
+     */
     public function actionSearch (){
         $where_publish = ['publish_status' => 'publish'];
+
         if(Yii::$app->request->isAjax){
             $this->layout = false;
         }
         $search_query = Yii::$app->request->get('search_query');
-        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]])->andWhere(['publish_status' => 'publish']);
 
-        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 3]);
+        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]])->andWhere($where_publish);
+
+        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
 
         $count = $query->count();
 
@@ -203,11 +249,30 @@ class SiteController extends Controller
         return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
 
     }
+
+    /**
+     * @param $id
+     * @return string
+     */
     public function actionPageDraft ($id) {
         $post = Post::findOne($id);
         if($post->publish_status != 'draft') {
             $this->redirect(['/post/view' , 'id' => $id]);
         }
         return $this->render('page-draft' , compact('post'));
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     */
+    public function actionPortfolioContent($id){
+
+        if(!Yii::$app->request->isAjax) {
+            return $this->redirect(['site/error']);
+        }
+        $content = Portfolio::getAllImg($id);
+
+        return $this->renderAjax('ajaxportfolio/item-portfolio' , compact('content'));
     }
 }

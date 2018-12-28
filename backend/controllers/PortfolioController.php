@@ -9,9 +9,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use tpmanc\imagick\Imagick;
+
+
 /**
- * PortfolioController implements the CRUD actions for Portfolio model.
+ * Class PortfolioController
+ * @package backend\controllers
  */
 class PortfolioController extends Controller
 {
@@ -50,8 +52,7 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Lists all Portfolio models.
-     * @return mixed
+     * @return string
      */
     public function actionIndex()
     {
@@ -82,7 +83,6 @@ class PortfolioController extends Controller
         ]);
     }
 
-
     /**
      * @return string|\yii\web\Response
      * @throws \ImagickException
@@ -111,11 +111,10 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Updates an existing Portfolio model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \ImagickException
      */
     public function actionUpdate($id)
     {
@@ -132,17 +131,18 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Deletes an existing Portfolio model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
         $files_portfolio = Portfolio::findOne($id)->img;
         if($files_portfolio) {
-            foreach (unserialize($files_portfolio) as $file) {
+            $files = explode(',' ,$files_portfolio);
+            foreach ($files as $file) {
                 $path = \Yii::$app->basePath.'/web/'.$file.'';
                 if(file_exists($path)){
                     unlink($path);
@@ -155,11 +155,9 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Finds the Portfolio model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Portfolio the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return Portfolio|null
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
@@ -193,7 +191,7 @@ class PortfolioController extends Controller
                                 $img->clear();
                                 $img->destroy();
                                 $array_img[] = $path;
-                                $model->img = serialize($array_img);
+                                $model->img = implode(',' , $array_img);
                             }
                             catch (\Exception $e) {
                                 return $e->getCode();

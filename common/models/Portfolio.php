@@ -66,15 +66,15 @@ class Portfolio extends ActiveRecord
      * @return array
      */
     public function getMainImg () {
-        $img = unserialize(Portfolio::findOne($this->id)->img);
+        $img = explode(',' , Portfolio::findOne($this->id)->img);
         return count($img) > 2 ? array_shift($img) : $img[0];
     }
 
     /**
      * @return string
      */
-    public function getAllImg () {
-        $img = unserialize(Portfolio::findOne($this->id)->img);
+    public static function getAllImg ($id) {
+        $img = Portfolio::findOne($id);
         return $img;
     }
 }

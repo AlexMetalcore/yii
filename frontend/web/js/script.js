@@ -20,4 +20,29 @@ jQuery(document).ready(function(){
         });
     }
     positionSlide();
+
+    $(document).on('click' , '.block-portfolio' ,function(){
+       var item_id = $(this).children().next().next().val();
+        var overlay = $('.items-overlay-portfolio');
+        $('.portfolio-loader').fadeIn();
+
+        $.ajax({
+            url: '/site/portfolio-content',
+            data: {id: item_id},
+            type: 'GET',
+            success: function (res) {
+                setTimeout(function() {
+                    overlay.fadeIn();
+                    $('.portfolio-loader').fadeOut();
+                    overlay.html(res);
+                    $('.portfolio-close').click(function () {
+                        overlay.fadeOut();
+                    });
+                },1000);
+            },
+            error: function () {
+                alert('Ошибка!');
+            }
+        });
+    });
 });

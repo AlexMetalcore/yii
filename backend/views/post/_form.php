@@ -54,6 +54,7 @@ mihaildev\elfinder\Assets::noConflict($this);
     </div>
 
     <?= $form->field($model, 'upload')->fileInput(['multiple' => true])->label(false); ?>
+
     <?php if ($model->img): ?>
         <?= Html::img('@web/'.$model->img.'' ,
             ['alt' => $model->title , 'class' => 'preview_img']); ?>

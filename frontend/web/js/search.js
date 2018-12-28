@@ -16,7 +16,7 @@ jQuery('form#form_search').submit(function(e) {
             type: 'GET',
             success: function (res) {
                 jQuery('.site-about , .site-contact , .site-index ' +
-                    ', .site-post , .site-signup , .site-login , .site-category').replaceWith(res);
+                    ', .site-post , .site-signup , .site-login , .site-category , .portfolio-index').replaceWith(res);
                 if(jQuery(window).width() <= 780){
                     jQuery('#w0-collapse').removeClass('in');
                 }

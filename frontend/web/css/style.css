@@ -340,10 +340,64 @@ a.link_post {
     color: white;
     font-size: 30px;
     position: absolute;
-    margin: 0 40.5%;
     vertical-align: middle;
     top: 45%;
     letter-spacing: 1px;
     text-transform: uppercase;
+    width: 100%;
+    text-align: center;
 }
-
+.items-overlay-portfolio {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    display: none;
+    right: 0;
+    left: 0;
+    z-index: 100000000;
+}
+.item-content-portfolio {
+    background-color: white;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px 15px;
+    overflow: scroll;
+    z-index: 1000000000;
+}
+.portfolio-img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.portfolio-img:hover {
+    cursor: pointer;
+}
+.name-work {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+.portfolio-close {
+    position: absolute;
+    right: 10px;
+    width: 30px;
+    top: -15px;
+}
+.portfolio-close:hover {
+    cursor: pointer;
+}
+.content-item {
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 400;
+}
+.portfolio-loader {
+    position: fixed;
+    top: 40%;
+    width: 200px;
+    left: 42%;
+    display: none;
+}
