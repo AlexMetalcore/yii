@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endforeach;?>
         </div>
     </div>
-    <?= Html::img('/admin/images/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
+    <div class="container">
+        <?= Html::img('/admin/images/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
+    </div>
 </div>
 <div class="items-overlay-portfolio"></div>

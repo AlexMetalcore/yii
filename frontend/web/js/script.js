@@ -24,7 +24,8 @@ jQuery(document).ready(function(){
     $(document).on('click' , '.block-portfolio' ,function(){
        var item_id = $(this).children().next().next().val();
         var overlay = $('.items-overlay-portfolio');
-        $('.portfolio-loader').fadeIn();
+        var loader = $('.portfolio-loader');
+        loader.fadeIn();
 
         $.ajax({
             url: '/site/portfolio-content',
@@ -33,12 +34,12 @@ jQuery(document).ready(function(){
             success: function (res) {
                 setTimeout(function() {
                     overlay.fadeIn();
-                    $('.portfolio-loader').fadeOut();
+                    loader.fadeOut();
                     overlay.html(res);
                     $('.portfolio-close').click(function () {
                         overlay.fadeOut();
                     });
-                },1000);
+                },700);
             },
             error: function () {
                 alert('Ошибка!');

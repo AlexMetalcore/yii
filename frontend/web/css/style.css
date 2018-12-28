@@ -398,7 +398,7 @@ a.link_post {
 .portfolio-loader {
     position: fixed;
     top: 40%;
-    width: 200px;
-    left: 42%;
+    width: 300px;
+    left: 40%;
     display: none;
 }
