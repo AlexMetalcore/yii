@@ -17,6 +17,10 @@
         position: relative;
         left: 35%;
     }
+    .category_widget {
+        width: 100%;
+        margin: 20px 0px;
+    }
 }
 @media screen and (max-width: 680px) {
     .post {

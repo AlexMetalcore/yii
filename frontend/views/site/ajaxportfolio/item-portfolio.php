@@ -31,14 +31,14 @@ $width = '';
 <?php
 $this->registerJs(
      "$(window).resize(function(){
-        if($(window).width() < 680){
+        if($(window).width() <= 768){
             $('#photo-item-portfolio').addClass('position-block-portfolio');
         }
         else {
             $('#photo-item-portfolio').removeClass('position-block-portfolio');
         }
      });
-     if($(window).width() < 680){
+     if($(window).width() <= 768){
         $('#photo-item-portfolio').addClass('position-block-portfolio');
      }
      else {
