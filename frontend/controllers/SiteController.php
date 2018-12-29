@@ -227,7 +227,7 @@ class SiteController extends Controller
 
         $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
-        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 10]);
+        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 12]);
 
         $posts = $query->offset($pages->offset)->where($where_publish)->limit($pages->limit)->all();
 

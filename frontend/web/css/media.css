@@ -21,6 +21,13 @@
         width: 100%;
         margin: 20px 0px;
     }
+    .content_post {
+        height: unset;
+    }
+    .post_img {
+        width: 70%;
+        margin-top: 30px;
+    }
 }
 @media screen and (max-width: 680px) {
     .post {
@@ -57,6 +64,10 @@
     }
 }
 @media screen and (max-width: 480px){
+    .post_img {
+        width: 100%;
+        margin-top: unset;
+    }
     .category_top_widget {
         margin: unset;
     }
