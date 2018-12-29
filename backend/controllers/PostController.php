@@ -13,8 +13,10 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LikePosts;
 
+
 /**
- * PostController implements the CRUD actions for Post model.
+ * Class PostController
+ * @package backend\controllers
  */
 class PostController extends Controller
 {
@@ -98,15 +100,7 @@ class PostController extends Controller
         $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post())) {
-            $post_title = Yii::$app->request->post('Post')['title'];
-            $post = Post::find()->where(['title' => $post_title])->one();
-            if($post) {
-                if($post->title == $post_title) {
-                    Yii::$app->session->setFlash('error' , 'Запись существует');
-                }
-            }
-            else {
-                $model->save();
+            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -168,7 +162,7 @@ class PostController extends Controller
      * @return Post|null
      * @throws NotFoundHttpException
      */
-    protected function findModel($id) {
+    private function findModel($id) {
 
         if (($model = Post::findOne($id)) !== null) {
             return $model;
@@ -181,7 +175,7 @@ class PostController extends Controller
      * @param Post $model
      * @return \yii\web\Response
      */
-    protected function handlePostSave(Post $model) {
+    private function handlePostSave(Post $model) {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->createFilePath() && $model->upload) {

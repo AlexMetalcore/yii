@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'summary'
             ],
             'columns' => [
-                'id',
                 'title',
                 [
                         'header' => 'Описание',
@@ -42,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Автор',
                     'value' => 'author.username',
                 ],
-                'publish_status',
+                [
+                    'header' => 'Статус',
+                    'value'  => function($model){
+                        return $model->publish_status == 'publish' ? 'Опубликовано' : 'Черновик';
+                    }
+                ],
                 'publish_date',
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',

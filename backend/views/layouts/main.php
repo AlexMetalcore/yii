@@ -38,14 +38,14 @@ AppAsset::register($this);
         ],
     ]);
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => ['../']];
+        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => ['/../']];
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '../'];
-        $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
+        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
         $menuItems[] = ['label' => 'Записи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
+        $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

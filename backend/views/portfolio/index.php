@@ -20,6 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'layout'=>"{summary}\n{items}\n{pager}",
+        'summary' => 'Показано {count} из {totalCount} работ',
+        'summaryOptions' => [
+            'tag' => 'span',
+            'class' => 'summary'
+        ],
         'columns' => [
             'title',
             'content:ntext',

@@ -19,8 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'layout'=>"{summary}\n{items}\n{pager}",
+        'summary' => 'Показано {count} из {totalCount} категорий',
+        'summaryOptions' => [
+            'tag' => 'span',
+            'class' => 'summary'
+        ],
         'columns' => [
-            'id',
             'title',
             ['class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия'

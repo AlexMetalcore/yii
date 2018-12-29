@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= mb_substr(Post::removeImgTags($post->content), 0 , 400);?><span class="read_more"><a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>">...Читать далее</a></span>
                 </div>
                 <div class="info">
-                    Дата публикации: <span class="date"><?= $post->publish_date; ?></span>
+                    Дата публикации: <span class="date"><?= $post->getDate(); ?></span>
                     , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                                     title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
                     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>

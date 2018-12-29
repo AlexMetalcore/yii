@@ -59,6 +59,7 @@ class Post extends ActiveRecord
             [['anons', 'content', 'publish_status'], 'string'],
             [['category_id', 'author_id'], 'integer'],
             [['publish_date'], 'safe'],
+            ['title', 'unique', 'targetClass' => '\backend\models\Post', 'message' => 'Запись существует'],
             [['title'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],

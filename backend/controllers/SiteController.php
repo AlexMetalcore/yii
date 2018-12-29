@@ -7,12 +7,17 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
+
 /**
- * Site controller
+ * Class SiteController
+ * @package backend\controllers
  */
 class SiteController extends Controller
 {
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -40,6 +45,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -49,6 +57,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionIndex()
     {
         if(\Yii::$app->user->getId()) {
@@ -61,6 +72,9 @@ class SiteController extends Controller
     }
 
 
+    /**
+     * @return string|\yii\console\Response|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -78,6 +92,9 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();

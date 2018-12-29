@@ -20,11 +20,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'layout'=>"{summary}\n{items}\n{pager}",
+        'summary' => 'Показано {count} из {totalCount} пользователей',
+        'summaryOptions' => [
+            'tag' => 'span',
+            'class' => 'summary'
+        ],
         'columns' => [
-            'id',
             'username',
             'email:email',
             'about:ntext',
+            [
+                    'header' => 'Статус',
+                    'value'  => function($model){
+                        return $model->status == 20 ? 'Администратор' : 'Пользователь';
+                    }
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
             ],

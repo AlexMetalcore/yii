@@ -93,15 +93,7 @@ class PortfolioController extends Controller
         $this->handlePortfolioPhoto($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $portfolio_title = Yii::$app->request->post('Portfolio')['title'];
-            $portfolio = Portfolio::find()->where(['title' => $portfolio_title])->one();
-            if($portfolio) {
-                if($portfolio->title == $portfolio_title) {
-                    Yii::$app->session->setFlash('error' , 'Запись существует');
-                }
-            }
-            else {
-                $model->save();
+            if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -159,7 +151,7 @@ class PortfolioController extends Controller
      * @return Portfolio|null
      * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    private function findModel($id)
     {
         if (($model = Portfolio::findOne($id)) !== null) {
             return $model;
@@ -174,7 +166,7 @@ class PortfolioController extends Controller
      * @return \yii\web\Response
      * @throws \ImagickException
      */
-    protected function handlePortfolioPhoto(Portfolio $model) {
+    private function handlePortfolioPhoto(Portfolio $model) {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->createFilePath() && $model->gallery) {

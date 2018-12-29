@@ -31,6 +31,7 @@ class Category extends ActiveRecord
     {
         return [
             [['title'], 'required'],
+            ['title', 'unique', 'targetClass' => '\backend\models\Category', 'message' => 'Категория существует'],
             [['title'], 'string', 'max' => 255],
         ];
     }

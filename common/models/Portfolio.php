@@ -38,6 +38,7 @@ class Portfolio extends ActiveRecord
     {
         return [
             [['title' , 'content'], 'required'],
+            ['title', 'unique', 'targetClass' => '\common\models\Portfolio', 'message' => 'Запись существует'],
             [['gallery'], 'file', 'maxFiles' => 10,  'skipOnEmpty' => true, 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }
