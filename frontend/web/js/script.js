@@ -49,10 +49,10 @@ jQuery(document).ready(function(){
         });
     });
     $(document).on('click', '.portfolio-img' ,function() {
-        var img_this = jQuery(this);
-        var overlay = $('.overlay');
+        var img_this = $(this);
         var get_clone_img = img_this.clone().attr('src');
-        $('body').append('<div class="position_zoom_rooms"><img class="clone_img" src="'+get_clone_img+'"/></div><div class="overlay"></div>');
+        $('body').append('<div class="position_zoom_rooms"><img class="clone_img" src="'+get_clone_img+'"/></div><div class="overlay-item"></div>');
+        var overlay = $('.overlay-item');
         overlay.fadeIn();
         $('.clone_img').hide().fadeIn(300);
         overlay.click(function(){
