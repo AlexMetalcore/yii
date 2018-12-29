@@ -6,11 +6,12 @@
  * Time: 3:02
  */
 use yii\helpers\Html;
+$width = '';
 ?>
 <div class="container-fluid" id="fix-margin">
     <div class="item-content-portfolio">
         <div class="row">
-            <div class="col-md-8">
+            <div id="photo-item-portfolio" class="col-md-8">
             <?php foreach (explode(',' , $content->img) as $img): ?>
             <div class="col-md-12">
                 <?= Html::img('/admin/'.$img.'' , ['class' => 'portfolio-img']) ?>
@@ -27,3 +28,22 @@ use yii\helpers\Html;
         </div>
     </div>
 </div>
+<?php
+$this->registerJs(
+     "$(window).resize(function(){
+        if($(window).width() < 680){
+            $('#photo-item-portfolio').addClass('position-block-portfolio');
+        }
+        else {
+            $('#photo-item-portfolio').removeClass('position-block-portfolio');
+        }
+     });
+     if($(window).width() < 680){
+        $('#photo-item-portfolio').addClass('position-block-portfolio');
+     }
+     else {
+        $('#photo-item-portfolio').removeClass('position-block-portfolio');
+     }
+     "
+);
+?>

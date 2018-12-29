@@ -16,7 +16,7 @@
     .site-index > .pagination {
         position: relative;
         left: 35%;
-       }
+    }
 }
 @media screen and (max-width: 680px) {
     .post {
@@ -24,6 +24,32 @@
     }
     .category_widget {
         width: unset;
+    }
+    .overlay-portfolio {
+        position: absolute;
+        width: 84.5%;
+        transition: 1s;
+        top: 0px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin: 0 auto;
+        opacity: 0;
+        height: 100%;
+    }
+    .portfolio-loader {
+        position: fixed;
+        top: 40%;
+        width: 150px;
+        left: 30%;
+        display: none;
+    }
+    .position_zoom_rooms {
+        position: fixed;
+        z-index: 10000000000;
+        top: 30%;
+        width: 80%;
+        margin: 0 10%;
     }
 }
 @media screen and (max-width: 480px){

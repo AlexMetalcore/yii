@@ -459,11 +459,6 @@ a.link_post {
     margin-bottom: 20px;
 }
 .position_zoom_rooms {
-    /*position: absolute;
-    z-index: 10000000000;
-    top: 35px;
-    width: 90%;
-    margin: 0 5%;*/
     position: fixed;
     z-index: 10000000000;
     top: 10px;
@@ -472,4 +467,8 @@ a.link_post {
 }
 .clone_img {
     width: 100%;
+}
+.position-block-portfolio {
+    float: right;
+    margin-top: 30px;
 }
