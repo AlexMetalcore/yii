@@ -33,7 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'img',
                 'value' => function($model) {
-                    return $model->img ? '<img src="/admin/'.$model->getMainImg ().'" height="200" width="300"/>' : 'фото нету';
+                    $imgs = '';
+                    foreach (explode(',' , $model->img) as $img){
+                        $imgs .= '<img src="/admin/'.$img.'" class="img-preview-portfolio"/>';
+                    };
+                    return $imgs;
                 },
                 'format'    => 'raw',
             ],

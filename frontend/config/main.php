@@ -60,7 +60,17 @@ return [
                 '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
                 'search' => 'site/search',
                 ],
-        ]
+        ],
+        'cache' => [
+            'class' => 'yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => 'localhost',
+                    'port' => 11211,
+                ],
+            ],
+            'useMemcached' => true,
+        ],
     ],
     'modules' => [
         'comment' => [

@@ -49,7 +49,16 @@ return [
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
-
+        'cache' => [
+            'class' => 'yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => 'localhost',
+                    'port' => 11211,
+                ],
+            ],
+            'useMemcached' => true,
+        ],
     ],
     'controllerMap' => [
         'elfinder' => [

@@ -6,7 +6,6 @@
  * Time: 3:02
  */
 use yii\helpers\Html;
-$width = '';
 ?>
 <div class="container-fluid" id="fix-margin">
     <div class="item-content-portfolio">
