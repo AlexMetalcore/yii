@@ -389,6 +389,8 @@ a.link_post {
 .portfolio-img {
     width: 100%;
     margin-bottom: 20px;
+    z-index: 10000000000000000000000000000;
+    position: relative;
 }
 .portfolio-img:hover {
     cursor: pointer;
