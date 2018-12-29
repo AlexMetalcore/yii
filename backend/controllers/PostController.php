@@ -144,12 +144,12 @@ class PostController extends Controller
      * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id) {
-
-        $file_path = \Yii::$app->basePath.'/web/'.$this->findModel($id)->img.'';
-        if(file_exists($file_path) && $this->findModel($id)->img){
+        $model_post = $this->findModel($id);
+        $file_path = \Yii::$app->basePath.'/web/'.$model_post->img.'';
+        if(file_exists($file_path) && $model_post->img){
             unlink($file_path);
         }
-        $this->findModel($id)->delete();
+        $model_post->delete();
         $model = LikePosts::find()->where(['post_id' => $id])->one();
         if($model) {
             $model->delete();

@@ -32,19 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'img',
                 'value' => function($model) {
-                    return $model->img ? '<img src="/admin/'.$model->getMainImg ().'" height="200" width="300"/>' : 'фото нету';
+                    $imgs = '';
+                    foreach (explode(',' , $model->img) as $img){
+                        $imgs .= '<img src="/admin/'.$img.'" class="img-preview-portfolio"/>';
+                    };
+                    return $imgs;
                 },
                 'format'    => 'raw',
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
                 'buttons' => [
-                    'view' => function ($url) {
-                        return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-eye-open' , 'title' => 'View']);
-                    },
-                    'update' => function ($url) {
-                        return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-pencil' , 'title' => 'Update']);
-                    },
                     'delete' => function ($url) {
                         return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную запись?")']);
 

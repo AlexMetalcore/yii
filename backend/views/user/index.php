@@ -38,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
+                'buttons' => [
+                    'delete' => function ($url) {
+                        return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить пользователя?")']);
+
+                    },
+                ],
             ],
         ],
     ]); ?>

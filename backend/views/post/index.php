@@ -51,12 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',
                     'buttons' => [
-                        'view' => function ($url) {
-                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-eye-open' , 'title' => 'View']);
-                        },
-                        'update' => function ($url) {
-                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-pencil' , 'title' => 'Update']);
-                        },
                         'delete' => function ($url) {
                             return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную запись?")']);
 
