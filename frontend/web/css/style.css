@@ -176,7 +176,7 @@ a.link_post {
     position: fixed;
     width: 80%;
     top: 60px;
-    z-index: 100000;
+    z-index: 100000000000000;
     margin: 0 10%;
     display: none;
 }
