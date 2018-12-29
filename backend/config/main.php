@@ -59,6 +59,9 @@ return [
             ],
             'useMemcached' => true,
         ],
+        'fileCache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
     ],
     'controllerMap' => [
         'elfinder' => [

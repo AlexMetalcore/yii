@@ -71,6 +71,9 @@ return [
             ],
             'useMemcached' => true,
         ],
+        'fileCache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
     ],
     'modules' => [
         'comment' => [
