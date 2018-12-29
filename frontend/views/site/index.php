@@ -5,11 +5,14 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\models\Post;
-$this->title = 'Блог по программированию';
+$this->title = 'Веб заметки';
 ?>
 <div class="site-index">
+    <div class="about-me">
+        <?=$about_me?>
+    </div>
+    <span class="new-posts">Новые статьи</span>
     <div class="container">
-        <?php ///echo Yii::$app->request->userIP;?>
     <div class="row">
         <?php foreach ($posts as $post) : ?>
             <div class="col-md-4 block_border">

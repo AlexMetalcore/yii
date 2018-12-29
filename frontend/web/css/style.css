@@ -1,7 +1,15 @@
+@font-face {
+    font-family: "Oswald";
+    src: url("../fonts/Oswald/Oswaldbold.ttf") format("woff"),
+    url("../fonts/Oswald/Oswaldregular.ttf") format("woff2");
+    font-style: normal;
+    font-weight: 300;
+}
 body {
     background: #ededed;
     /*content_post_viewbackground: #afa8a8;*/
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    /*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;;
 }
 .content_post {
     text-align: center;
@@ -61,6 +69,7 @@ a.link_post {
     margin: 20px 0;
     padding: 20px 20px;
     box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0 2px 10px 0 rgba(0,0,0,.12)!important;
+    border-radius: 10px;
     /*box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0px 0px 12px 12px rgba(0,0,0,.12)!important;*/
 }
 .post {
@@ -82,8 +91,8 @@ a.link_post {
     display: inline-block;
 }
 .content_text_post {
-    padding: 10px 0px;
-    font-size: 14px;
+    padding: 10px 0;
+    font-size: 16px;
     line-height: 30px;
 }
 .content_post_view > a {
@@ -104,6 +113,7 @@ a.link_post {
     padding: 20px 20px;
     margin: 20px 0;
     box-shadow: 0 .005em .01em 0 rgba(0,0,0,.12),0 2px 10px 0 rgba(0,0,0,.12)!important;
+    border-radius: 10px;
 }
 .read_more a {
     color: #04a49c;
@@ -138,6 +148,7 @@ a.link_post {
     background: white;
     padding: 20px 20px;
     width: 82%;
+    border-radius: 10px;
 }
 .category_widget > .block-category > a {
     color: #333;
@@ -151,6 +162,7 @@ a.link_post {
 .category_top_widget {
     margin: 20px 20px;
     width: 100%;
+    border-radius: 10px;
 }
 .icon_search {
     width: 35px;
@@ -184,7 +196,7 @@ a.link_post {
     position: fixed;
     background: rgba(0,0,0, 0.7);
     display: none;
-    z-index: 10000;
+    z-index: 1000000000;
 }
 .search {
     background: rgba(0,0,0,0);
@@ -297,6 +309,12 @@ a.link_post {
 }
 .navbar-inverse .navbar-nav > li > a {
     letter-spacing: 1px;
+    font-family: Oswald;
+    color: white;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    font-family: Oswald;
+    color: white;
 }
 .navbar-inverse .navbar-nav > li > a:hover , .nav li > form > button.logout:hover {
     color: black;
@@ -411,4 +429,47 @@ a.link_post {
 }
 #fix-margin {
     padding: 0;
+}
+.register_link {
+    margin-left: 40px;
+}
+.breadcrumb > li > a {
+    color: black;
+}
+.login-link {
+    color: #9d9d9d;
+    letter-spacing: 1px;
+    padding-top: 15px;
+    display: inline-block;
+}
+.login-link:hover {
+    text-decoration: none;
+    color: white;
+}
+.new-posts {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 25px;
+}
+.about-me {
+    white-space: pre-wrap;
+    padding-left: 25px;
+    font-style: italic;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.position_zoom_rooms {
+    /*position: absolute;
+    z-index: 10000000000;
+    top: 35px;
+    width: 90%;
+    margin: 0 5%;*/
+    position: fixed;
+    z-index: 10000000000;
+    top: 10px;
+    width: 80%;
+    margin: 0 10%;
+}
+.clone_img {
+    width: 100%;
 }

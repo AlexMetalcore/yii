@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Блог по програмированияю(админка)';
+$this->title = 'Веб заметки (админка)';
 ?>
 <div class="site-index">
 

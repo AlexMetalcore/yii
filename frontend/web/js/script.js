@@ -22,14 +22,14 @@ jQuery(document).ready(function(){
     positionSlide();
 
     $(document).on('click' , '.block-portfolio' ,function(){
-       var item_id = $(this).children().next().next().val();
+        var item_id = $(this).children().next().next().val();
         var overlay = $('.items-overlay-portfolio');
         var loader = $('.portfolio-loader');
         loader.fadeIn();
 
         $.ajax({
             url: '/site/portfolio-content',
-            data: {id: item_id},
+            data: { id: item_id },
             type: 'GET',
             success: function (res) {
                 setTimeout(function() {
@@ -38,12 +38,26 @@ jQuery(document).ready(function(){
                     overlay.html(res);
                     $('.portfolio-close').click(function () {
                         overlay.fadeOut();
+                        $('.position_zoom_rooms').remove();
+                        overlay.children().remove();
                     });
                 },700);
             },
             error: function () {
                 alert('Ошибка!');
             }
+        });
+    });
+    $(document).on('click', '.portfolio-img' ,function() {
+        var img_this = jQuery(this);
+        var overlay = $('.overlay');
+        var get_clone_img = img_this.clone().attr('src');
+        $('body').append('<div class="position_zoom_rooms"><img class="clone_img" src="'+get_clone_img+'"/></div><div class="overlay"></div>');
+        overlay.fadeIn();
+        $('.clone_img').hide().fadeIn(300);
+        overlay.click(function(){
+            $('.position_zoom_rooms').remove();
+            overlay.remove();
         });
     });
 });

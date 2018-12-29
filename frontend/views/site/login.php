@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'rememberMe')->label('Запомнить меня')->checkbox() ?>
 
-                <?= Html::a('Регистрация', ['site/signup']) ?>
+                <?= Html::a('Регистрация', ['site/signup'] , ['class' => 'register_link']) ?>
 
                 <div style="color:#999;margin:1em 0">
                     Если вы забыли свой пароль, вы можете <?= Html::a('сбросить его', ['site/request-password-reset']) ?>.

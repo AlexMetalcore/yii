@@ -6,8 +6,8 @@ jQuery('.heart-like , .heart-like-active').click(function () {
         'transform' : 'scale(1.2)'
     };
     $.ajax({
-        'url' : '/post/like?id='+id,
-        'type' : 'POST',
+        url : '/post/like?id='+id,
+        type : 'POST',
         success: function (res) {
             jQuery($this).css(css);
             jQuery($this).toggleClass('heart-like heart-like-active');

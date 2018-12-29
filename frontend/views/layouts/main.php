@@ -29,6 +29,7 @@ $name_blog = 'Веб заметки';
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(['/favicon.png'])]); ?>
     <?php
     NavBar::begin([
         'brandLabel' => $name_blog,
@@ -41,10 +42,9 @@ $name_blog = 'Веб заметки';
         ['label' => 'Главная', 'url' => ['/']],
         ['label' => 'Блог', 'url' => ['site/blog']],
         ['label' => 'Портфолио', 'url' => ['site/portfolio']],
-        ['label' => 'Связаться со мной', 'url' => ['site/contact']],
+        ['label' => 'Обратная связь', 'url' => ['site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        //$menuItems[] = ['label' => 'Регистрация', 'url' => ['site/signup']];
         $menuItems[] = ['label' => 'Войти', 'url' => ['site/login']];
         $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
     } else {

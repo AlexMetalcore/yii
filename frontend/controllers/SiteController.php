@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Portfolio;
+use common\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -23,7 +24,10 @@ use yii\data\Pagination;
  */
 class SiteController extends Controller
 {
-
+    /**
+     * @var
+     */
+    const LAST_COUNT_POST = 6;
     /**
      * @return array
      */
@@ -76,9 +80,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $posts = Post::find()->where(['publish_status' => 'publish'])
-            ->orderBy(['id' => SORT_DESC])->limit(6)->all();
-        return $this->render('index' , compact('posts'));
+        $about_me = User::findOne(1)->about;
+        $posts = Post::find()
+            ->where(['publish_status' => 'publish'])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(self::LAST_COUNT_POST)
+            ->all();
+        return $this->render('index' , compact('posts' , 'about_me'));
     }
 
     /**
@@ -219,7 +227,7 @@ class SiteController extends Controller
 
         $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
-        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->where($where_publish)->count() , 'defaultPageSize' => 10]);
 
         $posts = $query->offset($pages->offset)->where($where_publish)->limit($pages->limit)->all();
 

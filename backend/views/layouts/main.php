@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -27,6 +28,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(['/../favicon.png'])]); ?>
     <?php
     NavBar::begin([
         'brandLabel' => 'Админ панель',
@@ -36,9 +38,10 @@ AppAsset::register($this);
         ],
     ]);
     if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => ['../']];
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
+        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '../'];
         $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
         $menuItems[] = ['label' => 'Записи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
