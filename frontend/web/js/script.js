@@ -10,7 +10,7 @@ jQuery(document).ready(function(){
             var css = {
                 'position': 'fixed',
                 'width': '26%',
-                'top': '93px'
+                'top': '50px'
             };
             if ($(window).scrollTop() > 93 && $(window).width() > 768) {
                 scrollposition.css(css)

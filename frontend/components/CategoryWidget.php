@@ -11,6 +11,14 @@ use yii\base\Widget;
  */
 class CategoryWidget extends Widget {
 
+    /**
+     * @var string
+     */
+    protected $limit_popular = '6';
+
+    /**
+     *
+     */
     const STATUS_DRAFT = 'draft';
     /**
      *
@@ -26,6 +34,11 @@ class CategoryWidget extends Widget {
     public function run() {
         $count_posts = [];
         $categories = Category::find()->all();
+        $popular = Post::find()
+            ->where(['<>' , 'publish_status' , self::STATUS_DRAFT])
+            ->orderBy('viewed DESC')
+            ->limit($this->limit_popular)
+            ->all();
         foreach ($categories as $category){
             foreach ($category->posts as $post){
                 if($post->publish_status == 'publish') {
@@ -37,7 +50,7 @@ class CategoryWidget extends Widget {
                 }
             }
         }
-        return $this->render('block-category' , compact('categories' ,'count_posts'));
+        return $this->render('block-category' , compact('categories' ,'count_posts' , 'popular'));
     }
 
 }

@@ -26,3 +26,7 @@ use yii\helpers\Url;
     <hr/>
     <?php endif;?>
 <?php endforeach; ?>
+<b class="popular">Популярные статьи</b>
+<?php foreach ($popular as $post): ?>
+    <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>" class="popular-name"> - <?= ucfirst($post->title);?></a>
+<?php endforeach;?>
