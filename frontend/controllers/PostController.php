@@ -20,28 +20,28 @@ class PostController extends Controller{
      * @return string
      */
     public function actionView ($id) {
-        $model = Post::findOne($id);
-        if(!$model) {
+        $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
+        if(!$post) {
             $this->redirect(['/site/error']);
         }
-        else if ($model->publish_status == CategoryWidget::STATUS_DRAFT) {
-            $this->redirect(['/site/page-draft' , 'id' => $id]);
-        }
         else {
-                if(!Yii::$app->request->isAjax){
-                    $model->ViwedCounter($id);
-                }
-                $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
-                $count = LikePosts::getAllLikes($post->id);
-                $author_likes = LikePosts::getAllAuthorLikes($post->id);
-                if (!Yii::$app->user->isGuest) {
-                    if(User::findIdentity(\Yii::$app->user->identity->getId())->username){
-                        $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
-                        $model_author = LikePosts::find()->where(['post_id' => $id])->andWhere(['like_author' => $user])->one();
-                        return $this->render('view' , compact('post' , 'count' , 'author_likes' ,'model_author'));
+            if(!Yii::$app->request->isAjax){
+                $post->ViwedCounter($id);
+            }
+            $count = count($post->like);
+            if (!Yii::$app->user->isGuest) {
+                $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
+                if($user){
+                    foreach ($post->like as $like) {
+                        if($like->like_author == $user) {
+                            $model_author = $user;
+                            break;
+                        }
                     }
+                    return $this->render('view' , compact('post' , 'count' , 'model_author'));
                 }
-                return $this->render('view' , compact('post' ,'count' , 'author_likes'));
+            }
+            return $this->render('view' , compact('post' ,'count'));
         }
     }
 
@@ -55,7 +55,6 @@ class PostController extends Controller{
         if (!Yii::$app->request->isAjax) {
             return false;
         }
-        $post = Post::findOne($id);
         $author_id = \Yii::$app->user->identity->getId();
         $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
         $model = LikePosts::find()->where(['post_id' => $id])->andWhere(['author_id' => $author_id])->one();
@@ -67,7 +66,7 @@ class PostController extends Controller{
             $model->post_id = $id;
             $model->author_id = $author_id;
             $model->like_author = $user;
-            $model->like_post = $post->title;
+            $model->like_post = $model->post->title;
             $model->like_status = 1;
             $model->save();
         }

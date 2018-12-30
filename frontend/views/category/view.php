@@ -36,7 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
         <div class="col-md-4 position_top full-width">
             <div class="category_widget">
-                <?= CategoryWidget::widget(); ?>
+                <?php if ($this->beginCache('CategoryWidget', ['duration' => 3600])):?>
+                    <?=CategoryWidget::widget();?>
+                    <?php $this->endCache(); ?>
+                <?php endif;?>
             </div>
         </div>
         <?php echo LinkPager::widget([

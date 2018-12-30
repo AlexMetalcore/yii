@@ -21,13 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
         <?php if (!Yii::$app->user->isGuest): ?>
             , Нравится :
-        <?= (!isset($model_author->like_author) && empty($model_author->like_author)) ? Html::img('/admin/images/heart-outline.png' , ['class' => 'heart-like']) : Html::img('/admin/images/heart_red.png' , ['class' => 'heart-like-active']); ?>
+        <?= (!isset($model_author) && empty($model_author)) ? Html::img('/admin/images/heart-outline.png' , ['class' => 'heart-like']) : Html::img('/admin/images/heart_red.png' , ['class' => 'heart-like-active']); ?>
             <?php Pjax::begin([ 'id' => 'pjaxCountLikes']); ?>
-        <span class="count_like"><?= $count == 0 ? '' : $count; ?></span>
+        <span class="count_like"><?= !$count ? '' : $count; ?></span>
             <span class="tooltiptext">
-                <?php if(!empty($author_likes)): ?>
-                <?php foreach ($author_likes as $author): ?>
-                    <span class="author_likes"><?= $author;?></span>
+                <?php if(!empty($post->like) && count($post->like) >= 1): ?>
+                <?php foreach ($post->like as $author): ?>
+                    <span class="author_likes"><?= $author->like_author;?></span>
                 <?php endforeach; ?>
                 <?php endif; ?>
             </span>
@@ -52,7 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-4 full-width">
         <div class="category_widget category_top_widget">
-        <?= CategoryWidget::widget(); ?>
+            <?php if ($this->beginCache('CategoryWidget', ['duration' => 3600])):?>
+                <?=CategoryWidget::widget();?>
+                <?php $this->endCache(); ?>
+            <?php endif;?>
         </div>
     </div>
 </div>
