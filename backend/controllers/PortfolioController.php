@@ -64,6 +64,7 @@ class PortfolioController extends Controller
                 'pageSizeParam' => false,
             ],
         ]);
+        echo Yii::$app->session->getFlash('success');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -133,7 +134,7 @@ class PortfolioController extends Controller
     {
         $files_portfolio = Portfolio::findOne($id)->img;
         if($files_portfolio) {
-            $files = explode(',' ,$files_portfolio);
+            $files = explode(',' , $files_portfolio);
             foreach ($files as $file) {
                 $path = \Yii::$app->basePath.'/web/'.$file.'';
                 if(file_exists($path)){
@@ -142,8 +143,10 @@ class PortfolioController extends Controller
             }
         }
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        if (Yii::$app->request->isAjax) {
+            echo 'Запись удалена';
+        }
+        //return $this->redirect(['index']);
     }
 
     /**

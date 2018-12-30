@@ -135,3 +135,6 @@ a.desc:after {
     height: 100px;
     width: 20%;
 }
+.delete-portfolio-item:hover {
+    cursor: pointer;
+}

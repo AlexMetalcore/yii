@@ -8,12 +8,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="row">
             <?php foreach ($portfolios as $portfolio): ?>
+            <?php $main_img = explode(',' ,$portfolio->img)[0]; ?>
                 <div class="col-md-6">
                     <div class="block-portfolio">
                         <div class="overlay-portfolio">
                             <span class="portfolio-name"><?= $portfolio->title; ?></span>
                         </div>
-                        <?= Html::img('/admin/'. $portfolio->getMainImg().'', ['class' => 'portfolio_img']); ?>
+                        <?= Html::img('/admin/'. $main_img .'', ['class' => 'portfolio_img']); ?>
                         <input type="hidden" id="item-id" value="<?= $portfolio->id; ?>">
                     </div>
                 </div>

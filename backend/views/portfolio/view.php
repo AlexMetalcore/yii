@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) {
                     $imgs = '';
                     foreach (explode(',' , $model->img) as $img){
-                        $imgs .= '<img src="/admin/'.$img.'" class="img-preview-portfolio"/>';
+                        $imgs .= !empty($img) ? '<img src="/admin/'.$img.'" class="img-preview-portfolio"/>' : 'нету фото';
                     };
                     return $imgs;
                 },
@@ -43,5 +43,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
-
 </div>

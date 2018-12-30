@@ -59,6 +59,8 @@ class Post extends ActiveRecord
             [['anons', 'content', 'publish_status'], 'string'],
             [['category_id', 'author_id'], 'integer'],
             [['publish_date'], 'safe'],
+            //[['publish_date'], 'date', 'format'=>'php:dd.MM.yyyy hh:i'],
+            [['publish_date'], 'default', 'value' => date('Y-m-d')],
             ['title', 'unique', 'targetClass' => '\backend\models\Post', 'message' => 'Запись существует'],
             [['title'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
@@ -127,10 +129,10 @@ class Post extends ActiveRecord
     /**
      * @return bool
      */
-    public function ViwedCounter($id) {
-        $post = Post::findOne($id);
-        $post->viewed += 1;
-        $post->updateCounters(['viewed' => 1]);
+    public function ViwedCounter()
+    {
+        $this->viewed += 1;
+        $this->save(false);
         \Yii::$app->session->removeAllFlashes();
 
     }
@@ -139,7 +141,8 @@ class Post extends ActiveRecord
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function getDate() {
+    public function getDate()
+    {
         \Yii::$app->formatter->locale = 'ru-RU';
         return \Yii::$app->formatter->asDate($this->publish_date);
     }
@@ -148,14 +151,16 @@ class Post extends ActiveRecord
      * @param $str
      * @return string|string[]|null
      */
-    public static function removeImgTags ($str) {
+    public static function removeImgTags ($str)
+    {
         return preg_replace('#<img[^>]*>#i', '', $str);
     }
 
     /**
      * @return mixed|string
      */
-    public function createFilePath (){
+    public function createFilePath ()
+    {
         $this->upload = UploadedFile::getInstance($this, 'upload');
         return $this->upload ? 'images/' . md5($this->upload->baseName) . '.' . $this->upload->extension : $this->img;
     }

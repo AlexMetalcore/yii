@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php if ($model->img): ?>
-        <?= Html::img('@web/'.$model->getMainImg().'' ,
+        <?= Html::img('@web/'.explode(',' ,$model->img)[0].'' ,
             ['alt' => $model->title , 'class' => 'preview_img']); ?>
     <?php endif; ?>
 

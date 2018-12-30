@@ -21,14 +21,16 @@ class LikePosts extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName () {
+    public static function tableName ()
+    {
         return 'like_posts';
     }
 
     /**
      * @return array
      */
-    public function rules () {
+    public function rules ()
+    {
         return [
             [['like_post' , 'like_author'] , 'required'],
             ['like_status' , 'integer']
@@ -38,7 +40,8 @@ class LikePosts extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPost () {
+    public function getPost ()
+    {
         return $this->hasOne(Post::class , ['id' => 'post_id']);
     }
 }

@@ -5,13 +5,24 @@ use yii\base\Model;
 use common\models\User;
 use yii\db\ActiveRecord;
 
+
 /**
- * Signup form
+ * Class SignupForm
+ * @package frontend\models
  */
 class SignupForm extends ActiveRecord
 {
+    /**
+     * @var
+     */
     public $username;
+    /**
+     * @var
+     */
     public $email;
+    /**
+     * @var
+     */
     public $password;
 
     /**

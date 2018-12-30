@@ -4,17 +4,34 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 
+
 /**
- * Login form
+ * Class LoginForm
+ * @package common\models
  */
 class LoginForm extends Model
 {
+    /**
+     * @var
+     */
     public $username;
+    /**
+     * @var
+     */
     public $password;
+    /**
+     * @var bool
+     */
     public $rememberMe = true;
 
+    /**
+     * @var bool
+     */
     private $_user = false;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -23,6 +40,10 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
+
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -33,6 +54,9 @@ class LoginForm extends Model
     }
 
     /*Проверка пароля*/
+    /**
+     * @param $attribute
+     */
     public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
@@ -44,6 +68,9 @@ class LoginForm extends Model
     }
 
     /*Авторизация пользователя*/
+    /**
+     * @return bool
+     */
     public function login()
     {
         if ($this->validate()) {
@@ -60,7 +87,10 @@ class LoginForm extends Model
 
     /*Проверка на существования пользователя*/
 
-    protected function getUser()
+    /**
+     * @return bool|User|null
+     */
+    private function getUser()
     {
         if ($this->_user === false) {
             $this->_user = User::findByUsername($this->username);
@@ -69,6 +99,9 @@ class LoginForm extends Model
         return $this->_user;
     }
 
+    /**
+     * @return bool
+     */
     public function loginAdmin()
     {
         if ($this->validate() && User::isUserAdmin($this->username)) {

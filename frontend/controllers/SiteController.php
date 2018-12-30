@@ -24,6 +24,7 @@ use yii\data\Pagination;
  */
 class SiteController extends Controller
 {
+    const MAX_ITEM_BLOG = 12;
     /**
      * @var
      */
@@ -223,13 +224,13 @@ class SiteController extends Controller
     /**
      * @return string
      */
-    public function actionBlog () {
-
+    public function actionBlog ()
+    {
         $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
         $pages = new Pagination(['totalCount' =>
             $query->where($where_publish)->count() ,
-            'defaultPageSize' => 12]);
+            'defaultPageSize' => self::MAX_ITEM_BLOG]);
 
         $posts = $query->offset($pages->offset)
             ->where($where_publish)
@@ -242,10 +243,11 @@ class SiteController extends Controller
     /**
      * @return string
      */
-    public function actionSearch (){
+    public function actionSearch ()
+    {
         $where_publish = ['publish_status' => 'publish'];
 
-        if(Yii::$app->request->isAjax){
+        if(Yii::$app->request->isAjax) {
             $this->layout = false;
         }
         $search_query = Yii::$app->request->get('search_query');
@@ -266,7 +268,8 @@ class SiteController extends Controller
      * @param $id
      * @return string
      */
-    public function actionPageDraft ($id) {
+    public function actionPageDraft ($id)
+    {
         $post = Post::findOne($id);
         if($post->publish_status != 'draft') {
             $this->redirect(['/post/view' , 'id' => $id]);
@@ -278,7 +281,8 @@ class SiteController extends Controller
      * @param $id
      * @return string|\yii\web\Response
      */
-    public function actionPortfolioContent($id){
+    public function actionPortfolioContent($id)
+    {
 
         if(!Yii::$app->request->isAjax) {
             return $this->redirect(['site/error']);

@@ -28,7 +28,6 @@ class UserController extends Controller
                 'only' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                 'rules' => [
                     [
-                        //'actions' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -37,7 +36,7 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST' , 'DELETE' , 'GET'],
                 ],
             ],
         ];

@@ -47,6 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $model->publish_status == 'publish' ? 'Опубликовано' : 'Черновик';
                     }
                 ],
+                [
+                    'header' => 'Количество просмотров',
+                    'value'  => function($model){
+                        return $model->viewed;
+                    }
+                ],
                 'publish_date',
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',

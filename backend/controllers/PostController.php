@@ -48,7 +48,8 @@ class PostController extends Controller
     /**
      * @return array
      */
-    public function filters() {
+    public function filters()
+    {
         return [[
                 'COutputCache',
                 'duration'=> 60,
@@ -124,8 +125,10 @@ class PostController extends Controller
         $category = Category::getAllCategory();
         $authors = User::getAllUser();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -143,7 +146,8 @@ class PostController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $model_post = $this->findModel($id);
         $file_path = \Yii::$app->basePath.'/web/'.$model_post->img.'';
         if(file_exists($file_path) && $model_post->img){

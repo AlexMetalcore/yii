@@ -26,7 +26,7 @@ class PostController extends Controller{
         }
         else {
             if(!Yii::$app->request->isAjax){
-                $post->ViwedCounter($id);
+                $post->ViwedCounter();
             }
             $count = count($post->like);
             if (!Yii::$app->user->isGuest) {

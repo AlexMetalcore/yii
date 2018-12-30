@@ -11,6 +11,7 @@ mihaildev\elfinder\Assets::noConflict($this);
 /* @var $this yii\web\View */
 /* @var $model backend\models\Post */
 /* @var $form yii\widgets\ActiveForm */
+$id = \Yii::$app->user->identity->getId();
 ?>
 
 <div class="post-form">
@@ -30,7 +31,7 @@ mihaildev\elfinder\Assets::noConflict($this);
     ) ?>
 
     <?= $form->field($model, 'author_id')->dropDownList(
-        ArrayHelper::map($authors, 'id', 'username')
+        ArrayHelper::map($authors, 'id', 'username'), ['options' => [$id => ['Selected'=>'selected']]]
     ) ?>
     <?= $form->field($model, 'publish_status')->
     dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ]) ?>
@@ -40,12 +41,12 @@ mihaildev\elfinder\Assets::noConflict($this);
     'type' => DateTimePicker::TYPE_INPUT,
     'options' => ['placeholder' => 'Ввод даты/времени...'],
     'convertFormat' => true,
-    'value'=> date("d.m.Y h:i",(integer) $model->publish_date),
+    'value'=> date("dd.MM.yyyy hh:i",(integer) $model->publish_date),
     'pluginOptions' => [
         'format' => 'dd.MM.yyyy hh:i',
         'autoclose'=>true,
         'weekStart'=>1,
-        'startDate' => '01.05.2015 00:00',
+        'startDate' => '01.12.2018 00:00',
         'todayBtn'=>true,
     ]
 ]); ?>

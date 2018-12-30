@@ -58,23 +58,18 @@ class Portfolio extends ActiveRecord
     /**
      * @return string|UploadedFile
      */
-    public function createFilePath (){
+    public function createFilePath ()
+    {
         $this->gallery = UploadedFile::getInstances($this, 'gallery');
         return $this->gallery ? $this->gallery : $this->img;
     }
 
-    /**
-     * @return array
-     */
-    public function getMainImg () {
-        $img = explode(',' , Portfolio::findOne($this->id)->img);
-        return count($img) > 2 ? array_shift($img) : $img[0];
-    }
 
     /**
      * @return string
      */
-    public static function getAllImg ($id) {
+    public static function getAllImg ($id)
+    {
         $img = Portfolio::findOne($id);
         return $img;
     }

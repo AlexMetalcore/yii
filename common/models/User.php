@@ -25,9 +25,21 @@ use backend\models\Post;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    /**
+     *
+     */
     const ROLE_ADMIN = 20;
+    /**
+     *
+     */
     const STATUS_DELETED = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 10;
+    /**
+     *
+     */
     const ROLE_USER = 10;
 
     /**
@@ -35,7 +47,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'user';
     }
     /**
      * {@inheritdoc}
@@ -63,6 +75,9 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -77,7 +92,8 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id) {
+    public static function findIdentity($id)
+    {
 
         return static::findOne(['id' => $id, 'status' => [self::ROLE_USER, self::ROLE_ADMIN]]);
 
@@ -88,7 +104,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        throw new NotSupportedException('"findIdentityByAccessToken" не реализует интерфейс.');
     }
 
     /**
@@ -206,23 +222,38 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPost()
     {
         return $this->hasMany(Post::className(), ['author_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public static function getEnvUsers() {
 
         return User::find();
 
     }
+
+    /**
+     * @return array|ActiveRecord[]
+     */
     public static function getAllUser() {
 
         return User::find()->all();
 
     }
 
-    public static function isUserAdmin($username) {
+    /**
+     * @param $username
+     * @return bool
+     */
+    public static function isUserAdmin($username)
+    {
         if (static::findOne(['username' => $username, 'status' => self::ROLE_ADMIN])) {
             return true;
         }

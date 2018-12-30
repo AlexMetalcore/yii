@@ -74,7 +74,8 @@ class Category extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public static function getQueryCategory () {
+    public static function getQueryCategory ()
+    {
 
         return Category::find();
 
@@ -83,7 +84,8 @@ class Category extends ActiveRecord
     /**
      * @return array|ActiveRecord[]
      */
-    public static function getAllCategory () {
+    public static function getAllCategory ()
+    {
 
         return Category::find()->all();
 
