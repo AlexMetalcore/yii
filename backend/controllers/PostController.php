@@ -12,7 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LikePosts;
-
+use backend\helper\HelperImgUpload;
 
 /**
  * Class PostController
@@ -177,7 +177,7 @@ class PostController extends Controller
 
     /**
      * @param Post $model
-     * @return \yii\web\Response
+     * @throws \ImagickException
      */
     private function handlePostSave(Post $model) {
         if ($model->load(Yii::$app->request->post())) {
@@ -185,6 +185,13 @@ class PostController extends Controller
                 if ($model->createFilePath() && $model->upload) {
                     $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
+                        new HelperImgUpload($filePath);
+                        if($filePath !== $model->img && $model->img) {
+                            $fullPath = \Yii::$app->basePath.'/web/'.$model->img.'';
+                            if (file_exists($fullPath)){
+                                unlink($fullPath);
+                            }
+                        }
                         $model->img = $filePath;
                     }
                 }

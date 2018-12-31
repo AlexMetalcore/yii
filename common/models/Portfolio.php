@@ -16,7 +16,7 @@ use yii\web\UploadedFile;
  * Class Portfolio
  * @package common\models
  */
-class Portfolio extends ActiveRecord
+class Portfolio extends ActiveRecord implements \UploadFileInterfaces
 {
     /**
      * @var

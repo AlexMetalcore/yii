@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use backend\helper\HelperImgUpload;
 
 
 /**
@@ -146,7 +147,9 @@ class PortfolioController extends Controller
         if (Yii::$app->request->isAjax) {
             echo 'Запись удалена';
         }
-        //return $this->redirect(['index']);
+        else {
+            return $this->redirect(['index']);
+        }
     }
 
     /**
@@ -163,11 +166,9 @@ class PortfolioController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-
     /**
      * @param Portfolio $model
-     * @return \yii\web\Response
-     * @throws \ImagickException
+     * @return int|mixed
      */
     private function handlePortfolioPhoto(Portfolio $model) {
         if ($model->load(Yii::$app->request->post())) {
@@ -178,13 +179,7 @@ class PortfolioController extends Controller
                         $path = 'images/' . uniqid() . '.' . $file->extension;
                         if ($file->saveAs($path)) {
                             try {
-                                $img = new \Imagick(\Yii::$app->basePath.'/web/'.$path);
-                                $img->setImageCompression(true);
-                                $img->setImageCompression(self::PARAMETERS_COMPRESSION);
-                                $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
-                                $img->writeImage($path);
-                                $img->clear();
-                                $img->destroy();
+                                new HelperImgUpload($path);
                                 $array_img[] = $path;
                                 $model->img = implode(',' , $array_img);
                             }

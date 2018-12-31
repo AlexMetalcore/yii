@@ -7,6 +7,7 @@ use common\models\User;
 use yii\db\ActiveRecord;
 use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
 use yii\web\UploadedFile;
+use common\implement\UploadFileInterfaces;
 
 /**
  * This is the model class for table "post".
@@ -23,7 +24,7 @@ use yii\web\UploadedFile;
  * @property User $author
  * @property Category $category
  */
-class Post extends ActiveRecord
+class Post extends ActiveRecord implements UploadFileInterfaces
 {
     /**
      * @var string
@@ -162,6 +163,6 @@ class Post extends ActiveRecord
     public function createFilePath ()
     {
         $this->upload = UploadedFile::getInstance($this, 'upload');
-        return $this->upload ? 'images/' . md5($this->upload->baseName) . '.' . $this->upload->extension : $this->img;
+        return $this->upload ? 'images/' . uniqid() . '.' . $this->upload->extension : $this->img;
     }
 }
