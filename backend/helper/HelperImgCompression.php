@@ -7,7 +7,11 @@
  */
 namespace backend\helper;
 
-class HelperImgUpload
+/**
+ * Class HelperImgCompression
+ * @package backend\helper
+ */
+class HelperImgCompression
 {
     /**
      * @var
@@ -23,19 +27,31 @@ class HelperImgUpload
      */
     private $path;
 
+
     /**
-     * HelperImgUpload constructor.
+     * HelperImgCompression constructor.
      * @param $path
-     * @throws \ImagickException
      */
+
     public function __construct($path)
     {
         $this->path = $path;
-        $img = new \Imagick(\Yii::$app->basePath.'/web/'.$this->path);
+        $this->ImgCompression();
+
+    }
+
+
+    /**
+     * @throws \ImagickException
+     */
+    private function ImgCompression () {
+        $full_path_file = \Yii::$app->basePath.'/web/'.$this->path;
+        $img = new \Imagick($full_path_file);
         $img->setImageCompression(true);
         $img->setImageCompression(self::PARAMETERS_COMPRESSION);
         $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
         $img->writeImage($this->path);
+        chmod($full_path_file, 0777);
         $img->clear();
         $img->destroy();
     }

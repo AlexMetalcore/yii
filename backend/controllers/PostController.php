@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Category;
+use common\models\Portfolio;
 use Yii;
 use common\models\User;
 use backend\models\Post;
@@ -12,7 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LikePosts;
-use backend\helper\HelperImgUpload;
+use backend\helper\HelperImgCompression;
 
 /**
  * Class PostController
@@ -44,6 +45,45 @@ class PostController extends Controller
             ],
         ];
     }
+
+    /**
+     * @param $id
+     * @return Post|null
+     * @throws NotFoundHttpException
+     */
+    private function findModel($id) {
+
+        if (($model = Post::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * @param Post $model
+     * @throws \ImagickException
+     */
+    private function handlePostSave(Post $model) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->createFilePath() && $model->upload) {
+                    $filePath = $model->createFilePath();
+                    if ($model->upload->saveAs($filePath)) {
+                        new HelperImgCompression($filePath);
+                        if($filePath !== $model->img && $model->img) {
+                            $fullPath = \Yii::$app->basePath.'/web/'.$model->img.'';
+                            if (file_exists($fullPath)){
+                                unlink($fullPath);
+                            }
+                        }
+                        $model->img = $filePath;
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * @return array
@@ -161,41 +201,50 @@ class PostController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * @param $id
-     * @return Post|null
-     * @throws NotFoundHttpException
-     */
-    private function findModel($id) {
 
-        if (($model = Post::findOne($id)) !== null) {
-            return $model;
+    /**
+     * @var string
+     */
+    public function actionClearOldImgs() {
+        if(!Yii::$app->request->isAjax) {
+            $this->redirect(['site/error']);
         }
+        $imgportfolio = [];
+        $imgpost = [];
+        $allimgmew = [];
+        $allimg = scandir(\Yii::$app->basePath.'/web/images');
+        $portfolio = Portfolio::find()->all();
+        $posts = Post::find()->all();
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    /**
-     * @param Post $model
-     * @throws \ImagickException
-     */
-    private function handlePostSave(Post $model) {
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                if ($model->createFilePath() && $model->upload) {
-                    $filePath = $model->createFilePath();
-                    if ($model->upload->saveAs($filePath)) {
-                        new HelperImgUpload($filePath);
-                        if($filePath !== $model->img && $model->img) {
-                            $fullPath = \Yii::$app->basePath.'/web/'.$model->img.'';
-                            if (file_exists($fullPath)){
-                                unlink($fullPath);
-                            }
-                        }
-                        $model->img = $filePath;
-                    }
-                }
+        foreach ($allimg as $img) {
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
+                $allimgmew[] = $img;
             }
         }
+
+        foreach ($portfolio as $img) {
+            foreach (explode(',' , $img->img) as $imgitem){
+                $imgportfolio[] = basename($imgitem);
+            }
+        }
+        foreach ($posts as $post_img) {
+            $imgpost[] = basename($post_img->img);
+        }
+
+        $global_array_img = array_merge($imgportfolio , $imgpost);
+        $delete_img = array_diff($allimgmew , $global_array_img);
+
+        $what_files = [];
+        foreach ($delete_img as $img) {
+            $count = count($delete_img);
+            $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
+            $what_files[] = $file_delete;
+            $files_delete = implode('<br>' , $what_files);
+            if (file_exists($file_delete)) {
+                unlink($file_delete);
+            }
+            \Yii::$app->session->setFlash('success' , 'Старые фото удалены');
+        }
+        return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
     }
 }

@@ -11,12 +11,13 @@ namespace common\models;
 
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
+use common\implement\UploadFileInterfaces;
 
 /**
  * Class Portfolio
  * @package common\models
  */
-class Portfolio extends ActiveRecord implements \UploadFileInterfaces
+class Portfolio extends ActiveRecord implements UploadFileInterfaces
 {
     /**
      * @var

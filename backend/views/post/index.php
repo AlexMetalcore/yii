@@ -12,8 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="post-index">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <p class="create-post">
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <p class="delete-all-img">
+        <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
     </p>
 
     <?= GridView::widget([

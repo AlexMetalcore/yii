@@ -46,7 +46,7 @@ $name_blog = 'Веб заметки';
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => ['site/login']];
-        $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
+        $menuItems[] = Html::img('/admin/images/staticimg/search_icon.png' , ['class' => 'icon_search']);
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -56,7 +56,7 @@ $name_blog = 'Веб заметки';
             )
             . Html::endForm()
             . '</li>';
-        $menuItems[] = Html::img('/admin/images/search_icon.png' , ['class' => 'icon_search']);
+        $menuItems[] = Html::img('/admin/images/staticimg/search_icon.png' , ['class' => 'icon_search']);
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

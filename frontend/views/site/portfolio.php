@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="container">
-        <?= Html::img('/admin/images/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
+        <?= Html::img('/admin/images/staticimg/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
     </div>
 </div>
 <div class="items-overlay-portfolio"></div>

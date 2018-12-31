@@ -13,10 +13,10 @@ jQuery('.heart-like , .heart-like-active').click(function () {
             jQuery($this).css(css);
             jQuery($this).toggleClass('heart-like heart-like-active');
             if(jQuery($this).hasClass('heart-like-active')) {
-                jQuery($this).attr('src' , '/admin/images/heart_red.png');
+                jQuery($this).attr('src' , '/admin/images/staticimg/heart_red.png');
             }
             if (jQuery($this).hasClass('heart-like')) {
-                jQuery($this).attr('src' , '/admin/images/heart-outline.png');
+                jQuery($this).attr('src' , '/admin/images/staticimg/heart-outline.png');
             }
             jQuery.pjax.reload({container: '#pjaxCountLikes'});
         },

@@ -138,3 +138,23 @@ a.desc:after {
 .delete-portfolio-item:hover {
     cursor: pointer;
 }
+.portfolio-loader {
+    position: relative;
+    width: 100px;
+    display: none;
+}
+.delete-all-img {
+    display: inline-block;
+    float: right;
+}
+.create-post {
+    display: inline-block;
+}
+.loader-delete {
+    width: 20px;
+    margin-left: 10px;
+    display: none;
+}
+.count-old-img {
+    display: block;
+}

@@ -18,7 +18,7 @@ use yii\helpers\Html;
             <?php endforeach;?>
             </div>
             <div class="col-md-4">
-                <?= Html::img('/admin/images/delete.png' , ['class' => 'portfolio-close']) ?>
+                <?= Html::img('/admin/images/staticimg/delete.png' , ['class' => 'portfolio-close']) ?>
                 <span class="name-work"><?=$content->title;?></span>
                 <div class="content-item">
                     <?= $content->content;?>

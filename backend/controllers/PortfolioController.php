@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use backend\helper\HelperImgUpload;
+use backend\helper\HelperImgCompression;
 
 
 /**
@@ -50,6 +50,48 @@ class PortfolioController extends Controller
                 ],
             ],
         ];
+    }
+
+    /**
+     * @param $id
+     * @return Portfolio|null
+     * @throws NotFoundHttpException
+     */
+    private function findModel($id)
+    {
+        if (($model = Portfolio::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'Запрашиваемой страници не существует.'));
+    }
+
+    /**
+     * @param Portfolio $model
+     * @return int|mixed
+     */
+    private function handlePortfolioPhoto(Portfolio $model) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->createFilePath() && $model->gallery) {
+                    $files = $model->createFilePath();
+                    $array_img = [];
+                    foreach ($files as $file) {
+                        $path = 'images/' . uniqid() . '.' . $file->extension;
+                        if ($file->saveAs($path)) {
+                            try {
+                                new HelperImgCompression($path);
+                                $array_img[] = $path;
+                                $model->img = implode(',' , $array_img);
+                            }
+                            catch (\Exception $e) {
+                                return $e->getMessage();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -115,8 +157,10 @@ class PortfolioController extends Controller
         $model = $this->findModel($id);
         $this->handlePortfolioPhoto($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -133,7 +177,7 @@ class PortfolioController extends Controller
      */
     public function actionDelete($id)
     {
-        $files_portfolio = Portfolio::findOne($id)->img;
+        $files_portfolio = $this->findModel($id)->img;
         if($files_portfolio) {
             $files = explode(',' , $files_portfolio);
             foreach ($files as $file) {
@@ -149,48 +193,6 @@ class PortfolioController extends Controller
         }
         else {
             return $this->redirect(['index']);
-        }
-    }
-
-    /**
-     * @param $id
-     * @return Portfolio|null
-     * @throws NotFoundHttpException
-     */
-    private function findModel($id)
-    {
-        if (($model = Portfolio::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
-    /**
-     * @param Portfolio $model
-     * @return int|mixed
-     */
-    private function handlePortfolioPhoto(Portfolio $model) {
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                if ($model->createFilePath() && $model->gallery) {
-                    $files = $model->createFilePath();
-                    foreach ($files as $file) {
-                        $path = 'images/' . uniqid() . '.' . $file->extension;
-                        if ($file->saveAs($path)) {
-                            try {
-                                new HelperImgUpload($path);
-                                $array_img[] = $path;
-                                $model->img = implode(',' , $array_img);
-                            }
-                            catch (\Exception $e) {
-                                return $e->getCode();
-                            }
-
-                        }
-                    }
-                }
-            }
         }
     }
 }
