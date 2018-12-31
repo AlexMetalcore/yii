@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <p class="delete-all-img">
+        <?php if ($trash): ?>
+        <span>Количество старых фото:<?=$trash;?></span>
+        <?php endif;?>
         <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
     </p>
 
