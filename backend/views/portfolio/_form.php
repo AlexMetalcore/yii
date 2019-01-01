@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::button(Yii::t('app', 'Загрузить фото'), ['class' => 'btn btn-success upload_gallary']) ?>
-        <?= Html::img('/admin/images/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
+        <?= Html::img('/admin/images/staticimg/AjaxLoader2.gif' , ['class' => 'portfolio-loader']) ?>
     </div>
 
 

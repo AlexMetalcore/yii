@@ -6,7 +6,7 @@ use frontend\controllers\PostController;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Post */
 
-$this->title = 'Создать запись';
+$this->title = 'Создать статью';
 $this->params['breadcrumbs'][] = ['label' => 'Записи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -3,30 +3,31 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use backend\models\Post;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Записи';
+$this->title = 'Статьи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-index">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p class="create-post">
+    <div class="create-post">
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </div>
+    <div class="delete-all-img">
+        <?php Pjax::begin(['id' => 'pjax-delete-trash-img']); ?>
+        <span class="count-trash">Старых картинок: <?= $trash ? $trash : 'нету';?></span>
+        <?php Pjax::end(); ?>
 
-    <p class="delete-all-img">
-        <?php if ($trash): ?>
-        <span>Количество старых фото:<?=$trash;?></span>
-        <?php endif;?>
         <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
-    </p>
-
+    </div>
     <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'layout'=>"{summary}\n{items}\n{pager}",
             'summary' => 'Показано {count} из {totalCount} статтей',
+            'emptyText' => 'Статтей нету',
             'summaryOptions' => [
                 'tag' => 'span',
                 'class' => 'summary'
@@ -65,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Действия',
                     'buttons' => [
                         'delete' => function ($url) {
-                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную запись?")']);
+                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную статью?")']);
 
                         },
                     ],

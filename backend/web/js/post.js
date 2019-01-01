@@ -43,7 +43,8 @@ $('#btn-delete-img').click(function() {
                 this_btn.removeAttr('disabled');
                 loader.hide();
                 $('.breadcrumb').after(res);
-            },1000);
+                $.pjax.reload({container: '#pjax-delete-trash-img'});
+            },2000);
         },
         error: function () {
             alert('Ошибка!');

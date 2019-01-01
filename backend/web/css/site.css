@@ -158,3 +158,10 @@ a.desc:after {
 .count-old-img {
     display: block;
 }
+.count-trash {
+    margin-right: 10px;
+    font-weight: bold;
+}
+#pjax-delete-trash-img , #btn-delete-img{
+    display: inline-block;
+}

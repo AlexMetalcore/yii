@@ -177,16 +177,6 @@ class PortfolioController extends Controller
      */
     public function actionDelete($id)
     {
-        /*$files_portfolio = $this->findModel($id)->img;
-        if($files_portfolio) {
-            $files = explode(',' , $files_portfolio);
-            foreach ($files as $file) {
-                $path = \Yii::$app->basePath.'/web/'.$file.'';
-                if(file_exists($path)){
-                    unlink($path);
-                }
-            }
-        }*/
         $this->findModel($id)->delete();
         if (Yii::$app->request->isAjax) {
             echo 'Запись удалена';

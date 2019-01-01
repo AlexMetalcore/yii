@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'layout'=>"{summary}\n{items}\n{pager}",
         'summary' => 'Показано {count} из {totalCount} работ',
+        'emptyText' => 'Работ нет',
         'summaryOptions' => [
             'tag' => 'span',
             'class' => 'summary'

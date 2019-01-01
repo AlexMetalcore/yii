@@ -72,12 +72,6 @@ class PostController extends Controller
                     $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
                         new HelperImgCompression($filePath);
-                        if($filePath !== $model->img && $model->img) {
-                            $fullPath = \Yii::$app->basePath.'/web/'.$model->img.'';
-                            if (file_exists($fullPath)){
-                                unlink($fullPath);
-                            }
-                        }
                         $model->img = $filePath;
                     }
                 }
@@ -190,10 +184,6 @@ class PostController extends Controller
     public function actionDelete($id)
     {
         $model_post = $this->findModel($id);
-        /*$file_path = \Yii::$app->basePath.'/web/'.$model_post->img.'';
-        if(file_exists($file_path) && $model_post->img){
-            unlink($file_path);
-        }*/
         $model_post->delete();
         $model = LikePosts::find()->where(['post_id' => $id])->one();
         if($model) {
@@ -214,17 +204,20 @@ class PostController extends Controller
         $delete_img = $this->getTrashArrayPhoto();
 
         $what_files = [];
-        foreach ($delete_img as $img) {
-            $count = count($delete_img);
-            $this->trash = $count;
-            $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
-            $what_files[] = $file_delete;
-            $files_delete = implode('<br>' , $what_files);
-            if (file_exists($file_delete)) {
-                unlink($file_delete);
+        if($delete_img) {
+            foreach ($delete_img as $img) {
+                $count = count($delete_img);
+                $this->trash = $count;
+                $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
+                $what_files[] = $file_delete;
+                $files_delete = implode('<br>' , $what_files);
+                if (file_exists($file_delete)) {
+                    unlink($file_delete);
+                    \Yii::$app->session->setFlash('success' , 'Старые картинки удалены');
+                }
             }
-            \Yii::$app->session->setFlash('success' , 'Старые фото удалены');
         }
+        \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
         return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
     }
 
@@ -256,6 +249,7 @@ class PostController extends Controller
 
         $global_array_img = array_merge($imgportfolio , $imgpost);
         $delete_img = array_diff($allimgmew , $global_array_img);
+
         return $delete_img;
     }
 }

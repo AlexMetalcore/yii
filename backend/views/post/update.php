@@ -6,8 +6,8 @@ use backend\models\Category;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Post */
 
-$this->title = 'Обновить запись: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Записи', 'url' => ['index']];
+$this->title = 'Обновить статью: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновить';
 ?>

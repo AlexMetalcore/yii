@@ -42,7 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
-        $menuItems[] = ['label' => 'Записи', 'url' => ['/post/index']];
+        $menuItems[] = ['label' => 'Статьи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
         $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
