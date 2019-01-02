@@ -222,8 +222,9 @@ class PostController extends Controller
                     \Yii::$app->session->setFlash('success' , 'Старые картинки удалены');
                 }
             }
+        } else {
+            \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
         }
-        \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
         return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
     }
 }

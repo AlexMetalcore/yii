@@ -46,7 +46,7 @@ class HelperGetTrashPhotoFolder
     {
         $imgportfolio = [];
         $imgpost = [];
-        $allimgmew = [];
+        $onlyimg = [];
         $allimg = scandir($this->path);
 
         $portfolio = Portfolio::find()->all();
@@ -54,7 +54,7 @@ class HelperGetTrashPhotoFolder
 
         foreach ($allimg as $img) {
             if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
-                $allimgmew[] = $img;
+                $onlyimg[] = $img;
             }
         }
 
@@ -69,7 +69,7 @@ class HelperGetTrashPhotoFolder
         }
 
         $global_array_img = array_merge($imgportfolio , $imgpost);
-        $delete_img = array_diff($allimgmew , $global_array_img);
+        $delete_img = array_diff($onlyimg , $global_array_img);
 
         return $delete_img;
     }
