@@ -26,7 +26,11 @@
     }
     .post_img {
         width: 70%;
+        height: unset;
         margin-top: 30px;
+    }
+    .content {
+        padding: 20px 20px;
     }
 }
 @media screen and (max-width: 680px) {

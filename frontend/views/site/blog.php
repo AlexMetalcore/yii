@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="row">
             <?php foreach ($posts as $post) : ?>
-                <div class="col-md-4 block_border">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-4 block_border">
                     <div class="content_post">
                         <?php if($post->img): ?>
                             <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                         <div class="content">
-                            <?php if (strlen(Post::removeImgTags($post->content)) > 40): ?>
-                            <?= mb_substr(Post::removeImgTags($post->content), 0 , 40 ). '...'; ?>
+                            <?php if (strlen(Post::removeImgTags($post->content)) > 100): ?>
+                            <?= mb_substr(Post::removeImgTags($post->content), 0 , 100 ). '...'; ?>
                             <?php else:?>
                                 <?= Post::removeImgTags($post->content); ?>
                             <?php endif; ?>
