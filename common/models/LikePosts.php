@@ -44,4 +44,12 @@ class LikePosts extends ActiveRecord
     {
         return $this->hasOne(Post::class , ['id' => 'post_id']);
     }
+
+    /**
+     * @param $id
+     * @return array|ActiveRecord|null
+     */
+    public static function getOnePost($id) {
+        return self::find()->where(['post_id' => $id])->one();
+    }
 }

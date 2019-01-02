@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Post;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -14,7 +15,6 @@ use common\models\User;
  */
 class SiteController extends Controller
 {
-
     /**
      * @return array
      */
@@ -23,16 +23,11 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
                         'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -62,13 +57,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if(\Yii::$app->user->getId()) {
-            if(!User::isUserAdmin(User::findIdentity(\Yii::$app->user->getId())->username)) {
-                Yii::$app->user->logout();
-                return $this->redirect(['/site/login']);
-            }
-        }
-        return !Yii::$app->user->isGuest ? $this->render('index') : $this->redirect(['/site/login']);
+        $posts = Post::getLastPost();
+        $users = User::getLastRegisteredUser();
+        $populars = Post::getPopularPosts();
+        return $this->render('index' , compact('posts' , 'users' , 'populars'));
     }
 
 
@@ -82,9 +74,9 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin() && User::isUserAdmin($model->username)) {
+        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
             Yii::$app->session->setFlash('success' , 'Вы авторизировались как '.$model->username.' ');
-            return Yii::$app->getResponse()->redirect(['post/index']);
+            return $this->redirect(['post/index']);
         } else {
             return $this->render('login', [
                 'model' => $model,

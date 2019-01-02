@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LikePosts;
 use backend\helper\HelperImgCompression;
+use backend\helper\HelperGetTrashPhotoFolder;
 
 /**
  * Class PostController
@@ -34,7 +35,7 @@ class PostController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -58,7 +59,7 @@ class PostController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрашеваемой страници не существует.');
     }
 
     /**
@@ -97,6 +98,8 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        $count = new HelperGetTrashPhotoFolder();
+        $count = count($count->array_photo);
 
         $dataProvider = new ActiveDataProvider([
             'query' => Post::find(),
@@ -109,7 +112,7 @@ class PostController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'trash' => count($this->getTrashArrayPhoto()),
+            'trash' => $count,
         ]);
     }
 
@@ -120,8 +123,10 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -185,7 +190,7 @@ class PostController extends Controller
     {
         $model_post = $this->findModel($id);
         $model_post->delete();
-        $model = LikePosts::find()->where(['post_id' => $id])->one();
+        $model = LikePosts::getOnePost($id);
         if($model) {
             $model->delete();
         }
@@ -196,18 +201,19 @@ class PostController extends Controller
     /**
      * @var string
      */
-    public function actionClearOldImgs() {
+    public function actionClearOldImgs()
+    {
         if(!Yii::$app->request->isAjax) {
             $this->redirect(['site/error']);
         }
 
-        $delete_img = $this->getTrashArrayPhoto();
+        $get_trash_img = new HelperGetTrashPhotoFolder();
+        $delete_img = $get_trash_img->array_photo;
 
         $what_files = [];
         if($delete_img) {
             foreach ($delete_img as $img) {
                 $count = count($delete_img);
-                $this->trash = $count;
                 $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
                 $what_files[] = $file_delete;
                 $files_delete = implode('<br>' , $what_files);
@@ -219,37 +225,5 @@ class PostController extends Controller
         }
         \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
         return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
-    }
-
-    /**
-     * @return array
-     */
-    private function getTrashArrayPhoto () {
-        $imgportfolio = [];
-        $imgpost = [];
-        $allimgmew = [];
-        $allimg = scandir(\Yii::$app->basePath.'/web/images');
-        $portfolio = Portfolio::find()->all();
-        $posts = Post::find()->all();
-
-        foreach ($allimg as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
-                $allimgmew[] = $img;
-            }
-        }
-
-        foreach ($portfolio as $img) {
-            foreach (explode(',' , $img->img) as $imgitem){
-                $imgportfolio[] = basename($imgitem);
-            }
-        }
-        foreach ($posts as $post_img) {
-            $imgpost[] = basename($post_img->img);
-        }
-
-        $global_array_img = array_merge($imgportfolio , $imgpost);
-        $delete_img = array_diff($allimgmew , $global_array_img);
-
-        return $delete_img;
     }
 }

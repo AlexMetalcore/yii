@@ -31,17 +31,15 @@ AppAsset::register($this);
     <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(['/../favicon.png'])]); ?>
     <?php
     NavBar::begin([
-        'brandLabel' => 'Админ панель',
+        'brandLabel' => 'Админ панель' .Html::a('( Перейти на сайт )' , ['/../'] , ['class' => 'go-site']),
         'brandUrl' => '/admin/',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => ['/../']];
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Перейти на сайт', 'url' => '/../'];
         $menuItems[] = ['label' => 'Статьи', 'url' => ['/post/index']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];

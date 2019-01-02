@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="create-post">
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
+
     <div class="delete-all-img">
         <?php Pjax::begin(['id' => 'pjax-delete-trash-img']); ?>
         <span class="count-trash">Старых картинок: <?= $trash ? $trash : 'нету';?></span>

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\helper\HelperImgCompression;
+use backend\helper\HelperGetTrashPhotoFolder;
 
 
 /**
@@ -39,7 +40,7 @@ class PortfolioController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -99,6 +100,9 @@ class PortfolioController extends Controller
      */
     public function actionIndex()
     {
+        $get_img_trash = new HelperGetTrashPhotoFolder();
+        $trash = count($get_img_trash->array_photo);
+
         $dataProvider = new ActiveDataProvider([
             'query' => Portfolio::find(),
             'pagination' => [
@@ -107,10 +111,10 @@ class PortfolioController extends Controller
                 'pageSizeParam' => false,
             ],
         ]);
-        echo Yii::$app->session->getFlash('success');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'trash' => $trash,
         ]);
     }
 

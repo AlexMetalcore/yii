@@ -43,6 +43,11 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_USER = 10;
 
     /**
+     * @var integer
+     */
+    const COUNT_LAST_USER_REGISTERED = 6;
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -261,5 +266,22 @@ class User extends ActiveRecord implements IdentityInterface
             Yii::$app->session->setFlash('error' , 'Вы не имеете достаточно прав');
             return false;
         }
+    }
+
+    /**
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getDate()
+    {
+        \Yii::$app->formatter->locale = 'ru-RU';
+        return \Yii::$app->formatter->asDate($this->created_at);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getLastRegisteredUser() {
+        return self::find()->orderBy('created_at desc')->limit(self::COUNT_LAST_USER_REGISTERED)->all();
     }
 }

@@ -27,6 +27,14 @@ use common\implement\UploadFileInterfaces;
 class Post extends ActiveRecord implements UploadFileInterfaces
 {
     /**
+     * @var integer
+     */
+    const COUNT_LAST_POST = 6;
+    /**
+     * @var integer
+     */
+    const COUNT_POPULAR_POST = 6;
+    /**
      * @var string
      */
     public $upload;
@@ -164,5 +172,21 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     {
         $this->upload = UploadedFile::getInstance($this, 'upload');
         return $this->upload ? 'images/' . uniqid() . '.' . $this->upload->extension : $this->img;
+    }
+
+    /**
+     * @return array last post
+     */
+    public static function getLastPost()
+    {
+        return self::find()->orderBy('id desc')->limit(self::COUNT_LAST_POST)->all();
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getPopularPosts()
+    {
+        return self::find()->orderBy('viewed desc')->limit(self::COUNT_POPULAR_POST)->all();
     }
 }
