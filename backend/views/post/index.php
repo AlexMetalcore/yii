@@ -24,6 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
     </div>
+    <?php Pjax::begin([
+        'id' => 'pjax-list',
+    ]); ?>
     <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'layout'=>"{summary}\n{items}\n{pager}",
@@ -67,11 +70,35 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Действия',
                     'buttons' => [
                         'delete' => function ($url) {
-                            return Html::a('', ['..'.$url] , ['class' => 'glyphicon glyphicon-trash' , 'title' => 'Delete' , 'onClick' => 'return confirm("Вы хотите удалить данную статью?")']);
+                            return Html::a('', false , ['class' => 'glyphicon glyphicon-trash delete-post-item' , 'pjax-container-post' => 'pjax-list', 'delete-url-post'  => $url, 'title' => 'Delete']);
 
                         },
                     ],
                 ],
             ],
     ]); ?>
+    <?php
+    $this->registerJs("
+        $('.delete-post-item').click(function(e) {
+            $('.alert-success').children().children().trigger('click');
+            e.preventDefault();
+            var url = $(this).attr('delete-url-post');
+            var id = url.split('=');
+            var pjaxContainer = $(this).attr('pjax-container-post');
+            $.ajax({
+                url: '/admin/post/delete',
+                data: { id: id[1] },
+                type: 'GET',
+                success: function (res) {
+                    $('.breadcrumb').after('<div class=\"alert alert-success alert-dismissible\" role=\"alert\">'+res+'<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
+                },
+                error: function () {
+                    alert('Ошибка!');
+                }
+            }).done(function () {
+                $.pjax.reload({container: '#' + $.trim(pjaxContainer)});
+            });
+});
+    ");?>
+    <?php Pjax::end(); ?>
 </div>

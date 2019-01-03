@@ -17,13 +17,13 @@ use backend\models\Post;
 class HelperGetTrashPhotoFolder
 {
     /**
+     * @var int
+     */
+    public $count;
+    /**
      * @var string
      */
     private $path;
-    /**
-     * @var array
-     */
-    public $array_photo;
 
     /**
      * HelperClearTrashPhotoFolder constructor.
@@ -33,7 +33,8 @@ class HelperGetTrashPhotoFolder
     public function __construct()
     {
         $this->path = \Yii::$app->basePath.'/web/images';
-        $this->array_photo = $this->getTrashArrayPhoto();
+        /*transfer variable to view in any controller*/
+        $this->count = count($this->getTrashArrayPhoto());
 
     }
 
@@ -72,5 +73,31 @@ class HelperGetTrashPhotoFolder
         $delete_img = array_diff($onlyimg , $global_array_img);
 
         return $delete_img;
+    }
+
+    /**
+     * @return string
+     */
+    public function deleteTrashImg () {
+
+        $delete_img = $this->getTrashArrayPhoto();
+
+        $what_files = [];
+        if($delete_img) {
+            foreach ($delete_img as $img) {
+                $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
+                $what_files[] = $file_delete;
+                /*transfer variable to view in any controller*/
+                $files_delete = implode('<br>' , $what_files);
+                if (file_exists($file_delete)) {
+                    unlink($file_delete);
+                    \Yii::$app->session->setFlash('success' , 'Старые картинки удалены');
+                }
+            }
+            return $files_delete;
+        } else {
+            \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
+        }
+
     }
 }

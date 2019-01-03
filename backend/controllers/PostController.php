@@ -99,7 +99,7 @@ class PostController extends Controller
     public function actionIndex()
     {
         $count = new HelperGetTrashPhotoFolder();
-        $count = count($count->array_photo);
+        $count = $count->count;
 
         $dataProvider = new ActiveDataProvider([
             'query' => Post::find(),
@@ -190,11 +190,16 @@ class PostController extends Controller
     {
         $model_post = $this->findModel($id);
         $model_post->delete();
+        if (Yii::$app->request->isAjax) {
+            echo 'Запись удалена';
+        }
+        else {
+            return $this->redirect(['index']);
+        }
         $model = LikePosts::getOnePost($id);
         if($model) {
             $model->delete();
         }
-        return $this->redirect(['index']);
     }
 
 
@@ -208,23 +213,10 @@ class PostController extends Controller
         }
 
         $get_trash_img = new HelperGetTrashPhotoFolder();
-        $delete_img = $get_trash_img->array_photo;
 
-        $what_files = [];
-        if($delete_img) {
-            foreach ($delete_img as $img) {
-                $count = count($delete_img);
-                $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
-                $what_files[] = $file_delete;
-                $files_delete = implode('<br>' , $what_files);
-                if (file_exists($file_delete)) {
-                    unlink($file_delete);
-                    \Yii::$app->session->setFlash('success' , 'Старые картинки удалены');
-                }
-            }
-        } else {
-            \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
-        }
+        $count = $get_trash_img->count;
+        $files_delete = $get_trash_img->deleteTrashImg();
+
         return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
     }
 }

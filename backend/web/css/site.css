@@ -135,7 +135,7 @@ a.desc:after {
     height: 100px;
     width: 20%;
 }
-.delete-portfolio-item:hover {
+.delete-portfolio-item:hover , .delete-post-item:hover {
     cursor: pointer;
 }
 .portfolio-loader {

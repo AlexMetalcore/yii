@@ -52,10 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-4 full-width">
         <div class="category_widget category_top_widget">
-            <?php if ($this->beginCache('CategoryWidget', ['duration' => 3600])):?>
+            <?php //if ($this->beginCache('CategoryWidget', ['duration' => 600])):?>
                 <?=CategoryWidget::widget();?>
-                <?php $this->endCache(); ?>
-            <?php endif;?>
+                <?php //$this->endCache(); ?>
+            <?php //endif;?>
         </div>
     </div>
 </div>

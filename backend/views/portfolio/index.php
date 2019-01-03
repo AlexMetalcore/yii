@@ -11,10 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portfolio-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin([
-        'id' => 'pjax-list',
-    ]); ?>
-
     <div class="create-portfolio">
         <?= Html::a(Yii::t('app', 'Создать работу'), ['create'], ['class' => 'btn btn-success']) ?>
     </div>
@@ -26,6 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
     </div>
+    <?php Pjax::begin([
+        'id' => 'pjax-list',
+    ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'layout'=>"{summary}\n{items}\n{pager}",

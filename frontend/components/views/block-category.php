@@ -6,7 +6,7 @@
  * Time: 18:27
  */
 use yii\helpers\Url;
-
+use yii\bootstrap\Html;
 ?>
 <?php foreach ($categories as $category): ?>
 <?php if(isset($count_posts[$category->id])): ?>
@@ -23,10 +23,13 @@ use yii\helpers\Url;
             <?php endif;?>
     <?php endforeach; ?>
     </div>
-    <hr/>
+    <hr class="underline-block-post"/>
     <?php endif;?>
 <?php endforeach; ?>
 <b class="popular">Популярные статьи</b>
 <?php foreach ($popular as $post): ?>
+    <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
+        <?= Html::img('/admin/'.$post->img.'' ,
+            ['alt' => $post->title , 'class' => 'post-widget']); ?></a>
     <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>" class="popular-name"> - <?= ucfirst($post->title);?></a>
 <?php endforeach;?>

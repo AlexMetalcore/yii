@@ -20,15 +20,6 @@ use backend\helper\HelperGetTrashPhotoFolder;
 class PortfolioController extends Controller
 {
     /**
-     * @var
-     */
-    const PARAMETERS_QUALITY = 80;
-    /**
-     * @var
-     */
-    const PARAMETERS_COMPRESSION = 8;
-
-    /**
      * {@inheritdoc}
      */
     public function behaviors()
@@ -101,7 +92,7 @@ class PortfolioController extends Controller
     public function actionIndex()
     {
         $get_img_trash = new HelperGetTrashPhotoFolder();
-        $trash = count($get_img_trash->array_photo);
+        $trash = $get_img_trash->count;
 
         $dataProvider = new ActiveDataProvider([
             'query' => Portfolio::find(),

@@ -477,8 +477,25 @@ a.link_post {
 }
 .popular , .popular-name {
     display: block;
+    text-align: center;
+    padding: 5px 0px;
 }
 .popular-name {
     color: black;
     margin-left: 20px;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 10px;
+    font-size: 16px;
+}
+.underline-block-post {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.post-widget {
+    position: relative;
+    width: 80%;
+    display: block;
+    margin-top: 15px;
+    margin: 0 10%;
 }
