@@ -22,7 +22,6 @@ use backend\helper\HelperGetTrashPhotoFolder;
  */
 class PostController extends Controller
 {
-    public $trash;
     /**
      * @return array
      */

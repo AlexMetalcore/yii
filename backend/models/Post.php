@@ -138,7 +138,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     /**
      * @return bool
      */
-    public function ViwedCounter()
+    public function ViwedCounter($id)
     {
         $this->viewed += 1;
         $this->save(false);

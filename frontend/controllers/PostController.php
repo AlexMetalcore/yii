@@ -13,36 +13,47 @@ use frontend\components\CategoryWidget;
  * Class PostController
  * @package frontend\controllers
  */
-class PostController extends Controller{
-
+class PostController extends Controller
+{
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
     /**
      * @param $id
      * @return string
      */
     public function actionView ($id) {
-        $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
-        if(!$post) {
-            $this->redirect(['/site/error']);
-        }
-        else {
-            if(!Yii::$app->request->isAjax){
-                $post->ViwedCounter();
+            $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
+            if(!$post) {
+                $this->redirect(['/site/error']);
             }
-            $count = count($post->like);
-            if (!Yii::$app->user->isGuest) {
-                $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
-                if($user){
-                    foreach ($post->like as $like) {
-                        if($like->like_author == $user) {
-                            $model_author = $user;
-                            break;
-                        }
-                    }
-                    return $this->render('view' , compact('post' , 'count' , 'model_author'));
+            else {
+                if (!Yii::$app->request->isAjax) {
+                    $post->ViwedCounter($id);
                 }
+                $count = count($post->like);
+                if (!Yii::$app->user->isGuest) {
+                    $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
+                    if($user){
+                        foreach ($post->like as $like) {
+                            if($like->like_author == $user) {
+                                $model_author = $user;
+                                break;
+                            }
+                        }
+                        return $this->render('view' , compact('post' , 'count' , 'model_author'));
+                    }
+                }
+                return $this->render('view' , compact('post' ,'count'));
             }
-            return $this->render('view' , compact('post' ,'count'));
-        }
     }
 
     /**

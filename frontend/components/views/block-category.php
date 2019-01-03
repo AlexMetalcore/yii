@@ -31,5 +31,5 @@ use yii\bootstrap\Html;
     <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
         <?= Html::img('/admin/'.$post->img.'' ,
             ['alt' => $post->title , 'class' => 'post-widget']); ?></a>
-    <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>" class="popular-name"> - <?= ucfirst($post->title);?></a>
+    <a href="<?= Url::to(['post/view' , 'id' => $post->id]);?>" class="popular-name"> - <?= $post->title;?></a>
 <?php endforeach;?>

@@ -108,6 +108,8 @@ a.link_post {
 }
 .category_content {
     padding: 10px 10px;
+    line-height: 30px;
+    font-size: 16px;
 }
 .category_background {
     background: white;
@@ -478,15 +480,17 @@ a.link_post {
 .popular , .popular-name {
     display: block;
     text-align: center;
-    padding: 5px 0px;
+    padding: 5px 0;
+    font-size: 16px;
 }
 .popular-name {
-    color: black;
+    color: #333;
     margin-left: 20px;
     text-align: center;
     font-weight: bold;
     padding: 10px 10px;
     font-size: 16px;
+    text-transform: uppercase;
 }
 .underline-block-post {
     margin-top: 10px;

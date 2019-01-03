@@ -24,9 +24,12 @@ use yii\data\Pagination;
  */
 class SiteController extends Controller
 {
+    /**
+     * @var string
+     */
     const MAX_ITEM_BLOG = 12;
     /**
-     * @var
+     * @var string
      */
     const LAST_COUNT_POST = 6;
     /**
@@ -125,14 +128,15 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Письмо успешно отправлено');
-            } else {
-                Yii::$app->session->setFlash('error', 'Ошибка отправки');
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                    Yii::$app->session->setFlash('success', 'Письмо успешно отправлено');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка отправки');
+                }
+                return $this->refresh();
             }
-
-            return $this->refresh();
         } else {
             return $this->render('contact', [
                 'model' => $model,
