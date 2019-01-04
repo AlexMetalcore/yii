@@ -136,7 +136,7 @@ class PortfolioController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+                //return $this->redirect(['view', 'id' => $model->id]);
             }
         }
         return $this->render('create', [
@@ -157,7 +157,7 @@ class PortfolioController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                //return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
