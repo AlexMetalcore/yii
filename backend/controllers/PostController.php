@@ -3,7 +3,6 @@
 namespace backend\controllers;
 
 use backend\models\Category;
-use common\models\Portfolio;
 use Yii;
 use common\models\User;
 use backend\models\Post;

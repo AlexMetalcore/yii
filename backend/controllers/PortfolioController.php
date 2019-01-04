@@ -80,6 +80,11 @@ class PortfolioController extends Controller
                                 return $e->getMessage();
                             }
                         }
+                        else {
+                            echo 'Ошибка';
+
+                            die;
+                        }
                     }
                 }
             }
