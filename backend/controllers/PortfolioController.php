@@ -70,9 +70,6 @@ class PortfolioController extends Controller
                     $array_img = [];
                     foreach ($files as $file) {
                         $path = 'images/' . uniqid() . '.' . $file->extension;
-                        debug($path);
-                        debug($file->saveAs($path));
-                        die;
                         if ($file->saveAs($path)) {
                             try {
                                 new HelperImgCompression($path);
@@ -84,9 +81,7 @@ class PortfolioController extends Controller
                             }
                         }
                         else {
-                            echo 'Ошибка';
-
-                            die;
+                            return $model->addError('file' , 'Не загрузился файл');
                         }
                     }
                 }
