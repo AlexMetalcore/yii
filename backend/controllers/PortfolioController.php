@@ -71,6 +71,7 @@ class PortfolioController extends Controller
                     foreach ($files as $file) {
                         $path = 'images/' . uniqid() . '.' . $file->extension;
                         debug($path);
+                        debug($file->saveAs($path));
                         die;
                         if ($file->saveAs($path)) {
                             try {
