@@ -80,9 +80,6 @@ class PortfolioController extends Controller
                                 return $e->getMessage();
                             }
                         }
-                        else {
-                            return $model->addError('file' , 'Не загрузился файл');
-                        }
                     }
                 }
             }
@@ -135,8 +132,13 @@ class PortfolioController extends Controller
         $this->handlePortfolioPhoto($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                //return $this->redirect(['view', 'id' => $model->id]);
+            if (!$model->attributes['img']) {
+                $model->addError('gallery' , 'Ошибка загрузки файла');
+            }
+            else {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
         return $this->render('create', [
@@ -156,8 +158,13 @@ class PortfolioController extends Controller
         $this->handlePortfolioPhoto($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                //return $this->redirect(['view', 'id' => $model->id]);
+            if (!$model->attributes['img']) {
+                $model->addError('gallery' , 'Ошибка загрузки файла');
+            }
+            else {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 

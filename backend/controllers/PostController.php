@@ -139,8 +139,13 @@ class PostController extends Controller
         $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if (!$model->attributes['img']) {
+                $model->addError('upload' , 'Ошибка загрузки файла');
+            }
+            else {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 
@@ -164,8 +169,13 @@ class PostController extends Controller
         $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if (!$model->attributes['img']) {
+                $model->addError('upload' , 'Ошибка загрузки файла');
+            }
+            else {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 
