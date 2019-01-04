@@ -70,6 +70,8 @@ class PortfolioController extends Controller
                     $array_img = [];
                     foreach ($files as $file) {
                         $path = 'images/' . uniqid() . '.' . $file->extension;
+                        debug($path);
+                        die;
                         if ($file->saveAs($path)) {
                             try {
                                 new HelperImgCompression($path);
