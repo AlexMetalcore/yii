@@ -20,6 +20,11 @@ use common\implement\UploadFileInterfaces;
 class Portfolio extends ActiveRecord implements UploadFileInterfaces
 {
     /**
+     * @var integer
+     */
+    const COUNT_LAST_POST = 6;
+
+    /**
      * @var
      */
     public $gallery;
@@ -73,5 +78,10 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
     {
         $img = Portfolio::findOne($id);
         return $img;
+    }
+
+    public static function getLastPortfolio ()
+    {
+        return self::find()->orderBy('id desc')->limit(self::COUNT_LAST_POST)->all();
     }
 }

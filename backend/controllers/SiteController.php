@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use backend\models\Post;
+use common\models\Portfolio;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,7 +61,8 @@ class SiteController extends Controller
         $posts = Post::getLastPost();
         $users = User::getLastRegisteredUser();
         $populars = Post::getPopularPosts();
-        return $this->render('index' , compact('posts' , 'users' , 'populars'));
+        $portfolios = Portfolio::getLastPortfolio();
+        return $this->render('index' , compact('posts' , 'users' , 'populars' , 'portfolios'));
     }
 
 

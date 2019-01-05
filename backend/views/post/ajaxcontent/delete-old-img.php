@@ -13,11 +13,4 @@
         <span class="count-old-img">Общее количество : <b><?=$count;?></b> </span>
         <span><?= $files_delete;?></span>
     </div>
-<?php else:?>
-<div class="alert alert-warning alert-dismissible" role="alert">
-    <?php echo Yii::$app->session->getFlash('warning'); ?>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
 <?php endif;?>

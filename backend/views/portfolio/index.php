@@ -18,9 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="delete-all-img">
         <?php Pjax::begin(['id' => 'pjax-delete-trash-img']); ?>
         <span class="count-trash">Старых картинок: <?= $trash ? $trash : 'нету';?></span>
-        <?php Pjax::end(); ?>
 
-        <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img']); ?>
+        <?= Html::button('Удалить старые картинки'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-delete']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-delete-img' , $trash ? '' : 'disabled' => 'true']); ?>
+        <?php Pjax::end(); ?>
     </div>
     <?php Pjax::begin([
         'id' => 'pjax-list',

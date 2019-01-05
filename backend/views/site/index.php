@@ -38,11 +38,28 @@ $this->title = 'Веб заметки (админка)';
             <div class="last-popular-block">
                 <?php foreach ($populars as $popular):?>
                     <div class="popular-block">
-                        <?= Html::a($popular->title , ['/post/view' , 'id' => $post->id] , ['class' => 'popular-post']);?><span class="author-post-name">просмотров (<?=$popular->viewed; ?>)</span>
+                        <?= Html::a($popular->title , ['/post/view' , 'id' => $popular->id] , ['class' => 'popular-post']);?><span class="author-post-name">просмотров (<?=$popular->viewed; ?>)</span>
                     </div>
                     <hr class="line-under-name">
                 <?php endforeach;?>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <span class="portfolios-headline">Последние работы</span>
+            <div class="last-portfolios-block">
+                <?php if ($portfolios): ?>
+                <?php foreach ($portfolios as $portfolio):?>
+                    <div class="portfolio-block">
+                        <?= Html::a($portfolio->title , ['/portfolio/view' , 'id' => $portfolio->id] , ['class' => 'portfolio-name']);?>
+                    </div>
+                    <hr class="line-under-name">
+                <?php endforeach;?>
+                <?php else: ?>
+                Работ пока нету...
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
+
 </div>

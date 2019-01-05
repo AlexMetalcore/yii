@@ -165,23 +165,23 @@ a.desc:after {
 #pjax-delete-trash-img , #btn-delete-img{
     display: inline-block;
 }
-.post-headline {
+.post-headline , .portfolios-headline{
     font-size: 20px;
     font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     font-weight: 900;
     margin: 10px 0px;
     display: block;
 }
-.post-author-block , .author-block , .popular-block{
+.post-author-block , .author-block , .popular-block , .portfolio-block {
     display: block;
     padding: 5px 5px;
 }
-.last-post , .popular-post {
+.last-post , .popular-post  , .portfolio-name{
     color: black;
     font-size: 16px;
     margin-right: 15px;
 }
-.last-post-block , .last-user-register-block , .last-popular-block{
+.last-post-block , .last-user-register-block , .last-popular-block ,  .last-portfolios-block{
     background-color: white;
     padding: 10px 15px;
 }
