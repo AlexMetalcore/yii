@@ -95,9 +95,6 @@ class HelperGetTrashPhotoFolder
                 }
             }
             return $files_delete;
-        } else {
-            \Yii::$app->session->setFlash('warning' , 'Нету картинок для удаления');
         }
-
     }
 }
