@@ -23,7 +23,7 @@ $this->title = 'Веб заметки';
                             ['alt' => $post['title'] , 'class' => 'post_img']); ?></a>
                     <?php else: ?>
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
-                            <?= Html::img('/admin/images/no-img.png' ,
+                            <?= Html::img('/admin/images/staticimg/no-img.png' ,
                                 ['alt' => $post->title , 'class' => 'post_img']); ?></a>
                     <?php endif;?>
                     <span class="title">
