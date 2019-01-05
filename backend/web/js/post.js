@@ -56,3 +56,26 @@ $('#btn-delete-img').click(function() {
         }
     });
 });
+
+$('#btn-compress-img').click(function() {
+    var this_btn = $(this);
+    $('.alert-dismissible').hide();
+    var loader = $('.loader-compression');
+    loader.fadeIn();
+    this_btn.prop('disabled', true);
+    $.ajax({
+        url: '/admin/settings/compress-img',
+        type: 'POST',
+        success: function (res) {
+            setTimeout(function() {
+                this_btn.removeAttr('disabled');
+                loader.hide();
+                $('.static-images').after('<div class="alert alert-success alert-dismissible" role="alert">'+res+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $.pjax.reload({container: '#pjax-compress-img'});
+            },3000);
+        },
+        error: function () {
+            alert('Ошибка!');
+        }
+    });
+});

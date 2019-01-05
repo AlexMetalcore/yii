@@ -11,10 +11,22 @@ namespace backend\controllers;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use backend\helper\HelperGetTrashPhotoFolder;
+use backend\helper\HelperImageFolder;
 
+/**
+ * Class SettingsController
+ * @package backend\controllers
+ */
 class SettingsController extends Controller
 {
+    /**
+     * @var
+     */
+    const PARAMETERS_QUALITY = 100;
+    /**
+     * @var
+     */
+    const PARAMETERS_COMPRESSION = 8;
     /**
      * @return array
      */
@@ -41,16 +53,22 @@ class SettingsController extends Controller
     }
 
 
+    /**
+     * @return string
+     * @throws \ImagickException
+     */
     public function actionIndex()
     {
-        $object_photo = new HelperGetTrashPhotoFolder();
+        $object_photo = new HelperImageFolder();
         $what_image = $object_photo->array_image;
         $img_delete = [];
         foreach ($what_image as $img) {
             $img_delete[] = $object_photo->path.$img;
         }
         $trash = count($what_image);
-        return $this->render('index' , compact('trash' , 'img_delete'));
+        $staticimg = $object_photo->compressFolderImage();
+
+        return $this->render('index' , compact('trash' , 'img_delete' , 'staticimg'));
     }
 
     /**
@@ -62,10 +80,33 @@ class SettingsController extends Controller
             $this->redirect(['site/error']);
         }
 
-        $get_trash_img = new HelperGetTrashPhotoFolder();
+        $get_trash_img = new HelperImageFolder();
         $get_trash_img->deleteTrashImg();
 
         return $this->renderAjax('ajaxcontent/delete-old-img');
+    }
+
+    /**
+     * @param int $compression
+     * @param int $quality
+     * @return string
+     * @throws \ImagickException
+     */
+    public function actionCompressImg() {
+        $object_photo = new HelperImageFolder();
+        $staticimg = $object_photo->compressFolderImage();
+        if ($staticimg) {
+            foreach ($staticimg as $img) {
+                $imgs = new \Imagick($img);
+                $imgs->setImageCompression(true);
+                $imgs->setImageCompression(self::PARAMETERS_COMPRESSION);
+                $imgs->setImageCompressionQuality(self::PARAMETERS_QUALITY);
+                $imgs->writeImage($img);
+                $imgs->clear();
+                $imgs->destroy();
+            }
+            return 'Сжатие выполнено';
+        }
     }
 
 }

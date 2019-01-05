@@ -7,14 +7,15 @@
  */
 
 namespace backend\helper;
+use backend\helper\HelperImgCompression;
 use common\models\Portfolio;
 use backend\models\Post;
 
 /**
- * Class HelperClearTrashPhotoFolder
+ * Class HelperImageFolder
  * @package backend\helper
  */
-class HelperGetTrashPhotoFolder
+class HelperImageFolder
 {
     /**
      * @var array
@@ -26,7 +27,7 @@ class HelperGetTrashPhotoFolder
     public $path;
 
     /**
-     * HelperClearTrashPhotoFolder constructor.
+     * HelperImageFolder constructor.
      * @param Portfolio $portfolio
      * @param Post $post
      */
@@ -94,5 +95,22 @@ class HelperGetTrashPhotoFolder
                 }
             }
         }
+    }
+
+    /**
+     * @return array
+     * @throws \ImagickException
+     */
+    public function compressFolderImage ()
+    {
+        $path = \Yii::$app->basePath.'/web/images/staticimg/';
+        $get_all_img = scandir($path);
+        $onlyimg = [];
+        foreach ($get_all_img as $img) {
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
+                $onlyimg[] = $path.$img;
+            }
+        }
+        return $onlyimg;
     }
 }

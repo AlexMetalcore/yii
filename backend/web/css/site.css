@@ -150,7 +150,7 @@ a.desc:after {
 .create-post , .create-portfolio {
     display: inline-block;
 }
-.loader-delete {
+.loader-delete , .loader-compression {
     width: 20px;
     margin-left: 10px;
     display: none;
@@ -214,18 +214,28 @@ hr.line-under-name {
 .settings > .delete-all-img {
     float: unset;
 }
-.img_delete_item {
+.img_delete_item , .static-img {
     color: red;
     font-style: italic;
 }
-.all-img-delete-block {
+.static-img {
+    display: inline-block;
+}
+.all-img-delete-block , .all-img-compress-block {
     background-color: white;
     padding: 20px 20px;
     margin: 15px 0;
     border-radius: 10px;
 }
-.trash-images {
+.trash-images , .static-images {
     font-size: 20px;
     font-weight: bold;
     display: block;
+}
+.static-images {
+    margin-top: 20px;
+}
+#compression , #quality {
+    width: 15%;
+    margin: 10px 0;
 }
