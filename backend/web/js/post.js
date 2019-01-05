@@ -2,21 +2,24 @@ function add_previw_img(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         var loader = $('.portfolio-loader');
+        var btn = $('.upload_gallary');
         reader.onload = function (e) {
-            if(!jQuery('.preview_img').attr('src')){
+            if(!jQuery('.preview_img').attr('src')) {
                 loader.fadeIn();
-                $('.upload_gallary').prop('disabled', true);
+                btn.prop('disabled', true);
                 setTimeout(function (){
                     jQuery('#post-upload , #portfolio-gallery').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
                     loader.fadeOut();
-                    $('.upload_gallary').removeAttr('disabled');
+                    btn.removeAttr('disabled');
                 } ,1000);
             }
             else{
                 loader.fadeIn();
+                btn.prop('disabled', true);
                 setTimeout(function (){
                     $('.preview_img').attr('src', e.target.result);
                     loader.fadeOut();
+                    btn.removeAttr('disabled');
                 },1000);
             }
         }
