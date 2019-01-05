@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Post */
+/* @var $model backend\models\Post */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Статьи', 'url' => ['index']];
@@ -33,12 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:html',
             [
                     'attribute' => 'img',
-                    'value' => $model->img ? '<img src="/admin/'.$model->img.'" height="200" width="300"/>' : 'фото нету',
+                    'value' => $model->img ? '<img src="/admin/'.$model->img.'" width="25%"/>' : 'фото нету',
                     'format'    => 'raw',
             ],
             'category.title',
             'author.username',
-            'publish_status',
+            [
+                    'attribute' => 'publish_status',
+                    'header' => 'Статус статьи',
+                    'value'  => function($model) {
+                        return $model->publish_status == 'publish' ? 'Опубликовано' : 'Черновик';
+                    },
+            ],
             'publish_date',
         ],
     ]) ?>

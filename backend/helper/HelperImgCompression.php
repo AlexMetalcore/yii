@@ -31,13 +31,12 @@ class HelperImgCompression
     /**
      * HelperImgCompression constructor.
      * @param $path
+     * @throws \ImagickException
      */
-
     public function __construct($path)
     {
         $this->path = $path;
         $this->ImgCompression();
-
     }
 
 
@@ -47,9 +46,12 @@ class HelperImgCompression
     private function ImgCompression () {
         $full_path_file = \Yii::$app->basePath.'/web/'.$this->path;
         $img = new \Imagick($full_path_file);
-        $img->setImageCompression(true);
-        $img->setImageCompression(self::PARAMETERS_COMPRESSION);
-        $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
+        if (filesize($full_path_file) > 1024*1000) {
+            $img->setImageCompression(true);
+            $img->setImageCompression(self::PARAMETERS_COMPRESSION);
+            $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
+            $img->writeImage($this->path);
+        }
         $img->writeImage($this->path);
         chmod($full_path_file, 0777);
         $img->clear();

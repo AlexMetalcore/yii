@@ -47,6 +47,7 @@ class HelperGetTrashPhotoFolder
     {
         $imgportfolio = [];
         $imgpost = [];
+        $imgpostthumb = [];
         $onlyimg = [];
         $allimg = scandir($this->path);
 
@@ -67,9 +68,11 @@ class HelperGetTrashPhotoFolder
         }
         foreach ($posts as $post_img) {
             $imgpost[] = basename($post_img->img);
+            $imgpostthumb[] = basename($post_img->thumb_img);
+            $allimginpost = array_merge($imgpost , $imgpostthumb);
         }
 
-        $global_array_img = array_merge($imgportfolio , $imgpost);
+        $global_array_img = array_merge($imgportfolio , $allimginpost);
         $delete_img = array_diff($onlyimg , $global_array_img);
 
         return $delete_img;

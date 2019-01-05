@@ -17,9 +17,9 @@ $this->title = 'Веб заметки';
         <?php foreach ($posts as $post) : ?>
             <div class="col-lg-4 col-md-4  col-sm-4 col-4 block_border">
                 <div class="content_post">
-                    <?php if($post->img): ?>
+                    <?php if($post->thumb_img): ?>
                     <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
-                        <?= Html::img('/admin/'.$post->img.'' ,
+                        <?= Html::img('/admin/'.$post->thumb_img.'' ,
                             ['alt' => $post['title'] , 'class' => 'post_img']); ?></a>
                     <?php else: ?>
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
