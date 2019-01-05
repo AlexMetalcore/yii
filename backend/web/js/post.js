@@ -32,14 +32,17 @@ $('.upload_gallary').click(function() {
 });
 
 $('#btn-delete-img').click(function() {
+   var this_btn = $(this);
    $('.alert-dismissible').hide();
    var loader = $('.loader-delete');
    loader.fadeIn();
+   this_btn.prop('disabled', true);
     $.ajax({
         url: '/admin/post/clear-old-imgs',
         type: 'POST',
         success: function (res) {
             setTimeout(function() {
+                this_btn.removeAttr('disabled');
                 loader.hide();
                 $('.breadcrumb').after(res);
                 $.pjax.reload({container: '#pjax-delete-trash-img'});
