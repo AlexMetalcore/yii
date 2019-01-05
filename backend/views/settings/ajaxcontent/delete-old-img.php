@@ -10,7 +10,5 @@
             <span aria-hidden="true">&times;</span>
         </button>
         <?php echo Yii::$app->session->getFlash('success'); ?>
-        <span class="count-old-img">Общее количество : <b><?=$count;?></b> </span>
-        <span><?= $files_delete;?></span>
     </div>
 <?php endif;?>

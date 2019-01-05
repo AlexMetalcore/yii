@@ -91,9 +91,6 @@ class PortfolioController extends Controller
      */
     public function actionIndex()
     {
-        $get_img_trash = new HelperGetTrashPhotoFolder();
-        $trash = $get_img_trash->count;
-
         $dataProvider = new ActiveDataProvider([
             'query' => Portfolio::find(),
             'pagination' => [
@@ -104,8 +101,7 @@ class PortfolioController extends Controller
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'trash' => $trash,
+            'dataProvider' => $dataProvider
         ]);
     }
 

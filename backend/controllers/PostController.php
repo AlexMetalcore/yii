@@ -96,9 +96,6 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        $count = new HelperGetTrashPhotoFolder();
-        $count = $count->count;
-
         $dataProvider = new ActiveDataProvider([
             'query' => Post::find(),
             'pagination' => [
@@ -109,8 +106,7 @@ class PostController extends Controller
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'trash' => $count,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -208,23 +204,5 @@ class PostController extends Controller
         if($model) {
             $model->delete();
         }
-    }
-
-
-    /**
-     * @var string
-     */
-    public function actionClearOldImgs()
-    {
-        if(!Yii::$app->request->isAjax) {
-            $this->redirect(['site/error']);
-        }
-
-        $get_trash_img = new HelperGetTrashPhotoFolder();
-
-        $count = $get_trash_img->count;
-        $files_delete = $get_trash_img->deleteTrashImg();
-
-        return $this->renderAjax('ajaxcontent/delete-old-img' , compact('count' , 'files_delete'));
     }
 }

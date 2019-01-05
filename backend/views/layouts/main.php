@@ -44,6 +44,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
         $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
+        $menuItems[] = ['label' => 'Настройки сайта', 'url' => ['/settings/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -62,7 +63,7 @@ AppAsset::register($this);
 
     <div class="container">
         <?= Breadcrumbs::widget([
-            'homeLink' => ['label' => 'Главная', 'url' => '/admin/post/index'],
+            'homeLink' => ['label' => 'Главная', 'url' => '/admin'],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>

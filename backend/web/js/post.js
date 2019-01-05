@@ -41,7 +41,7 @@ $('#btn-delete-img').click(function() {
    loader.fadeIn();
    this_btn.prop('disabled', true);
     $.ajax({
-        url: '/admin/post/clear-old-imgs',
+        url: '/admin/settings/clear-old-imgs',
         type: 'POST',
         success: function (res) {
             setTimeout(function() {

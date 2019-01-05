@@ -17,13 +17,13 @@ use backend\models\Post;
 class HelperGetTrashPhotoFolder
 {
     /**
-     * @var int
+     * @var array
      */
-    public $count;
+    public $array_image;
     /**
      * @var string
      */
-    private $path;
+    public $path;
 
     /**
      * HelperClearTrashPhotoFolder constructor.
@@ -32,9 +32,9 @@ class HelperGetTrashPhotoFolder
      */
     public function __construct()
     {
-        $this->path = \Yii::$app->basePath.'/web/images';
+        $this->path = \Yii::$app->basePath.'/web/images/';
         /*transfer variable to view in any controller*/
-        $this->count = count($this->getTrashArrayPhoto());
+        $this->array_image = $this->getTrashArrayPhoto();
 
     }
 
@@ -82,19 +82,14 @@ class HelperGetTrashPhotoFolder
 
         $delete_img = $this->getTrashArrayPhoto();
 
-        $what_files = [];
         if($delete_img) {
             foreach ($delete_img as $img) {
-                $file_delete = \Yii::$app->basePath.'/web/images/'.$img;
-                $what_files[] = $file_delete;
-                /*transfer variable to view in any controller*/
-                $files_delete = implode('<br>' , $what_files);
+                $file_delete = $this->path.$img;
                 if (file_exists($file_delete)) {
                     unlink($file_delete);
                     \Yii::$app->session->setFlash('success' , 'Старые картинки удалены');
                 }
             }
-            return $files_delete;
         }
     }
 }
