@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use yii\web\ForbiddenHttpException;
 
 /**
  * Class CategoryController
@@ -31,6 +31,13 @@ class CategoryController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => false,
+                        'denyCallback' => function ($rule, $action) {
+                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
+                            return true;
+                        },
                     ],
                 ],
             ],

@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use backend\helper\HelperImageFolder;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Class SettingsController
@@ -40,6 +41,13 @@ class SettingsController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => false,
+                        'denyCallback' => function ($rule, $action) {
+                            throw new ForbiddenHttpException(\Yii::t('app', 'У вас нет доступа к этой странице'));
+                            return true;
+                        },
                     ],
                 ],
             ],

@@ -7,13 +7,14 @@ use Yii;
 use common\models\User;
 use backend\models\Post;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LikePosts;
 use backend\helper\HelperImgCompression;
-use backend\helper\HelperGetTrashPhotoFolder;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Class PostController
@@ -42,6 +43,13 @@ class PostController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => false,
+                        'denyCallback' => function ($rule, $action) {
+                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
+                            return true;
+                        },
                     ],
                 ],
             ],

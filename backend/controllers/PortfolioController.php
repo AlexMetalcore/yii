@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\helper\HelperImgCompression;
-use backend\helper\HelperGetTrashPhotoFolder;
+use yii\web\ForbiddenHttpException;
 
 
 /**
@@ -32,6 +32,13 @@ class PortfolioController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => false,
+                        'denyCallback' => function ($rule, $action) {
+                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
+                            return true;
+                        },
                     ],
                 ],
             ],
