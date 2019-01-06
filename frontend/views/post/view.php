@@ -17,11 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-8 content_post_view">
             <h1><?= $post->title;?></h1>
             <span class="date">Дата публикации: <?= $post->getDate(); ?></span>
-        , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
+          Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                         title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
-        <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
+        <span class="author_name"> Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
             <?php if (!Yii::$app->user->isGuest): ?>
-                , Нравится :
+                Нравится :
             <?= (!isset($model_author) && empty($model_author)) ? Html::img('/admin/images/staticimg/heart-outline.png' , ['class' => 'heart-like']) : Html::img('/admin/images/staticimg/heart_red.png' , ['class' => 'heart-like-active']); ?>
                 <?php Pjax::begin([ 'id' => 'pjaxCountLikes']); ?>
             <span class="count_like"><?= !$count ? '' : $count; ?></span>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php Pjax::end(); ?>
                 <input type="hidden" class="post-id" value="<?= $post->id;?>"/>
             <?php endif; ?>
-            <span>, <?= Html::img('/admin/images/staticimg/viewed.png' , ['class' => 'viewed']);?><span class="count_viewed"><?= $post->viewed;?></span></span>
+            <span> <?= Html::img('/admin/images/staticimg/viewed.png' , ['class' => 'viewed']);?><span class="count_viewed"><?= $post->viewed;?></span></span>
         <?= $post->img ? Html::a(Html::img('/admin/'.$post->img.'' , ['alt' => $post->title , 'class' => 'post']), '/admin/'.$post->img.'', ['rel' => 'fancybox']) : ''; ?>
         <div class="content_text_post"><?= $post->content;?></div>
             <?= \yii2mod\comments\widgets\Comment::widget([

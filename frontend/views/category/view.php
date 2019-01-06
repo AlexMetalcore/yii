@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="info">
                     Дата публикации: <span class="date"><?= $post->getDate(); ?></span>
-                    , Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
+                    Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                                     title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>
-                    <span class="author_name"> , Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
+                    <span class="author_name"> Автор: <span class="name"><?php echo $post->author->username; ?></span></span>
                 </div>
             </div>
         <?php endforeach; ?>

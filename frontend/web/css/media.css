@@ -4,12 +4,23 @@
     }
 }
 @media screen and (max-width: 990px) {
+    .category_top_widget {
+        margin: 20px 0px;
+    }
     .full-width {
         padding: 0;
     }
     .position_top {
         position: relative;
         top: unset;
+    }
+    .post-widget {
+        width: 60%;
+        margin: 0 20%;
+    }
+    #form_search {
+        width: 90%;
+        margin: 0 5%;
     }
 }
 @media screen and (max-width: 768px) {
@@ -31,6 +42,10 @@
     }
     .content {
         padding: 20px 20px;
+    }
+    .post-widget {
+        width: 50%;
+        margin: 0 25%;
     }
 }
 @media screen and (max-width: 680px) {
@@ -68,6 +83,9 @@
     }
 }
 @media screen and (max-width: 480px){
+    .date , .author_name {
+        display: block;
+    }
     .post_img {
         width: 100%;
         margin-top: unset;
@@ -94,7 +112,7 @@
     }
     .content_text_post {
         padding: 40px 15px;
-        font-size: 16px;
+        font-size: 14px;
     }
     .post {
         height: 200px;
