@@ -79,3 +79,25 @@ $('#btn-compress-img').click(function() {
         }
     });
 });
+
+$('#btn-clear-cache').click(function() {
+    var this_btn = $(this);
+    $('.alert-dismissible').hide();
+    var loader = $('.loader-clear-cache');
+    loader.fadeIn();
+    this_btn.prop('disabled', true);
+    $.ajax({
+        url: '/admin/settings/delete-cache',
+        type: 'POST',
+        success: function (res) {
+            setTimeout(function() {
+                this_btn.removeAttr('disabled');
+                loader.hide();
+                $('.static-images').after('<div class="alert alert-success alert-dismissible" role="alert">'+res+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            },1000);
+        },
+        error: function () {
+            alert('Ошибка!');
+        }
+    });
+});

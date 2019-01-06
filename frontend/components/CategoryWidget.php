@@ -9,7 +9,9 @@ use yii\base\Widget;
  * Class CategoryWidget
  * @package frontend\components
  */
-class CategoryWidget extends Widget {
+class CategoryWidget extends Widget
+{
+    const TIME_CACHE = 3600;
 
     /**
      * @var string

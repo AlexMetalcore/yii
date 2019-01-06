@@ -22,7 +22,7 @@ class SettingsController extends Controller
     /**
      * @var
      */
-    const PARAMETERS_QUALITY = 100;
+    const PARAMETERS_QUALITY = 80;
     /**
      * @var
      */
@@ -107,6 +107,15 @@ class SettingsController extends Controller
             }
             return 'Сжатие выполнено';
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function actionDeleteCache()
+    {
+        \Yii::$app->cache->flush();
+        return 'Кеш очищен';
     }
 
 }

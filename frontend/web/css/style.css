@@ -156,6 +156,17 @@ a.link_post {
     color: #333;
     font-weight: bold;
 }
+.category_widget > .block-category:hover {
+    background-color: #08c;
+    color: white;
+    cursor: pointer;
+    padding: 0 2px;
+    transition: 0.5s;
+}
+.category_widget > .block-category:hover > a {
+    color: white;
+    text-decoration: none;
+ }
 .position_top {
     position: absolute;
     right: 15px;
@@ -500,4 +511,7 @@ a.link_post {
     display: block;
     margin-top: 15px;
     margin: 0 10%;
+}
+.fix-padding-caytegory {
+    padding: 0;
 }

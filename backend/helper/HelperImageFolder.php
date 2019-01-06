@@ -18,6 +18,10 @@ use backend\models\Post;
 class HelperImageFolder
 {
     /**
+     * @var string
+     */
+    private $path_static;
+    /**
      * @var array
      */
     public $array_image;
@@ -36,6 +40,7 @@ class HelperImageFolder
         $this->path = \Yii::$app->basePath.'/web/images/';
         /*transfer variable to view in any controller*/
         $this->array_image = $this->getTrashArrayPhoto();
+        $this->path_static = \Yii::$app->basePath.'/web/images/staticimg/';
 
     }
 
@@ -97,18 +102,17 @@ class HelperImageFolder
         }
     }
 
+
     /**
      * @return array
-     * @throws \ImagickException
      */
     public function compressFolderImage ()
     {
-        $path = \Yii::$app->basePath.'/web/images/staticimg/';
-        $get_all_img = scandir($path);
+        $get_all_img = scandir($this->path_static);
         $onlyimg = [];
         foreach ($get_all_img as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
-                $onlyimg[] = $path.$img;
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img) && filesize($this->path_static.$img) > 1000*500) {
+                $onlyimg[] = $this->path_static.$img;
             }
         }
         return $onlyimg;

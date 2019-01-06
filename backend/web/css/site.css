@@ -150,7 +150,7 @@ a.desc:after {
 .create-post , .create-portfolio {
     display: inline-block;
 }
-.loader-delete , .loader-compression {
+.loader-delete , .loader-compression , .loader-clear-cache {
     width: 20px;
     margin-left: 10px;
     display: none;
@@ -227,15 +227,14 @@ hr.line-under-name {
     margin: 15px 0;
     border-radius: 10px;
 }
-.trash-images , .static-images {
+.trash-images , .static-images , .cache-clear {
     font-size: 20px;
     font-weight: bold;
     display: block;
 }
-.static-images {
+.static-images , .cache-clear {
     margin-top: 20px;
 }
-#compression , #quality {
-    width: 15%;
-    margin: 10px 0;
+#btn-clear-cache {
+    margin-top: 10px;
 }

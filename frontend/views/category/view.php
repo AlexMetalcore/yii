@@ -9,8 +9,11 @@ $this->title = $category->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-category">
+    <div class="row">
+        <div class="col-md-8 fix-padding-caytegory">
         <?php foreach ($posts as $post): ?>
-            <div class="col-md-8 category_background">
+
+            <div class="col-md-12 category_background">
                 <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" class="link_post" title="<?= $post->title;?>">
                     <span class="category_title"><?= $post->title;?></span>
                 </a>
@@ -34,9 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="col-md-4 position_top full-width">
-            <div class="category_widget">
-                <?php if ($this->beginCache('CategoryWidget', ['duration' => 3600])):?>
+        </div>
+        <div class="col-md-4 full-width">
+            <div class="category_widget category_top_widget">
+                <?php if ($this->beginCache('CategoryWidget', ['duration' => CategoryWidget::TIME_CACHE])):?>
                     <?=CategoryWidget::widget();?>
                     <?php $this->endCache(); ?>
                 <?php endif;?>
@@ -49,4 +53,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'pagination'
             ],
         ]); ?>
+    </div>
 </div>
