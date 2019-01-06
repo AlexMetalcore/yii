@@ -39,7 +39,7 @@ a.link_post {
 .post_img {
     width: 100%;
 }
-.post_img:hover {
+.post_img:hover , .post-widget:hover {
     cursor: pointer;
     opacity: 0.7;
     transition: 1s;
@@ -159,7 +159,6 @@ a.link_post {
 .category_widget > .block-category:hover {
     background-color: #08c;
     color: white;
-    cursor: pointer;
     padding: 0 2px;
     transition: 0.5s;
 }
@@ -500,6 +499,9 @@ a.link_post {
     padding: 10px 10px;
     font-size: 16px;
     text-transform: uppercase;
+}
+.popular-name:hover {
+    text-decoration: none;
 }
 .underline-block-post {
     margin-top: 10px;

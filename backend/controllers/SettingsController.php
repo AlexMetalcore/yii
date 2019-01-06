@@ -46,7 +46,6 @@ class SettingsController extends Controller
                         'allow' => false,
                         'denyCallback' => function ($rule, $action) {
                             throw new ForbiddenHttpException(\Yii::t('app', 'У вас нет доступа к этой странице'));
-                            return true;
                         },
                     ],
                 ],

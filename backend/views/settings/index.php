@@ -31,18 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <span class="static-images">Сжатие статичных картинок</span>
 
-    <div class="all-img-compress-block">
+    <?php if ($staticimg): ?>
+
         <?php Pjax::begin(['id' => 'pjax-compress-img']); ?>
-        <?php if ($staticimg): ?>
-            <?php foreach ($staticimg as $img): ?>
-            <div class="static-img-block"><div class="static-img"><?=$img;?></div> - размер картинки (<?= round(filesize($img)/1000) . 'Кб'?>)</div>
-            <?php endforeach; ?>
-            <?php Pjax::end(); ?>
-    </div>
+            <div class="all-img-compress-block">
+                    <?php foreach ($staticimg as $img): ?>
+                    <div class="static-img-block"><div class="static-img"><?=$img;?></div> - размер картинки (<?= round(filesize($img)/1000) . 'Кб'?>)</div>
+                    <?php endforeach; ?>
+            </div>
+        <?php Pjax::end(); ?>
+    <?php else:?>
+        <div>Картинки для сжатия отсутствуют</div>
+    <?php endif;?>
     <?= Html::button('Сжатие картинок'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-compression']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-compress-img' , count($staticimg) ? '' : 'disabled' => 'true']); ?>
-        <?php else:?>
-        Картинки для сжатия отсутствуют
-        <?php endif;?>
     <div class="cache-clear">Очистка кеша</div>
     <div>Время кеширования: <?= CategoryWidget::TIME_CACHE/3600 . ' час'; ?></div>
     <?= Html::button('Очистка кеша'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-clear-cache']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-clear-cache']); ?>
