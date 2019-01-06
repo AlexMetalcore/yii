@@ -227,6 +227,10 @@ hr.line-under-name {
     margin: 15px 0;
     border-radius: 10px;
 }
+.all-img-delete-block {
+    height: 250px;
+    overflow: scroll;
+}
 .trash-images , .static-images , .cache-clear {
     font-size: 20px;
     font-weight: bold;
