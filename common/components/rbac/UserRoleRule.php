@@ -7,10 +7,10 @@
  */
 
 namespace common\components\rbac;
-use Yii;
 use yii\rbac\Rule;
 use yii\helpers\ArrayHelper;
 use common\models\User;
+
 class UserRoleRule extends Rule
 {
     public $name = 'userRole';
@@ -21,8 +21,11 @@ class UserRoleRule extends Rule
             if ($item->name === 'admin') {
                 return $role == User::ROLE_ADMIN;
             }
-            elseif ($item->name === 'user') {
+            else if ($item->name === 'user') {
                 return $role == User::ROLE_ADMIN || $role == User::ROLE_USER;
+            }
+            else if ($item->name === 'moderator'){
+                return $role == User::ROLE_ADMIN || $role == User::ROLE_MODERATOR;
             }
         }
         return false;

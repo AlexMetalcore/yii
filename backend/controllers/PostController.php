@@ -38,18 +38,11 @@ class PostController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                    [
-                        'allow' => false,
-                        'denyCallback' => function ($rule, $action) {
-                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
-                            return true;
-                        },
+                        'roles' => ['admin', 'moderator'],
+                        'actions' => ['index' , 'create' , 'view' ,'update'],
                     ],
                 ],
             ],

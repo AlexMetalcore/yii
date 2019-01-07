@@ -25,17 +25,11 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
+                'only'  => ['index'],
                 'rules' => [
                     [
                         'allow' => true,
                         'roles' => ['admin'],
-                    ],
-                    [
-                        'allow' => false,
-                        'denyCallback' => function ($rule, $action) {
-                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
-                        },
                     ],
                 ],
             ],
@@ -78,6 +72,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login-layout.php';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

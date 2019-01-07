@@ -36,7 +36,6 @@ class SettingsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
                 'rules' => [
                     [
                         'allow' => true,

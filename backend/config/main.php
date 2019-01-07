@@ -62,6 +62,13 @@ return [
         'fileCache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            //зададим куда будут сохраняться наши файлы конфигураций RBAC
+            'itemFile' => '@common/components/rbac/items.php',
+            'ruleFile' => '@common/components/rbac/rules.php',
+            'defaultRoles' => ['user','moderator','admin'],
+        ],
     ],
     'controllerMap' => [
         'elfinder' => [

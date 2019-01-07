@@ -32,15 +32,19 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      *
      */
+    const ROLE_MODERATOR = 15;
+    /**
+     *
+     */
+    const ROLE_USER = 10;
+    /**
+     *
+     */
     const STATUS_DELETED = 0;
     /**
      *
      */
     const STATUS_ACTIVE = 10;
-    /**
-     *
-     */
-    const ROLE_USER = 10;
 
     /**
      * @var integer
@@ -70,7 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
+            ['status', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]],
             [['username', 'about'], 'trim'],
             [['username', 'email', 'password'] , 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь существует'],
@@ -100,7 +104,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findIdentity($id)
     {
 
-        return static::findOne(['id' => $id, 'status' => [self::ROLE_USER, self::ROLE_ADMIN]]);
+        return static::findOne(['id' => $id, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]);
 
     }
 
@@ -120,7 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN]]);
+        return static::findOne(['username' => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]);
     }
 
     /**
@@ -259,7 +263,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function isUserAdmin($username)
     {
-        if (static::findOne(['username' => $username, 'status' => self::ROLE_ADMIN])) {
+        if (static::findOne(['username' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]])) {
             return true;
         }
         else {

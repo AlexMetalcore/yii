@@ -26,11 +26,11 @@ class CategoryController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['admin', 'moderator'],
+                        'actions' => ['index' , 'create' , 'view' ,'update'],
                     ],
                     [
                         'allow' => false,

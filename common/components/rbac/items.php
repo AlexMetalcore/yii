@@ -10,4 +10,9 @@ return [
         'description' => 'Пользователь',
         'ruleName' => 'userRole',
     ],
+    'moderator' => [
+        'type' => 1,
+        'description' => 'Модератор',
+        'ruleName' => 'userRole',
+    ],
 ];
