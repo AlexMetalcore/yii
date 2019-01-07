@@ -124,7 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]);
+        return static::findOne(['username'  => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]) ? static::findOne(['username'  => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]) : static::findOne(['email'  => $username, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]);
     }
 
     /**
@@ -263,7 +263,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function isUserAdmin($username)
     {
-        if (static::findOne(['username' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]])) {
+        if (static::findOne(['username' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]]) || static::findOne(['email' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]])) {
             return true;
         }
         else {

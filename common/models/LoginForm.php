@@ -11,6 +11,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+    public $email;
     /**
      * @var
      */
@@ -93,7 +94,7 @@ class LoginForm extends Model
     private function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername($this->username) ? User::findByUsername($this->username) : User::findByUsername($this->email);
         }
 
         return $this->_user;
@@ -104,7 +105,7 @@ class LoginForm extends Model
      */
     public function loginAdmin()
     {
-        if ($this->validate() && User::isUserAdmin($this->username)) {
+        if ($this->validate() && (User::isUserAdmin($this->username) || User::isUserAdmin($this->email))) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 : 0);
         } else {
             return false;
