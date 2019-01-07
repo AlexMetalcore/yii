@@ -10,7 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use yii\helpers\Url;
-
+use common\models\User;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -35,24 +35,27 @@ AppAsset::register($this);
         'brandUrl' => '/admin/',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
+            'visible' => !Yii::$app->user->isGuest,
         ],
     ]);
+    $auth = Yii::$app->authManager;
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Авторизация', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Статьи', 'url' => ['/post/index']];
-        $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
-        $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
-        $menuItems[] = ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']];
-        $menuItems[] = ['label' => 'Настройки сайта', 'url' => ['/settings/index']];
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Выход (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        if ($auth->getRole('admin')) {
+            $menuItems[] = ['label' => 'Статьи', 'url' => ['/post/index']];
+            $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
+            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Пользователи', 'url' => ['/user/index']] : '';
+            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']] : '';
+            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Настройки сайта', 'url' => ['/settings/index']] : '';
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+        }
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

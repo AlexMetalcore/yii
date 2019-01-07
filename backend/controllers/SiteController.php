@@ -30,7 +30,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['admin' , 'moderator'],
                     ],
                 ],
             ],
@@ -77,7 +77,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
             $user_status = User::findIdentity(\Yii::$app->user->identity->getId())->status;

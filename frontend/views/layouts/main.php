@@ -39,7 +39,7 @@ $name_blog = 'Веб заметки';
         ],
     ]);
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['/']],
+        ['label' => 'Главная', 'url' => ['site/index']],
         ['label' => 'Блог', 'url' => ['site/blog']],
         ['label' => 'Портфолио', 'url' => ['site/portfolio']],
         ['label' => 'Обратная связь', 'url' => ['site/contact']],

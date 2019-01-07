@@ -8,20 +8,17 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Авторизация';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Пожалуйста, заполните следующие поля для входа:</p>
-
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <h1><?= Html::encode($this->title) ?></h1>
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'username')->label('Пользователь')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'username')->label('Пользователь')->textInput(['autofocus' => true , 'class' => 'input-login-site form-control']) ?>
 
-                <?= $form->field($model, 'password')->label('Пароль')->passwordInput() ?>
+                <?= $form->field($model, 'password')->label('Пароль')->passwordInput(['class' => 'input-login-site form-control']) ?>
 
                 <?= $form->field($model, 'rememberMe')->label('Запомнить меня')->checkbox() ?>
 
@@ -37,5 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
         </div>
+        <div class="col-lg-4"></div>
     </div>
 </div>

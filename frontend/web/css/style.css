@@ -330,9 +330,11 @@ a.link_post {
 }
 .navbar-inverse .navbar-nav > li > a:hover , .nav li > form > button.logout:hover {
     color: black;
+    transition: 0.5s;
 }
 .navbar-nav > li:hover {
     background-color: white;
+    transition: 0.5s;
 }
 .navbar {
     border: none;
@@ -516,4 +518,8 @@ a.link_post {
 }
 .fix-padding-caytegory {
     padding: 0;
+}
+.input-login-site {
+    height: 50px;
+    border: 1px solid #ccc;
 }

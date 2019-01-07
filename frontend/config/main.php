@@ -59,6 +59,7 @@ return [
                 '/comment/default/delete' => '/comment/default/delete',
                 '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
                 'search' => 'site/search',
+                '/' => 'site/index',
                 ],
         ],
         'cache' => [

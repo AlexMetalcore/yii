@@ -32,13 +32,6 @@ class CategoryController extends Controller
                         'roles' => ['admin', 'moderator'],
                         'actions' => ['index' , 'create' , 'view' ,'update'],
                     ],
-                    [
-                        'allow' => false,
-                        'denyCallback' => function ($rule, $action) {
-                            throw new ForbiddenHttpException(Yii::t('app', 'У вас нет доступа к этой странице'));
-                            return true;
-                        },
-                    ],
                 ],
             ],
             'verbs' => [
@@ -161,6 +154,6 @@ class CategoryController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Этой страници не существует');
     }
 }
