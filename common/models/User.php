@@ -267,7 +267,7 @@ class User extends ActiveRecord implements IdentityInterface
             return true;
         }
         else {
-            Yii::$app->session->setFlash('error' , 'Вы не имеете достаточно прав');
+            Yii::$app->session->setFlash('error' , 'Вы не имеете доступа в админ панель');
             return false;
         }
     }

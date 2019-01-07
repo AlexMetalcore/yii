@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use backend\models\Post;
+use common\components\rbac\UserRoleRule;
 use common\models\Portfolio;
 use Yii;
 use yii\web\Controller;
@@ -79,7 +80,13 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
-            Yii::$app->session->setFlash('success' , 'Вы авторизировались как '.$model->username.' ');
+            $user_status = User::findIdentity(\Yii::$app->user->identity->getId())->status;
+            $success = Yii::$app->session->setFlash('success' , 'Вы авторизировались как '.$model->username.' ');
+            if ($user_status === User::ROLE_MODERATOR) {
+                $success;
+                return $this->redirect(['post/index']);
+            }
+            $success;
             return $this->redirect(['/']);
         } else {
             return $this->render('login', [
