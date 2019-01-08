@@ -9,7 +9,7 @@ body {
     background: #ededed;
     /*content_post_viewbackground: #afa8a8;*/
     /*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
 .content_post {
     text-align: center;
@@ -323,6 +323,7 @@ a.link_post {
     letter-spacing: 1px;
     font-family: Oswald;
     color: white;
+    font-size: 16px;
 }
 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
     font-family: Oswald;
