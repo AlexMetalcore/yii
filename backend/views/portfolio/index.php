@@ -67,8 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 success: function (res) {
                     $('.breadcrumb').after('<div class=\"alert alert-success alert-dismissible\" role=\"alert\">'+res+'<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
                 },
-                error: function () {
-                alert('Ошибка!');
+                error: function (res) {
+                    alert(res);
                 }
             }).done(function (data) {
                   $.pjax.reload({container: '#' + $.trim(pjaxContainer)});

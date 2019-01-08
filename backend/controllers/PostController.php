@@ -41,7 +41,12 @@ class PostController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin', 'moderator'],
+                        'roles' => ['admin'],
+                        'actions' => ['index' , 'create' , 'view' ,'update' , 'delete'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['moderator'],
                         'actions' => ['index' , 'create' , 'view' ,'update'],
                     ],
                 ],

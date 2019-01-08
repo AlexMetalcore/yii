@@ -1,8 +1,6 @@
 <?php
 
 namespace backend\models;
-
-use Yii;
 use yii\db\ActiveRecord;
 
 
@@ -31,6 +29,7 @@ class Category extends ActiveRecord
     {
         return [
             [['title'], 'required'],
+            [['parent_id'], 'safe'],
             ['title', 'unique', 'targetClass' => '\backend\models\Category', 'message' => 'Категория существует'],
             [['title'], 'string', 'max' => 255],
         ];
@@ -43,6 +42,7 @@ class Category extends ActiveRecord
     {
         return [
             'id' => 'ИД',
+            'parent_id' => 'Родительская категория',
             'title' => 'Категория',
             'count' => 'Количество записей',
         ];

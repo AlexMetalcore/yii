@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use kartik\datetime\DateTimePicker;
+use kartik\date\DatePicker;
 mihaildev\elfinder\Assets::noConflict($this);
 
 /* @var $this yii\web\View */
@@ -36,19 +37,14 @@ $id = \Yii::$app->user->identity->getId();
     <?= $form->field($model, 'publish_status')->
     dropDownList([ 'draft' => 'Черновик', 'publish' => 'Опубликовано', ]) ?>
 
-    <?= $form->field($model, 'publish_date')->widget(DateTimePicker::className(),[
-    'name' => 'dp_1',
-    'type' => DateTimePicker::TYPE_INPUT,
-    'options' => ['placeholder' => 'Ввод даты/времени...'],
-    'convertFormat' => true,
-    'value'=> date("dd.MM.yyyy hh:i",(integer) $model->publish_date),
-    'pluginOptions' => [
-        'format' => 'dd.MM.yyyy hh:i',
-        'autoclose'=>true,
-        'weekStart'=>1,
-        'startDate' => '01.12.2018 00:00',
-        'todayBtn'=>true,
-    ]
+    <?= $form->field($model, 'publish_date')->widget(DatePicker::className(),[
+        'name' => 'check_issue_date',
+        'value' => date('d-M-Y', strtotime('+2 days')),
+        'options' => ['placeholder' => 'Select issue date ...'],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
 ]); ?>
 
     <?= $form->field($model, 'upload')->fileInput(['multiple' => true])->label(false); ?>

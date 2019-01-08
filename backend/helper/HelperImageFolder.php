@@ -7,7 +7,6 @@
  */
 
 namespace backend\helper;
-use backend\helper\HelperImgCompression;
 use common\models\Portfolio;
 use backend\models\Post;
 

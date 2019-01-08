@@ -32,7 +32,9 @@
         "yii2mod/yii2-comments": "*",
         "intervention/image": "^2.4",
         "calcinai/php-imagick": "^0.1.2",
-        "tpmanc/yii2-imagick": "*"
+        "tpmanc/yii2-imagick": "*",
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "rmrevin/yii2-fontawesome": "~2.17"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

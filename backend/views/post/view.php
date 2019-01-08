@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Перейти на сайт', ['../post/view', 'id' => $model->id], ['class' => 'btn btn-success' , 'target' => '_blank']) ?>
     </p>
     <?php echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
             'anons:html',
             'content:html',

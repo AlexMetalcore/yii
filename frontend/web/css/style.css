@@ -156,7 +156,7 @@ a.link_post {
     color: #333;
     font-weight: bold;
 }
-.category_widget > .block-category:hover {
+/*.category_widget > .block-category:hover {
     background-color: #08c;
     color: white;
     padding: 0 2px;
@@ -165,7 +165,7 @@ a.link_post {
 .category_widget > .block-category:hover > a {
     color: white;
     text-decoration: none;
- }
+ }*/
 .position_top {
     position: absolute;
     right: 15px;

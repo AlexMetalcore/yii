@@ -29,7 +29,12 @@ class CategoryController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin', 'moderator'],
+                        'roles' => ['admin'],
+                        'actions' => ['index' , 'create' , 'view' ,'update' , 'delete'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['moderator'],
                         'actions' => ['index' , 'create' , 'view' ,'update'],
                     ],
                 ],
@@ -88,6 +93,7 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
+        $category  = Category::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()) {
@@ -95,9 +101,7 @@ class CategoryController extends Controller
             }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->render('create', compact('model' , 'category'));
     }
 
 
@@ -110,7 +114,12 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
 
+        $category  = Category::find()->where(['!=' , 'id' , $id])->all();
+
         if ($model->load(Yii::$app->request->post())) {
+            if ($model->parent_id == 0 || empty($model->parent_id)){
+                $model->parent_id = 0;
+            }
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -118,6 +127,7 @@ class CategoryController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'category' => $category
         ]);
     }
 

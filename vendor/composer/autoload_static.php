@@ -46,6 +46,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         ),
         'r' => 
         array (
+            'rmrevin\\yii\\fontawesome\\' => 24,
             'reketaka\\comments\\' => 18,
         ),
         'p' => 
@@ -67,6 +68,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'k' => 
         array (
             'kartik\\datetime\\' => 16,
+            'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
         'c' => 
@@ -198,6 +200,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/spanjeta/yii2-comments',
         ),
+        'rmrevin\\yii\\fontawesome\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rmrevin/yii2-fontawesome',
+        ),
         'reketaka\\comments\\' => 
         array (
             0 => __DIR__ . '/..' . '/reketaka/yii2-comments',
@@ -235,6 +241,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'kartik\\datetime\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
+        ),
+        'kartik\\date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker',
         ),
         'kartik\\base\\' => 
         array (

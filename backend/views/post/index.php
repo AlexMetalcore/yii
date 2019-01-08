@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-index">
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?= \common\widgets\Alert::widget(); ?>
     <div class="create-post">
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
@@ -85,8 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 success: function (res) {
                     $('.breadcrumb').after('<div class=\"alert alert-success alert-dismissible\" role=\"alert\">'+res+'<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
                 },
-                error: function () {
-                    alert('Ошибка!');
+                error: function (res) {
+                    alert(res.responseText);
                 }
             }).done(function () {
                 $.pjax.reload({container: '#' + $.trim(pjaxContainer)});

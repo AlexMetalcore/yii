@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\bootstrap\Html;
 ?>
 <?php foreach ($categories as $category): ?>
+
 <?php if(isset($count_posts[$category->id])): ?>
     <div class="block-category">
         <a href="<?= Url::to(['category/view' , 'id' => $category->id]);?>"><?= $category->title;?></a>
@@ -25,7 +26,10 @@ use yii\bootstrap\Html;
     </div>
     <hr class="underline-block-post"/>
     <?php endif;?>
+
 <?php endforeach; ?>
+
+
 <b class="popular">Популярные статьи</b>
 <?php foreach ($popular as $post): ?>
     <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">

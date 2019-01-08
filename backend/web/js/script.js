@@ -52,7 +52,7 @@ $('#btn-delete-img').click(function() {
             },2000);
         },
         error: function () {
-            alert('Ошибка!');
+            alert(res);
         }
     });
 });

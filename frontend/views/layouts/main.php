@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use rmrevin\yii\fontawesome\FA;
 
 AppAsset::register($this);
 $name_blog = 'Веб заметки';
@@ -39,13 +40,13 @@ $name_blog = 'Веб заметки';
         ],
     ]);
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['site/index']],
+        ['label' => FA::icon('home'). 'Главная', 'url' => ['site/index']],
         ['label' => 'Блог', 'url' => ['site/blog']],
         ['label' => 'Портфолио', 'url' => ['site/portfolio']],
         ['label' => 'Обратная связь', 'url' => ['site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Войти', 'url' => ['site/login']];
+        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-user"></span> Войти', 'url' => ['site/login']];
         $menuItems[] = Html::img('/admin/images/staticimg/search.png' , ['class' => 'icon_search']);
     } else {
         $menuItems[] = '<li>'
@@ -60,6 +61,7 @@ $name_blog = 'Веб заметки';
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => $menuItems,
     ]);
     NavBar::end();
