@@ -33,7 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'header' => 'Статус',
                     'value'  => function($model){
-                        return $model->status == 20 ? 'Администратор' : 'Пользователь';
+                        switch ($model->status) {
+                            case '20':
+                                return 'Администратор';
+                            case '15':
+                                return 'Модератор';
+                            case '10':
+                                return 'Пользователь';
+                        }
                     }
             ],
             ['class' => 'yii\grid\ActionColumn',

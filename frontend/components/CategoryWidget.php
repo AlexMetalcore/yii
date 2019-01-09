@@ -11,17 +11,16 @@ use yii\base\Widget;
  */
 class CategoryWidget extends Widget
 {
+    /**
+     *
+     */
     const TIME_CACHE = 3600;
 
     /**
      * @var string
      */
-    protected $limit_popular = '6';
+    protected $limit_popular = 6;
 
-    /**
-     *
-     */
-    const STATUS_DRAFT = 'draft';
     /**
      *
      */
@@ -30,29 +29,31 @@ class CategoryWidget extends Widget
         parent::init();
     }
 
+
     /**
      * @return string
      */
     public function run() {
         $count_posts = [];
+        $where = ['publish_status' => 'publish'];
         $categories = Category::find()->all();
-        $popular = Post::find()
-            ->where(['<>' , 'publish_status' , self::STATUS_DRAFT])
-            ->orderBy('viewed DESC')
-            ->limit($this->limit_popular)
-            ->all();
-        foreach ($categories as $category){
-            foreach ($category->posts as $post){
-                if($post->publish_status == 'publish') {
-                    if($category->id == $post->category_id) {
-                        $count_posts[$category->id][] = [
-                            $category->id => $post->category_id
-                        ];
-                    }
+        foreach ($categories as $category) {
+            $posts = Post::find(['id' => $category->id])->where($where)->all();
+            foreach ($posts as $post) {
+                if($category->id == $post->category_id) {
+                    $count_posts[$category->title][] = [
+                        'post_id' => $post->id,
+                        'post_name' => $post->title,
+                    ];
                 }
             }
         }
+        $popular = Post::find()
+            ->where($where)
+            ->orderBy('viewed DESC')
+            ->limit($this->limit_popular)
+            ->all();
+
         return $this->render('block-category' , compact('categories' ,'count_posts' , 'popular'));
     }
-
 }

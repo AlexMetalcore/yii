@@ -23,14 +23,6 @@ use yii\web\ForbiddenHttpException;
 class PostController extends Controller
 {
     /**
-     * @var integer
-     */
-    const WIDTH_IMAGE_RESIZE = 300;
-    /**
-     * @var integer
-     */
-    const HEIGHT_IMAGE_RESIZE = 200;
-    /**
      * @return array
      */
     public function behaviors()
@@ -78,14 +70,14 @@ class PostController extends Controller
      * @param Post $model
      * @throws \ImagickException
      */
-    private function handlePostSave(Post $model) {
+    private function imgPostSave(Post $model) {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->createFilePath() && $model->upload) {
                     $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
                         new HelperImgCompression($filePath);
-                        $model->thumb_img = $this->createImgThumb($filePath);
+                        $model->thumb_img = $model->setImgthumb($filePath);
                         $model->img = $filePath;
                     }
                 }
@@ -93,19 +85,6 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * @param $filePath
-     * @return string
-     * @throws \ImagickException
-     */
-    private function createImgThumb($filePath) {
-        $thumb = new \Imagick($filePath);
-        $thumb->resizeImage(self::WIDTH_IMAGE_RESIZE, self::HEIGHT_IMAGE_RESIZE, \Imagick::FILTER_LANCZOS,1);
-        $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
-        $thumb->writeImage($thumb_path);
-        chmod(\Yii::$app->basePath.'/web/'.$thumb_path, 0777);
-        return $thumb_path;
-    }
     /**
      * @return array
      */
@@ -157,18 +136,12 @@ class PostController extends Controller
     public function actionCreate()
     {
         $model = new Post();
-        $this->handlePostSave($model);
+        $this->imgPostSave($model);
         $category = Category::getAllCategory();
         $authors = User::getAllUser();
-
         if ($model->load(Yii::$app->request->post())) {
-            if (!$model->attributes['img']) {
-                $model->addError('upload' , 'Ошибка загрузки файла');
-            }
-            else {
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -184,18 +157,13 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $this->handlePostSave($model);
+        $this->imgPostSave($model);
         $category = Category::getAllCategory();
         $authors = User::getAllUser();
 
         if ($model->load(Yii::$app->request->post())) {
-            if (!$model->attributes['img']) {
-                $model->addError('upload' , 'Ошибка загрузки файла');
-            }
-            else {
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 

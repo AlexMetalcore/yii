@@ -7,6 +7,7 @@ use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use kartik\datetime\DateTimePicker;
 use kartik\date\DatePicker;
+
 mihaildev\elfinder\Assets::noConflict($this);
 
 /* @var $this yii\web\View */
@@ -40,14 +41,14 @@ $id = \Yii::$app->user->identity->getId();
     <?= $form->field($model, 'publish_date')->widget(DatePicker::className(),[
         'name' => 'check_issue_date',
         'value' => date('d-M-Y', strtotime('+2 days')),
-        'options' => ['placeholder' => 'Select issue date ...'],
+        'options' => ['placeholder' => 'Выберите дату ...'],
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true
         ]
 ]); ?>
 
-    <?= $form->field($model, 'upload')->fileInput(['multiple' => true])->label(false); ?>
+    <?= $form->field($model, 'upload')->fileInput()->label(false); ?>
 
     <div class="form-group">
         <?= Html::button(Yii::t('app', 'Загрузить фото'), ['class' => 'btn btn-success upload_gallary']) ?>

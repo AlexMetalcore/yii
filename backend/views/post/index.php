@@ -40,7 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                         'header' => 'Категория',
-                        'value' => 'category.title',
+                        'value' => function($model){
+                            return $model->category->title ? $model->category->title : 'Категория отсутствует';
+                        },
                 ],
                 [
                     'header' => 'Автор',
@@ -55,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'header' => 'Количество просмотров',
                     'value'  => function($model){
-                        return $model->viewed;
+                        return $model->viewed ? $model->viewed : 'Статью никто еще не просматривал';
                     }
                 ],
                 'publish_date',

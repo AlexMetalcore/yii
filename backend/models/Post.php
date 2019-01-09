@@ -29,6 +29,29 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     /**
      * @var integer
      */
+    const WIDTH_IMAGE_RESIZE = 300;
+    /**
+     * @var integer
+     */
+    const HEIGHT_IMAGE_RESIZE = 200;
+    /**
+     * @var string
+     */
+    private $imgthumb;
+
+
+    /**
+     * @param $imgthumb
+     * @throws \ImagickException
+     */
+    public function setImgthumb($imgthumb)
+    {
+        $this->imgthumb = $this->createImgThumb($imgthumb);
+        return $this->imgthumb;
+    }
+    /**
+     * @var integer
+     */
     const COUNT_LAST_POST = 6;
     /**
      * @var integer
@@ -41,6 +64,22 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     /**
      * {@inheritdoc}
      */
+
+    /**
+     * @param $filePath
+     * @return string
+     * @throws \ImagickException
+     */
+    private function createImgThumb($filePath) {
+        $thumb = new \Imagick($filePath);
+        $thumb->resizeImage(self::WIDTH_IMAGE_RESIZE, self::HEIGHT_IMAGE_RESIZE, \Imagick::FILTER_LANCZOS,1);
+        $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
+        $thumb->writeImage($thumb_path);
+        chmod(\Yii::$app->basePath.'/web/'.$thumb_path, 0777);
+        return $thumb_path;
+    }
+
+
     public function behaviors()
     {
         return [
@@ -189,4 +228,5 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     {
         return self::find()->orderBy('viewed desc')->limit(self::COUNT_POPULAR_POST)->all();
     }
+
 }

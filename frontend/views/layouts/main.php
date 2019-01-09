@@ -14,6 +14,7 @@ use rmrevin\yii\fontawesome\FA;
 
 AppAsset::register($this);
 $name_blog = 'Веб заметки';
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
