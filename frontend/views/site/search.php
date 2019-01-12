@@ -41,6 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <span class="query">По запросу ничего не найдено</span>
 <?php endif; ?>
 <div class="block-pagination">
-    <?= LinkPager::widget(['pagination' => $pages,]); ?>
+    <?= LinkPager::widget(['pagination' => $pages]); ?>
 </div>
 
