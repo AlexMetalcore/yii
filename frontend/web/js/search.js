@@ -1,22 +1,25 @@
 
-jQuery('.icon_search').click(function() {
-   jQuery('#form_search , .overlay').fadeIn();
-});
-jQuery('.overlay').click(function(){
-    jQuery('.input_search').attr('style' , '');
-    jQuery('#form_search , .overlay').fadeOut();
+$('.icon_search').click(function() {
+   $('#form_search , .overlay').fadeIn();
 });
 
-jQuery('form#form_search').submit(function(e) {
+$('.overlay').click(function(){
+    $('.input_search').attr('style' , '');
+    $('#form_search , .overlay').fadeOut();
+});
+
+$('form#form_search').submit(function(e) {
     e.preventDefault();
-    var text = jQuery('.input_search').val().trim();
+    var input = $('.input_search');
+    var text = input.val().trim();
     if(text.length >= 2) {
         $.ajax({
-            url: '/search?search_query=' + text,
+            url: '/search',
+            data: { search_query : text},
             type: 'GET',
             success: function (res) {
                 jQuery('.site-about , .site-contact , .site-index ' +
-                    ', .site-post , .site-signup , .site-login , .site-category , .portfolio-index').replaceWith(res);
+                    ', .site-post , .site-signup , .site-login , .site-category , .portfolio-index').html(res);
                 if(jQuery(window).width() <= 780){
                     jQuery('#w0-collapse').removeClass('in');
                 }
@@ -26,9 +29,9 @@ jQuery('form#form_search').submit(function(e) {
                 alert('Ошибка!');
             }
         });
-        jQuery('.input_search').attr('style' , '');
+        input.attr('style' , '');
     }
     else {
-        jQuery('.input_search').css('border' , '2px solid red');
+        input.css('border' , '2px solid red');
     }
 });

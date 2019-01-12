@@ -41,8 +41,10 @@ use yii\helpers\Url;
                 <span class="query">По запросу ничего не найдено</span>
             <?php endif; ?>
     </div>
-    <?= LinkPager::widget([
-        'pagination' => $pages,
-    ]); ?>
+    <div class="block-pagination">
+        <?= LinkPager::widget([
+            'pagination' => $pages,
+        ]); ?>
+    </div>
 </div>
 

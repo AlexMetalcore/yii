@@ -237,15 +237,13 @@ class SiteController extends Controller
     /**
      * @return string
      */
-    public function actionSearch ()
+    public function actionSearch ($search_query)
     {
         $where_publish = ['publish_status' => 'publish'];
 
         if(Yii::$app->request->isAjax) {
             $this->layout = false;
         }
-        $search_query = Yii::$app->request->get('search_query');
-
         $query = Post::find()
             ->where(['OR', ['like' , 'title' , $search_query] ,
                 ['like' , 'content' , $search_query]])
@@ -260,7 +258,7 @@ class SiteController extends Controller
             ->limit($pages->limit)
             ->all();
 
-        return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
+        return $this->renderAjax('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
 
     }
 
