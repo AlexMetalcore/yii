@@ -5,6 +5,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\models\Post;
+
 $this->title = 'Веб заметки';
 ?>
 <div class="site-index">

@@ -72,6 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 'publish_date',
+                [
+                        'attribute' => 'publish_date',
+                        'value' => function($model) {
+                            return $model->getDate();
+                        }
+                ],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => 'Действия',
                     'buttons' => [

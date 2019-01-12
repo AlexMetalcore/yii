@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Settings */
 
 $this->title = Yii::t('app', 'Создать настройку');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Настройки'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="settings-create">

@@ -7,7 +7,13 @@ $('.overlay').click(function(){
     $('.input_search').attr('style' , '');
     $('#form_search , .overlay').fadeOut();
 });
-
+function setLocation(curLoc){
+    try {
+        history.pushState(null, null, curLoc);
+        return;
+    } catch(e) {}
+    location.hash = '#' + curLoc;
+}
 $('form#form_search').submit(function(e) {
     e.preventDefault();
     var input = $('.input_search');
@@ -20,6 +26,7 @@ $('form#form_search').submit(function(e) {
             success: function (res) {
                 jQuery('.site-about , .site-contact , .site-index ' +
                     ', .site-post , .site-signup , .site-login , .site-category , .portfolio-index').html(res);
+                setLocation('/search?search_query=' + text);
                 if(jQuery(window).width() <= 780){
                     jQuery('#w0-collapse').removeClass('in');
                 }

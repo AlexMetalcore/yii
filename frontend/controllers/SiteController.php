@@ -258,7 +258,7 @@ class SiteController extends Controller
             ->limit($pages->limit)
             ->all();
 
-        return $this->renderAjax('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
+        return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
 
     }
 
