@@ -130,4 +130,16 @@
     .input_search {
         font-size: 14px;
     }
+    .fix-padding-caytegory {
+        padding: 15px;
+    }
+    .full-width {
+        padding: 0px 15px;
+    }
+    .content_post_view {
+        margin: 20px 15px;
+    }
+    .category_title, .post_title {
+        font-size: 25px;
+    }
 }

@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Category;
 use Yii;
-use common\models\User;
+use backend\models\User;
 use backend\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;

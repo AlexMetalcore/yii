@@ -70,7 +70,7 @@ $('#btn-compress-img').click(function() {
             setTimeout(function() {
                 this_btn.removeAttr('disabled');
                 loader.hide();
-                $('.static-images').after('<div class="alert alert-success alert-dismissible" role="alert">'+res+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('.static-images').after(res);
                 $.pjax.reload({container: '#pjax-compress-img'});
             },3000);
         },
@@ -93,7 +93,7 @@ $('#btn-clear-cache').click(function() {
             setTimeout(function() {
                 this_btn.removeAttr('disabled');
                 loader.hide();
-                $('.static-images').after('<div class="alert alert-success alert-dismissible" role="alert">'+res+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('.static-images').after(res);
             },1000);
         },
         error: function () {

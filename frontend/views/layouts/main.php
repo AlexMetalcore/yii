@@ -11,9 +11,11 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
 use rmrevin\yii\fontawesome\FA;
+use backend\models\Settings;
 
 AppAsset::register($this);
-$name_blog = 'Веб заметки';
+
+$name_blog = Settings::get(Settings::NAME_BLOG_TITLE);
 
 ?>
 <?php $this->beginPage() ?>

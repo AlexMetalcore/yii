@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
@@ -11,6 +11,9 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+    /**
+     * @var
+     */
     public $email;
     /**
      * @var

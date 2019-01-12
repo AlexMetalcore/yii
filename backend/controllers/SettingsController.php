@@ -1,27 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alex
- * Date: 05.01.19
- * Time: 15:04
- */
 
 namespace backend\controllers;
 
-use backend\helper\HelperImgCompression;
+use Yii;
+use backend\models\Settings;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use backend\helper\HelperImageFolder;
+use backend\helper\HelperImgCompression;
 
 /**
- * Class SettingsController
- * @package backend\controllers
+ * SettingsController implements the CRUD actions for Settings model.
  */
 class SettingsController extends Controller
 {
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -44,24 +41,97 @@ class SettingsController extends Controller
         ];
     }
 
-
     /**
      * @return string
-     * @throws \ImagickException
      */
     public function actionIndex()
     {
-        $object_photo = new HelperImageFolder();
-        $what_image = $object_photo->array_image;
-        $staticimg = $object_photo->staticFolderImage();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Settings::find(),
+            'pagination' => [
+                'pageSize' => 4,
+                'forcePageParam' => false,
+                'pageSizeParam' => false,
+            ],
+        ]);
 
-        $img_delete = [];
-        foreach ($what_image as $img) {
-            $img_delete[] = $object_photo->path.$img;
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        $model = new Settings();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
-        $trash = count($what_image);
 
-        return $this->render('index' , compact('trash' , 'img_delete' , 'staticimg'));
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return Settings|null
+     * @throws NotFoundHttpException
+     */
+    protected function findModel($id)
+    {
+        if (($model = Settings::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'Запрашеваемой страници не существует.'));
     }
 
     /**
@@ -80,9 +150,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param int $compression
-     * @param int $quality
-     * @return string
+     * @return string|\yii\web\Response
      * @throws \ImagickException
      */
     public function actionCompressImg() {
@@ -96,7 +164,8 @@ class SettingsController extends Controller
             foreach ($staticimg as $img) {
                 new HelperImgCompression(\Yii::$app->basePath.'/web/images/staticimg/' , basename($img));
             }
-            return 'Сжатие выполнено';
+            \Yii::$app->session->setFlash('compress' , 'Сжатие выполнено');
+            return $this->renderAjax('ajaxcontent/compresscache');
         }
     }
 
@@ -106,7 +175,25 @@ class SettingsController extends Controller
     public function actionDeleteCache()
     {
         \Yii::$app->cache->flush();
-        return 'Кеш очищен';
+        \Yii::$app->session->setFlash('cache' , 'Кеш очищен');
+        return $this->renderAjax('ajaxcontent/compresscache');
     }
 
+    /**
+     * @return string
+     */
+    public function actionCacheDataImg()
+    {
+        $object_photo = new HelperImageFolder();
+        $what_image = $object_photo->array_image;
+        $staticimg = $object_photo->staticFolderImage();
+
+        $img_delete = [];
+        foreach ($what_image as $img) {
+            $img_delete[] = $object_photo->path.$img;
+        }
+        $trash = count($what_image);
+
+        return $this->render('cache-data-img' , compact('trash' , 'img_delete' , 'staticimg'));
+    }
 }

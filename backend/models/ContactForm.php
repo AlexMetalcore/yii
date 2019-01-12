@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
@@ -10,10 +10,25 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
+    /**
+     * @var
+     */
     public $name;
+    /**
+     * @var
+     */
     public $email;
+    /**
+     * @var
+     */
     public $subject;
+    /**
+     * @var
+     */
     public $body;
+    /**
+     * @var
+     */
     public $verifyCode;
 
 

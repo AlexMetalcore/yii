@@ -7,9 +7,9 @@
  */
 
 namespace backend\helper;
-use common\models\Portfolio;
+use backend\models\Portfolio;
 use backend\models\Post;
-
+use backend\models\Settings;
 /**
  * Class HelperImageFolder
  * @package backend\helper
@@ -110,7 +110,7 @@ class HelperImageFolder
         $get_all_img = scandir($this->path_static);
         $onlyimg = [];
         foreach ($get_all_img as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img) && filesize($this->path_static.$img) > 1000*500) {
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img) && filesize($this->path_static.$img) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {
                 $onlyimg[] = $this->path_static.$img;
             }
         }

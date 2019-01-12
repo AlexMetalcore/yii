@@ -6,8 +6,7 @@
  * Time: 2:19
  */
 
-namespace common\models;
-
+namespace backend\models;
 
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
@@ -19,11 +18,6 @@ use common\implement\UploadFileInterfaces;
  */
 class Portfolio extends ActiveRecord implements UploadFileInterfaces
 {
-    /**
-     * @var integer
-     */
-    const COUNT_LAST_POST = 6;
-
     /**
      * @var
      */
@@ -44,7 +38,7 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
     {
         return [
             [['title' , 'content'], 'required'],
-            ['title', 'unique', 'targetClass' => '\common\models\Portfolio', 'message' => 'Работа существует'],
+            ['title', 'unique', 'targetClass' => '\backend\models\Portfolio', 'message' => 'Работа существует'],
             [['gallery'], 'file', 'maxFiles' => 10,  'skipOnEmpty' => true, 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }
@@ -82,6 +76,6 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
 
     public static function getLastPortfolio ()
     {
-        return self::find()->orderBy('id desc')->limit(self::COUNT_LAST_POST)->all();
+        return self::find()->orderBy('id desc')->limit(Settings::get(Settings::COUNT_LAST_PORTFOLIO))->all();
     }
 }

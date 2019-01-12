@@ -9,7 +9,7 @@
 namespace common\components\rbac;
 use yii\rbac\Rule;
 use yii\helpers\ArrayHelper;
-use common\models\User;
+use backend\models\User;
 
 class UserRoleRule extends Rule
 {

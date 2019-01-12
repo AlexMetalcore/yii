@@ -1,13 +1,11 @@
 <?php
-namespace common\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use backend\models\Post;
-
 
 /**
  * User model
@@ -73,10 +71,10 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]],
             [['username', 'about'], 'trim'],
             [['username', 'email', 'password'] , 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь существует'],
+            ['username', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'Пользователь существует'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'E-mail существует'],
+            ['email', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'E-mail существует'],
         ];
     }
 
@@ -293,6 +291,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function getLastRegisteredUser()
     {
-        return self::find()->orderBy('created_at desc')->limit(self::COUNT_LAST_USER_REGISTERED)->all();
+        return self::find()->orderBy('created_at desc')->limit(Settings::get(Settings::COUNT_LAST_USER_REGISTERED))->all();
     }
 }

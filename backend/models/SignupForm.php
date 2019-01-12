@@ -1,8 +1,6 @@
 <?php
-namespace frontend\models;
+namespace backend\models;
 
-use yii\base\Model;
-use common\models\User;
 use yii\db\ActiveRecord;
 
 
@@ -33,14 +31,14 @@ class SignupForm extends ActiveRecord
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь уже существует'],
+            ['username', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'Пользователь уже существует'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'E-mail адрес уже существует'],
+            ['email', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'E-mail адрес уже существует'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],

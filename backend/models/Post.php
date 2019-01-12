@@ -2,8 +2,6 @@
 
 namespace backend\models;
 
-use common\models\LikePosts;
-use common\models\User;
 use yii\db\ActiveRecord;
 use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
 use yii\web\UploadedFile;
@@ -26,22 +24,6 @@ use common\implement\UploadFileInterfaces;
  */
 class Post extends ActiveRecord implements UploadFileInterfaces
 {
-    /**
-     * @var integer
-     */
-    const WIDTH_IMAGE_RESIZE = 300;
-    /**
-     * @var integer
-     */
-    const HEIGHT_IMAGE_RESIZE = 200;
-    /**
-     * @var integer
-     */
-    const COUNT_LAST_POST = 6;
-    /**
-     * @var integer
-     */
-    const COUNT_POPULAR_POST = 6;
     /**
      * @var string
      */
@@ -68,7 +50,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     private function createImgThumb($filePath) {
         $thumb = new \Imagick($filePath);
-        $thumb->resizeImage(self::WIDTH_IMAGE_RESIZE, self::HEIGHT_IMAGE_RESIZE, \Imagick::FILTER_LANCZOS,1);
+        $thumb->resizeImage(Settings::get(Settings::WIDTH_IMAGE_RESIZE), Settings::get(Settings::HEIGHT_IMAGE_RESIZE), \Imagick::FILTER_LANCZOS,1);
         $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
         $thumb->writeImage($thumb_path);
         chmod(\Yii::$app->basePath.'/web/'.$thumb_path, 0777);
@@ -214,7 +196,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public static function getLastPost()
     {
-        return self::find()->orderBy('id desc')->limit(self::COUNT_LAST_POST)->all();
+        return self::find()->orderBy('id desc')->limit(Settings::get(Settings::COUNT_LAST_POST))->all();
     }
 
     /**
@@ -222,7 +204,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public static function getPopularPosts()
     {
-        return self::find()->orderBy('viewed desc')->limit(self::COUNT_POPULAR_POST)->all();
+        return self::find()->orderBy('viewed desc')->limit(Settings::get(Settings::COUNT_POPULAR_POST))->all();
     }
 
 }

@@ -7,21 +7,14 @@
  */
 namespace backend\helper;
 
+use backend\models\Settings;
+
 /**
  * Class HelperImgCompression
  * @package backend\helper
  */
 class HelperImgCompression
 {
-    /**
-     * @var
-     */
-    const PARAMETERS_QUALITY = 60;
-    /**
-     * @var
-     */
-    const PARAMETERS_COMPRESSION = 8;
-
     /**
      * @var string
      */
@@ -53,8 +46,8 @@ class HelperImgCompression
         $img = new \Imagick($full_path);
         if (filesize($full_path) > 1024*1000) {
             $img->setImageCompression(true);
-            $img->setImageCompression(self::PARAMETERS_COMPRESSION);
-            $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
+            $img->setImageCompression(Settings::get(Settings::PARAMETERS_COMPRESSION));
+            $img->setImageCompressionQuality(Settings::get(Settings::PARAMETERS_QUALITY));
             $img->writeImage($full_path);
         }
         $img->clear();

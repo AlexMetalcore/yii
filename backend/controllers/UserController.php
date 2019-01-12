@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\User;
+use backend\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -143,7 +143,7 @@ class UserController extends Controller
                 }
             }
         }
-        if(!$move && !$user) {
+        if(!$move && !$user && Yii::$app->request->isAjax) {
             foreach ($model->post as $post) {
                 $user = User::findIdentity(Yii::$app->user->getId())->username;
                 if($user) {
@@ -155,21 +155,19 @@ class UserController extends Controller
             \Yii::$app->session->setFlash('data-move' , 'Статьи перенесены');
             return $this->renderAjax('ajax/messageaftermove');
         }
-        else if ($move && !$user) {
+        else if ($move && !$user && Yii::$app->request->isAjax) {
             foreach ($model->post as $post) {
                 $post->delete();
             }
             \Yii::$app->session->setFlash('delete-data-user' , 'Все статьи удалены');
             return $this->renderAjax('ajax/messageaftermove');
         }
-        else if ($model->username == $user){
+        else if ($model->username == $user && Yii::$app->request->isAjax){
             \Yii::$app->session->setFlash('delete-user' , 'Пользователь удален');
             return $this->renderAjax('ajax/messageaftermove');
         }
-        if (!Yii::$app->request->isAjax) {
-            return false;
-        }
-        else {
+
+        if(Yii::$app->request->isPost) {
             return $this->redirect(['index']);
         }
     }

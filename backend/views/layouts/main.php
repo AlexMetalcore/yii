@@ -10,7 +10,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use yii\helpers\Url;
-use common\models\User;
+use backend\models\User;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -47,7 +48,10 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Категории', 'url' => ['/category/index']];
             $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Пользователи', 'url' => ['/user/index']] : '';
             $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Портфолио работ', 'url' => ['/portfolio/index']] : '';
-            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Настройки сайта', 'url' => ['/settings/index']] : '';
+            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Настройки', 'options'=>['class'=>'dropdown'] ,'items' => [
+                ['label' => 'Параметры настроек', 'url' => ['settings/index']],
+                ['label' => 'Кеш и работа с картинками', 'url' => ['settings/cache-data-img']]
+            ]] : '';
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')',

@@ -6,11 +6,10 @@
  * Time: 12:44
  */
 
-namespace common\models;
-
+namespace backend\models;
 
 use yii\db\ActiveRecord;
-use backend\models\Post;
+
 
 /**
  * Class LikePosts
@@ -50,6 +49,6 @@ class LikePosts extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(POst::class, ['id' => 'author_id']);
+        return $this->hasOne(Post::class, ['id' => 'author_id']);
     }
 }

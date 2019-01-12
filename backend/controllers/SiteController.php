@@ -1,17 +1,14 @@
 <?php
 namespace backend\controllers;
 
-use backend\models\Post;
 use common\components\rbac\UserRoleRule;
-use common\models\Portfolio;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use common\models\User;
-use yii\web\ForbiddenHttpException;
-
+use backend\models\LoginForm;
+use backend\models\User;
+use backend\models\Post;
 /**
  * Class SiteController
  * @package backend\controllers
@@ -63,7 +60,7 @@ class SiteController extends Controller
         $posts = Post::getLastPost();
         $users = User::getLastRegisteredUser();
         $populars = Post::getPopularPosts();
-        $portfolios = Portfolio::getLastPortfolio();
+        $portfolios = \backend\models\Portfolio::getLastPortfolio();
 
         return $this->render('index' , compact('posts' , 'users' , 'populars' , 'portfolios'));
     }

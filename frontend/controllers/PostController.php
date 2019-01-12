@@ -2,8 +2,8 @@
 
 namespace frontend\controllers;
 
-use common\models\LikePosts;
-use common\models\User;
+use backend\models\LikePosts;
+use backend\models\User;
 use yii\web\Controller;
 use backend\models\Post;
 use Yii;

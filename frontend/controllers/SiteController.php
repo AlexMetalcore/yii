@@ -1,22 +1,22 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\Portfolio;
-use common\models\User;
+use backend\models\Portfolio;
+use backend\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use backend\models\LoginForm;
+use backend\models\PasswordResetRequestForm;
+use backend\models\ResetPasswordForm;
+use backend\models\SignupForm;
+use backend\models\ContactForm;
 use backend\models\Post;
 use yii\data\Pagination;
-
+use backend\models\Settings;
 
 /**
  * Class SiteController
@@ -24,14 +24,6 @@ use yii\data\Pagination;
  */
 class SiteController extends Controller
 {
-    /**
-     * @var string
-     */
-    const MAX_ITEM_BLOG = 12;
-    /**
-     * @var string
-     */
-    const LAST_COUNT_POST = 6;
     /**
      * @return array
      */
@@ -232,7 +224,7 @@ class SiteController extends Controller
         $query = Post::find();
         $pages = new Pagination(['totalCount' =>
             $query->where($where_publish)->count() ,
-            'defaultPageSize' => self::MAX_ITEM_BLOG]);
+            'defaultPageSize' => Settings::get(Settings::MAX_ITEM_IN_BLOG)]);
 
         $posts = $query->offset($pages->offset)
             ->where($where_publish)
