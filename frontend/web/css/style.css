@@ -238,6 +238,7 @@ a.link_post {
 .query_info > .query , .query_info > .count , .query{
     display: block;
     font-weight: bold;
+    font-size: 20px;
 }
 .search_result{
     position: fixed;
