@@ -23,7 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php if($model->publish_status != 'draft'):?>
         <?= Html::a('Перейти на сайт', ['../post/view', 'id' => $model->id], ['class' => 'btn btn-success' , 'target' => '_blank']) ?>
+        <?php endif;?>
     </p>
     <?php echo DetailView::widget([
         'model' => $model,
@@ -37,7 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format'    => 'raw',
             ],
             'category.title',
-            'author.username',
+            [
+                    'attribute' => 'author_id',
+                    'value'  => function ($model) {
+                        return $model && $model->author ? $model->author->username : 'Автор статьи удален';
+                    }
+            ],
             [
                     'attribute' => 'publish_status',
                     'header' => 'Статус статьи',

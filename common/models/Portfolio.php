@@ -44,7 +44,7 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
     {
         return [
             [['title' , 'content'], 'required'],
-            ['title', 'unique', 'targetClass' => '\common\models\Portfolio', 'message' => 'Запись существует'],
+            ['title', 'unique', 'targetClass' => '\common\models\Portfolio', 'message' => 'Работа существует'],
             [['gallery'], 'file', 'maxFiles' => 10,  'skipOnEmpty' => true, 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }

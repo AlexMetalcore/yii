@@ -11,11 +11,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-category">
     <div class="row">
         <div class="col-md-8 fix-padding-caytegory">
+            <?php if($posts): ?>
         <?php foreach ($posts as $post): ?>
 
             <div class="col-md-12 category_background">
                 <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" class="link_post" title="<?= $post->title;?>">
-                    <span class="category_title"><?= $post->title;?></span>
+                    <h1 class="category_title"><?= $post->title;?></h1>
                 </a>
                 <?php if($post->img): ?>
                     <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>" title="<?= $post->title;?>">
@@ -37,6 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
+            <?php else:?>
+                <?php if (Yii::$app->session->hasFlash('empty-posts')): ?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <?php echo Yii::$app->session->getFlash('empty-posts'); ?>
+                    </div>
+                <?php endif;?>
+            <?php endif;?>
         </div>
         <div class="col-md-4 full-width">
             <div class="category_widget category_top_widget">

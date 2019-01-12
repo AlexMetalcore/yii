@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use frontend\controllers\PostController;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Post */
+/* @var $model backend\models\Post */
 
 $this->title = 'Создать статью';
 $this->params['breadcrumbs'][] = ['label' => 'Записи', 'url' => ['index']];

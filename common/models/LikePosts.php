@@ -46,10 +46,10 @@ class LikePosts extends ActiveRecord
     }
 
     /**
-     * @param $id
-     * @return array|ActiveRecord|null
+     * @return \yii\db\ActiveQuery
      */
-    public static function getOnePost($id) {
-        return self::find()->where(['post_id' => $id])->one();
+    public function getUser()
+    {
+        return $this->hasOne(POst::class, ['id' => 'author_id']);
     }
 }

@@ -7,14 +7,11 @@ use Yii;
 use common\models\User;
 use backend\models\Post;
 use yii\data\ActiveDataProvider;
-use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\models\LikePosts;
 use backend\helper\HelperImgCompression;
-use yii\web\ForbiddenHttpException;
 
 /**
  * Class PostController
@@ -76,8 +73,9 @@ class PostController extends Controller
                 if ($model->createFilePath() && $model->upload) {
                     $filePath = $model->createFilePath();
                     if ($model->upload->saveAs($filePath)) {
-                        new HelperImgCompression($filePath);
-                        $model->thumb_img = $model->setImgthumb($filePath);
+                        new HelperImgCompression(\Yii::$app->basePath.'/web/' , $filePath);
+                        chmod(\Yii::$app->basePath.'/web/'. $filePath, 0777);
+                        $model->thumb_img = $model->setImgThumb($filePath);
                         $model->img = $filePath;
                     }
                 }
@@ -139,6 +137,7 @@ class PostController extends Controller
         $this->imgPostSave($model);
         $category = Category::getAllCategory();
         $authors = User::getAllUser();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -182,15 +181,17 @@ class PostController extends Controller
     {
         $model_post = $this->findModel($id);
         $model_post->delete();
+
+        foreach ($model_post->like as $like) {
+            if ($like) {
+                $like->delete();
+            }
+        }
         if (Yii::$app->request->isAjax) {
-            echo 'Запись удалена';
+            Yii::$app->session->setFlash('delete' , 'Запись удалена');
         }
         else {
             return $this->redirect(['index']);
-        }
-        $model = LikePosts::getOnePost($id);
-        if($model) {
-            $model->delete();
         }
     }
 }

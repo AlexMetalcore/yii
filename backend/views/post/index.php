@@ -11,15 +11,26 @@ $this->title = 'Статьи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-index">
+    <?php Pjax::begin([
+        'id' => 'pjax-list',
+    ]); ?>
+
+    <?php if (Yii::$app->session->hasFlash('delete')): ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <?php echo Yii::$app->session->getFlash('delete'); ?>
+        </div>
+    <?php endif;?>
+
     <h1><?= Html::encode($this->title) ?></h1>
-    <?= \common\widgets\Alert::widget(); ?>
+
     <div class="create-post">
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php Pjax::begin([
-        'id' => 'pjax-list',
-    ]); ?>
+
     <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'layout'=>"{summary}\n{items}\n{pager}",
@@ -34,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                         'header' => 'Описание',
                         'value'  => function($model){
-                            return strlen(Post::removeImgTags($model->content)) < 200 ? $model->content : mb_substr($model->content , '0' , 200).'...';
+                            return strlen(Post::removeImgTags($model->content)) < 200 ? $model->content : mb_substr($model->content , '0' , 200). '...';
                         },
                         'format' => 'raw'
                 ],
@@ -85,15 +96,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 data: { id: id[1] },
                 type: 'GET',
                 success: function (res) {
-                    $('.breadcrumb').after('<div class=\"alert alert-success alert-dismissible\" role=\"alert\">'+res+'<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
+                    $('.breadcrumb').after(res);
                 },
                 error: function (res) {
                     alert(res.responseText);
                 }
-            }).done(function () {
-                $.pjax.reload({container: '#' + $.trim(pjaxContainer)});
-            });
-});
+            }).done(function () { $.pjax.reload({container: '#' + $.trim(pjaxContainer)});});
+        });
     ");?>
     <?php Pjax::end(); ?>
 </div>

@@ -105,7 +105,7 @@ class HelperImageFolder
     /**
      * @return array
      */
-    public function compressFolderImage ()
+    public function staticFolderImage ()
     {
         $get_all_img = scandir($this->path_static);
         $onlyimg = [];

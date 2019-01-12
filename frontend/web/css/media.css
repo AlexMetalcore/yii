@@ -5,7 +5,7 @@
 }
 @media screen and (max-width: 990px) {
     .category_top_widget {
-        margin: 20px 0px;
+        margin: 20px 0;
     }
     .full-width {
         padding: 0;
@@ -15,8 +15,7 @@
         top: unset;
     }
     .post-widget {
-        width: 60%;
-        margin: 0 20%;
+        width: 100%;
     }
     #form_search {
         width: 90%;
@@ -43,9 +42,12 @@
     .content {
         padding: 20px 20px;
     }
-    .post-widget {
-        width: 50%;
-        margin: 0 25%;
+    .full-width {
+        margin: 0 0;
+        padding: 0px 20px;
+    }
+    .content_post_view {
+        margin: 20px 20px;
     }
 }
 @media screen and (max-width: 680px) {
@@ -106,9 +108,6 @@
     .site-index > .pagination {
         position: relative;
         left: 25%;
-    }
-    .content_post_view {
-        width: 100%;
     }
     .content_text_post {
         padding: 40px 15px;

@@ -31,29 +31,29 @@ class PostController extends Controller
      * @return string
      */
     public function actionView ($id) {
-            $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
-            if(!$post) {
-                $this->redirect(['/site/error']);
+        $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
+        if(!$post) {
+            $this->redirect(['/site/error']);
+        }
+        else {
+            if (!Yii::$app->request->isAjax) {
+                $post->ViwedCounter($id);
             }
-            else {
-                if (!Yii::$app->request->isAjax) {
-                    $post->ViwedCounter($id);
-                }
-                $count = count($post->like);
-                if (!Yii::$app->user->isGuest) {
-                    $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
-                    if($user){
-                        foreach ($post->like as $like) {
-                            if($like->like_author == $user) {
-                                $model_author = $user;
-                                break;
-                            }
+            $count = count($post->like);
+            if (!Yii::$app->user->isGuest) {
+                $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
+                if($user){
+                    foreach ($post->like as $like) {
+                        if($like->like_author == $user) {
+                            $model_author = $user;
+                            break;
                         }
-                        return $this->render('view' , compact('post' , 'count' , 'model_author'));
                     }
+                    return $this->render('view' , compact('post' , 'count' , 'model_author'));
                 }
-                return $this->render('view' , compact('post' ,'count'));
             }
+            return $this->render('view' , compact('post' ,'count'));
+        }
     }
 
     /**

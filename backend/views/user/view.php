@@ -28,10 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'username',
             'email:email',
             'about:ntext',
+            [
+                    'attribute' => 'count_post',
+                    'value'  => function ($model) {
+                        return $model && count($model->post) > 0 ? count($model->post) : 'Автор еще не писал статтей';
+                    }
+            ],
         ],
     ]) ?>
 

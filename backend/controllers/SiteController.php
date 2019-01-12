@@ -64,6 +64,7 @@ class SiteController extends Controller
         $users = User::getLastRegisteredUser();
         $populars = Post::getPopularPosts();
         $portfolios = Portfolio::getLastPortfolio();
+
         return $this->render('index' , compact('posts' , 'users' , 'populars' , 'portfolios'));
     }
 

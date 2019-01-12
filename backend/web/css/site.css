@@ -135,12 +135,17 @@ a.desc:after {
     height: 100px;
     width: 20%;
 }
-.delete-portfolio-item:hover , .delete-post-item:hover {
+.delete-portfolio-item:hover , .delete-post-item:hover , .delete-category-item:hover , .delete-user-item:hover , .delete-user-item-and-post:hover {
     cursor: pointer;
 }
 .portfolio-loader {
     position: relative;
     width: 100px;
+    display: none;
+}
+.user-loader {
+    width: 150px;
+    position: relative;
     display: none;
 }
 .delete-all-img {
@@ -220,16 +225,20 @@ hr.line-under-name {
 }
 .static-img {
     display: inline-block;
+    word-break: break-all;
 }
 .all-img-delete-block , .all-img-compress-block {
     background-color: white;
     padding: 20px 20px;
     margin: 15px 0;
     border-radius: 10px;
+    max-width: 60%;
+    width: 100%;
 }
 .all-img-delete-block {
     height: 250px;
     overflow: scroll;
+    max-width: unset;
 }
 .trash-images , .static-images , .cache-clear {
     font-size: 20px;
@@ -241,4 +250,9 @@ hr.line-under-name {
 }
 #btn-clear-cache {
     margin-top: 10px;
+}
+.message-user {
+    padding: 10px 2px;
+    font-weight: bold;
+    text-align: center;
 }

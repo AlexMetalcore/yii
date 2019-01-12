@@ -85,11 +85,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $about_me = User::findOne(1)->about;
-        $posts = Post::find()
-            ->where(['publish_status' => 'publish'])
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(self::LAST_COUNT_POST)
-            ->all();
+        $posts = Post::getLastPost();
+
         return $this->render('index' , compact('posts' , 'about_me'));
     }
 
@@ -158,6 +155,7 @@ class SiteController extends Controller
     public function actionPortfolio()
     {
         $portfolios = Portfolio::find()->all();
+
         return $this->render('portfolio' , compact('portfolios'));
     }
 
@@ -256,13 +254,19 @@ class SiteController extends Controller
         }
         $search_query = Yii::$app->request->get('search_query');
 
-        $query = Post::find()->where(['OR', ['like' , 'title' , $search_query] , ['like' , 'content' , $search_query]])->andWhere($where_publish);
+        $query = Post::find()
+            ->where(['OR', ['like' , 'title' , $search_query] ,
+                ['like' , 'content' , $search_query]])
+            ->andWhere($where_publish);
 
-        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 6]);
 
         $count = $query->count();
 
-        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $posts = $query
+            ->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
 
         return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
 
@@ -291,6 +295,7 @@ class SiteController extends Controller
         if(!Yii::$app->request->isAjax) {
             return $this->redirect(['site/error']);
         }
+
         $content = Portfolio::getAllImg($id);
 
         return $this->renderAjax('ajaxportfolio/item-portfolio' , compact('content'));

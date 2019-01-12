@@ -42,7 +42,7 @@ class CategoryController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST' , 'GET' , 'DELETE' , 'PUT'],
                 ],
             ],
         ];
@@ -78,7 +78,7 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
-        $count = Post::find()->where(['category_id' => $id])->count();
+        $count = count($this->findModel($id)->posts);
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -93,7 +93,7 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
-        $category  = Category::find()->all();
+        $category = Category::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()) {
@@ -113,11 +113,10 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        $category  = Category::find()->where(['!=' , 'id' , $id])->all();
+        $category  = $model::find()->where(['!=' , 'id' , $id])->all();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->parent_id == 0 || empty($model->parent_id)){
+            if (empty($model->parent_id)){
                 $model->parent_id = 0;
             }
             if ($model->save()) {
@@ -141,15 +140,20 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        foreach ($this->findModel($id)->posts as $post){
-            $model = Post::findOne($post->id);
-            if($model){
-                $model->publish_status = 'draft';
-                $model->save(false);
+        $model_category = $this->findModel($id);
+        foreach ($model_category->posts as $post){
+            if($post){
+                $post->publish_status = 'draft';
+                $post->save(false);
             }
         }
-        $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        $model_category->delete();
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->session->setFlash('delete_category' , 'Категория удалена');
+        }
+        else {
+            return $this->redirect(['index']);
+        }
     }
 
 

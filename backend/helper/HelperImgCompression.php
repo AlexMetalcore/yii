@@ -16,44 +16,47 @@ class HelperImgCompression
     /**
      * @var
      */
-    const PARAMETERS_QUALITY = 80;
+    const PARAMETERS_QUALITY = 60;
     /**
      * @var
      */
     const PARAMETERS_COMPRESSION = 8;
 
     /**
-     * @var
+     * @var string
      */
-    private $path;
+    private $file_name;
+    /**
+     * @var string
+     */
+    private $full_path_file;
 
 
     /**
      * HelperImgCompression constructor.
-     * @param $path
+     * @param $full_path_file
+     * @param $file_name
      * @throws \ImagickException
      */
-    public function __construct($path)
+    public function __construct($full_path_file , $file_name)
     {
-        $this->path = $path;
+        $this->file_name = $file_name;
+        $this->full_path_file = $full_path_file;
         $this->ImgCompression();
     }
-
 
     /**
      * @throws \ImagickException
      */
     private function ImgCompression () {
-        $full_path_file = \Yii::$app->basePath.'/web/'.$this->path;
-        $img = new \Imagick($full_path_file);
-        if (filesize($full_path_file) > 1024*1000) {
+        $full_path = $this->full_path_file.$this->file_name;
+        $img = new \Imagick($full_path);
+        if (filesize($full_path) > 1024*1000) {
             $img->setImageCompression(true);
             $img->setImageCompression(self::PARAMETERS_COMPRESSION);
             $img->setImageCompressionQuality(self::PARAMETERS_QUALITY);
-            $img->writeImage($this->path);
+            $img->writeImage($full_path);
         }
-        $img->writeImage($this->path);
-        chmod($full_path_file, 0777);
         $img->clear();
         $img->destroy();
     }

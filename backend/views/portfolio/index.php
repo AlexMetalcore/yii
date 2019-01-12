@@ -10,14 +10,24 @@ $this->title = Yii::t('app', 'Все работы');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portfolio-index">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <div class="create-portfolio">
-        <?= Html::a(Yii::t('app', 'Создать работу'), ['create'], ['class' => 'btn btn-success']) ?>
-    </div>
-
     <?php Pjax::begin([
         'id' => 'pjax-list',
     ]); ?>
+
+    <?php if (Yii::$app->session->hasFlash('delete_portfolio')): ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <?php echo Yii::$app->session->getFlash('delete_portfolio'); ?>
+        </div>
+    <?php endif;?>
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <div class="create-portfolio">
+        <?= Html::a(Yii::t('app', 'Создать работу'), ['create'], ['class' => 'btn btn-success']) ?>
+    </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'layout'=>"{summary}\n{items}\n{pager}",
@@ -65,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 data: { id: id[1] },
                 type: 'GET',
                 success: function (res) {
-                    $('.breadcrumb').after('<div class=\"alert alert-success alert-dismissible\" role=\"alert\">'+res+'<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
+                    $('.breadcrumb').after(res);
                 },
                 error: function (res) {
                     alert(res);

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-post">
     <div class="row">
         <div class="col-md-8 content_post_view">
-            <h1><?= $post->title;?></h1>
+            <h1 class="post_title"><?= $post->title;?></h1>
             <span class="date">Дата публикации: <?= $post->getDate(); ?></span>
           Категория: <a href="<?= Url::to(['category/view' , 'id' => $post->category->id])?>"
                         title="<?= $post->category->title; ?>"><span class="category"><?= $post->category->title;?></span></a>

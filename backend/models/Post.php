@@ -35,21 +35,6 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     const HEIGHT_IMAGE_RESIZE = 200;
     /**
-     * @var string
-     */
-    private $imgthumb;
-
-
-    /**
-     * @param $imgthumb
-     * @throws \ImagickException
-     */
-    public function setImgthumb($imgthumb)
-    {
-        $this->imgthumb = $this->createImgThumb($imgthumb);
-        return $this->imgthumb;
-    }
-    /**
      * @var integer
      */
     const COUNT_LAST_POST = 6;
@@ -62,8 +47,19 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public $upload;
     /**
-     * {@inheritdoc}
+     * @var string
      */
+    private $imgthumb;
+
+    /**
+     * @param $imgthumb
+     * @throws \ImagickException
+     */
+    public function setImgThumb($imgthumb)
+    {
+        $this->imgthumb = $this->createImgThumb($imgthumb);
+        return $this->imgthumb;
+    }
 
     /**
      * @param $filePath

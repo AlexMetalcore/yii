@@ -10,8 +10,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\helper\HelperImgCompression;
-use yii\web\ForbiddenHttpException;
-
 
 /**
  * Class PortfolioController
@@ -72,7 +70,9 @@ class PortfolioController extends Controller
                         $path = 'images/' . uniqid() . '.' . $file->extension;
                         if ($file->saveAs($path)) {
                             try {
-                                new HelperImgCompression($path);
+                                /*Сжатие картинок*/
+                                new HelperImgCompression(\Yii::$app->basePath.'/web/' , $path);
+                                chmod(\Yii::$app->basePath.'/web/'. $path, 0777);
                                 $array_img[] = $path;
                                 $model->img = implode(',' , $array_img);
                             }
@@ -128,13 +128,8 @@ class PortfolioController extends Controller
         $this->handlePortfolioPhoto($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            if (!$model->attributes['img']) {
-                $model->addError('gallery' , 'Ошибка загрузки файла');
-            }
-            else {
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
         return $this->render('create', [
@@ -154,13 +149,8 @@ class PortfolioController extends Controller
         $this->handlePortfolioPhoto($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            if (!$model->attributes['img']) {
-                $model->addError('gallery' , 'Ошибка загрузки файла');
-            }
-            else {
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -180,7 +170,7 @@ class PortfolioController extends Controller
     {
         $this->findModel($id)->delete();
         if (Yii::$app->request->isAjax) {
-            echo 'Запись удалена';
+            Yii::$app->session->setFlash('delete_portfolio' , 'Работа удалена');
         }
         else {
             return $this->redirect(['index']);

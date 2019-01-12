@@ -40,10 +40,6 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      *
      */
-    const STATUS_DELETED = 0;
-    /**
-     *
-     */
     const STATUS_ACTIVE = 10;
 
     /**
@@ -91,10 +87,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ИД',
-            'username' => 'Логин',
+            'username' => 'Автор',
             'password' => 'Пароль',
             'email' => 'E-mail',
             'about' => 'О авторе',
+            'count_post' => 'Количество статтей автора',
+            'status' => 'Статус'
         ];
     }
 
@@ -242,6 +240,14 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getLike()
+    {
+        return $this->hasMany(LikePosts::class, ['author_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public static function getEnvUsers() {
 
         return User::find();
@@ -285,7 +291,8 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return mixed
      */
-    public static function getLastRegisteredUser() {
+    public static function getLastRegisteredUser()
+    {
         return self::find()->orderBy('created_at desc')->limit(self::COUNT_LAST_USER_REGISTERED)->all();
     }
 }

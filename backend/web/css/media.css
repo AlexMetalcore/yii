@@ -1,0 +1,5 @@
+@media screen and (max-width: 768px) {
+    .all-img-delete-block, .all-img-compress-block {
+        max-width: 100%;
+    }
+}

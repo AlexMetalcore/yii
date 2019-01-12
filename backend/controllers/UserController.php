@@ -124,18 +124,55 @@ class UserController extends Controller
 
     /**
      * @param $id
-     * @return \yii\web\Response
+     * @param bool $move
+     * @return bool|string|\yii\web\Response
      * @throws NotFoundHttpException
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $move = false , $user = null)
     {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $model->delete();
+
+        if($model->like) {
+            foreach ($model->like as $like) {
+                if ($like) {
+                    $like->delete();
+                }
+            }
+        }
+        if(!$move && !$user) {
+            foreach ($model->post as $post) {
+                $user = User::findIdentity(Yii::$app->user->getId())->username;
+                if($user) {
+                    $post->author_id = Yii::$app->user->getId();
+                    $post->save();
+                    Yii::$app->session->removeAllFlashes();
+                }
+            }
+            \Yii::$app->session->setFlash('data-move' , 'Статьи перенесены');
+            return $this->renderAjax('ajax/messageaftermove');
+        }
+        else if ($move && !$user) {
+            foreach ($model->post as $post) {
+                $post->delete();
+            }
+            \Yii::$app->session->setFlash('delete-data-user' , 'Все статьи удалены');
+            return $this->renderAjax('ajax/messageaftermove');
+        }
+        else if ($model->username == $user){
+            \Yii::$app->session->setFlash('delete-user' , 'Пользователь удален');
+            return $this->renderAjax('ajax/messageaftermove');
+        }
+        if (!Yii::$app->request->isAjax) {
+            return false;
+        }
+        else {
+            return $this->redirect(['index']);
+        }
     }
-
 
     /**
      * @param $id

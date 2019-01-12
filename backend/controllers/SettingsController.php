@@ -8,11 +8,11 @@
 
 namespace backend\controllers;
 
+use backend\helper\HelperImgCompression;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use backend\helper\HelperImageFolder;
-use yii\web\ForbiddenHttpException;
 
 /**
  * Class SettingsController
@@ -20,14 +20,6 @@ use yii\web\ForbiddenHttpException;
  */
 class SettingsController extends Controller
 {
-    /**
-     * @var
-     */
-    const PARAMETERS_QUALITY = 80;
-    /**
-     * @var
-     */
-    const PARAMETERS_COMPRESSION = 8;
     /**
      * @return array
      */
@@ -61,12 +53,13 @@ class SettingsController extends Controller
     {
         $object_photo = new HelperImageFolder();
         $what_image = $object_photo->array_image;
+        $staticimg = $object_photo->staticFolderImage();
+
         $img_delete = [];
         foreach ($what_image as $img) {
             $img_delete[] = $object_photo->path.$img;
         }
         $trash = count($what_image);
-        $staticimg = $object_photo->compressFolderImage();
 
         return $this->render('index' , compact('trash' , 'img_delete' , 'staticimg'));
     }
@@ -77,7 +70,7 @@ class SettingsController extends Controller
     public function actionClearOldImgs()
     {
         if(!\Yii::$app->request->isAjax) {
-            $this->redirect(['site/error']);
+            return $this->redirect(['site/error']);
         }
 
         $get_trash_img = new HelperImageFolder();
@@ -93,17 +86,15 @@ class SettingsController extends Controller
      * @throws \ImagickException
      */
     public function actionCompressImg() {
+        if(!\Yii::$app->request->isAjax) {
+            return $this->redirect(['site/error']);
+        }
         $object_photo = new HelperImageFolder();
-        $staticimg = $object_photo->compressFolderImage();
+        $staticimg = $object_photo->staticFolderImage();
+
         if ($staticimg) {
             foreach ($staticimg as $img) {
-                $imgs = new \Imagick($img);
-                $imgs->setImageCompression(true);
-                $imgs->setImageCompression(self::PARAMETERS_COMPRESSION);
-                $imgs->setImageCompressionQuality(self::PARAMETERS_QUALITY);
-                $imgs->writeImage($img);
-                $imgs->clear();
-                $imgs->destroy();
+                new HelperImgCompression(\Yii::$app->basePath.'/web/images/staticimg/' , basename($img));
             }
             return 'Сжатие выполнено';
         }
