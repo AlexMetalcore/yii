@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\CategoryWidget;
 use yii\widgets\Pjax;
-use common\models\User;
+use backend\models\Settings;
 
 $this->title = $post->title;
 $this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id ? $post->category->id : '']];
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-4 full-width">
             <div class="category_widget category_top_widget">
-                <?php if ($this->beginCache('CategoryWidget', ['duration' => CategoryWidget::TIME_CACHE])):?>
+                <?php if ($this->beginCache('CategoryWidget', ['duration' => Settings::get(Settings::TIME_CACHE_WIDGET)])):?>
                     <?=CategoryWidget::widget();?>
                     <?php $this->endCache(); ?>
                 <?php endif;?>

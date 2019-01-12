@@ -2,20 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: alex
- * Date: 12.01.19
- * Time: 19:14
- */
-?>
-<?php
-/**
- * Created by PhpStorm.
- * User: alex
  * Date: 05.01.19
  * Time: 15:06
  */
 use yii\widgets\Pjax;
 use yii\helpers\Html;
-use frontend\components\CategoryWidget;
+use backend\models\Settings;
+
 $this->title = Yii::t('app', 'Кеширование и работа с картинками');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -53,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif;?>
     <?= Html::button('Сжатие картинок'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-compression']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-compress-img' , count($staticimg) ? '' : 'disabled' => 'true']); ?>
     <div class="cache-clear">Очистка кеша</div>
-    <div>Время кеширования: <?= CategoryWidget::TIME_CACHE/3600 . ' час'; ?></div>
+    <div>Время кеширования: <?= Settings::get(Settings::TIME_CACHE_WIDGET)/3600 . ' час'; ?></div>
     <?= Html::button('Очистка кеша'.Html::img('/admin/images/staticimg/loaderbtn.gif' , ['class' => 'loader-clear-cache']).'', ['class' => 'btn btn-danger' , 'id' => 'btn-clear-cache']); ?>
 </div>
 

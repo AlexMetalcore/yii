@@ -3,6 +3,7 @@ namespace frontend\components;
 
 use backend\models\Category;
 use backend\models\Post;
+use backend\models\Settings;
 use yii\base\Widget;
 
 /**
@@ -11,16 +12,6 @@ use yii\base\Widget;
  */
 class CategoryWidget extends Widget
 {
-    /**
-     *
-     */
-    const TIME_CACHE = 3600;
-
-    /**
-     * @var string
-     */
-    private $limit_popular = 6;
-
     /**
      * @var
      */
@@ -111,7 +102,7 @@ class CategoryWidget extends Widget
         $popular = Post::find()
             ->where($where)
             ->orderBy('viewed DESC')
-            ->limit($this->limit_popular)
+            ->limit(Settings::get(Settings::COUNT_POPULAR_POST))
             ->all();
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree , $this->count_posts);

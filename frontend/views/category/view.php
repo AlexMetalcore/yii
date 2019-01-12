@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use frontend\components\CategoryWidget;
 use backend\models\Post;
+use backend\models\Settings;
 
 $this->title = $category->title;
 $this->params['breadcrumbs'][] = $this->title;
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-4 full-width">
             <div class="category_widget category_top_widget">
-                <?php if ($this->beginCache('CategoryWidget', ['duration' => CategoryWidget::TIME_CACHE])):?>
+                <?php if ($this->beginCache('CategoryWidget', ['duration' => Settings::get(Settings::TIME_CACHE_WIDGET)])):?>
                     <?=CategoryWidget::widget();?>
                     <?php $this->endCache(); ?>
                 <?php endif;?>
