@@ -41,7 +41,7 @@ class LoginForm extends Model
         return [
             [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
-            [['password' , 'username'], 'validatePassword'],
+            [['password'], 'validatePassword'],
         ];
     }
 
@@ -66,7 +66,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Логин/пароль неверные');
+                $this->addError($attribute, 'Логин или пароль неверные');
             }
         }
     }
