@@ -80,7 +80,11 @@ Modal::begin([
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'enableAjaxValidation' => true,
-            'enableClientValidation' => true,
+            'enableClientValidation' => false,
+            'validateOnBlur'         => false,
+            'validateOnType'         => false,
+            'validateOnChange'       => false,
+            'validateOnSubmit'       => true,
         ]); ?>
 
         <?= $form->field($model, 'username')->label('Пользователь')->textInput(['autofocus' => true , 'class' => 'input-login-site form-control']) ?>
