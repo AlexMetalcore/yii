@@ -14,10 +14,7 @@ $this->title = 'Авторизация';
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <h1><?= Html::encode($this->title) ?></h1>
-            <?php $form = ActiveForm::begin(['id' => 'login-form',
-                'enableAjaxValidation' => true,
-                'enableClientValidation' => true,
-                ]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                 <?= $form->field($model, 'username')->label('Пользователь')->textInput(['autofocus' => true , 'class' => 'input-login-site form-control']) ?>
 

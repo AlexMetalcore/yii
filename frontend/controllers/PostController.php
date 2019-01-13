@@ -22,6 +22,7 @@ class PostController extends Controller
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action) {
+        
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
