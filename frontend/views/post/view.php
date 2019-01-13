@@ -13,14 +13,6 @@ $this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<?php if (Yii::$app->session->hasFlash('error-login')): ?>
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <?php echo Yii::$app->session->getFlash('error-login'); ?>
-    </div>
-<?php endif;?>
 <div class="site-post">
     <div class="row">
         <div class="col-md-8 content_post_view">
