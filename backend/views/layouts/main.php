@@ -52,6 +52,7 @@ AppAsset::register($this);
                 ['label' => 'Параметры настроек', 'url' => ['settings/index']],
                 ['label' => 'Кеш и работа с картинками', 'url' => ['settings/cache-data-img']]
             ]] : '';
+            $menuItems[] = User::findIdentity(\Yii::$app->user->identity->getId())->status != User::ROLE_MODERATOR ? ['label' => 'Медиафайлы', 'url' => ['/media/index']] : '';
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton('Выход (' . Yii::$app->user->identity->username . ')',

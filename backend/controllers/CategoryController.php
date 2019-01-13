@@ -2,50 +2,23 @@
 
 namespace backend\controllers;
 
-use backend\models\Post;
 use Yii;
 use backend\models\Category;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\web\ForbiddenHttpException;
 
 /**
  * Class CategoryController
  * @package backend\controllers
  */
-class CategoryController extends Controller
+class CategoryController extends AppController
 {
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                        'actions' => ['index' , 'create' , 'view' ,'update' , 'delete'],
-                    ],
-                    [
-                        'allow' => true,
-                        'roles' => ['moderator'],
-                        'actions' => ['index' , 'create' , 'view' ,'update'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST' , 'GET' , 'DELETE' , 'PUT'],
-                ],
-            ],
-        ];
+        return parent::behaviors();
     }
 
     /**

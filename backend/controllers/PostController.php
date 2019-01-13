@@ -7,46 +7,21 @@ use Yii;
 use backend\models\User;
 use backend\models\Post;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use backend\helper\HelperImgCompression;
 
 /**
  * Class PostController
  * @package backend\controllers
  */
-class PostController extends Controller
+class PostController extends AppController
 {
     /**
      * @return array
      */
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                        'actions' => ['index' , 'create' , 'view' ,'update' , 'delete'],
-                    ],
-                    [
-                        'allow' => true,
-                        'roles' => ['moderator'],
-                        'actions' => ['index' , 'create' , 'view' ,'update'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['GET' , 'POST' , 'DELETE'],
-                ],
-            ],
-        ];
+        return parent::behaviors();
     }
 
     /**

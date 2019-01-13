@@ -71,7 +71,7 @@ Modal::begin([
     <div class="form-login">
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
-            'enableAjaxValidation' => true,
+            'enableAjaxValidation'   => true,
             'enableClientValidation' => false,
             'validateOnBlur'         => false,
             'validateOnType'         => false,
@@ -102,9 +102,12 @@ Modal::end();
 ?>
 <?php
 $this->registerJS("
-    $('.link-login').click(function(e){
+    $('.link-login').on('click' , function(e){
         e.preventDefault();
-        $('#modal-login-user').modal('show'); 
+        $('#modal-login-user').modal('show');
+        setTimeout(function () {
+            $('#loginform-username , #loginform-password').val('');
+        },300);
     });
 ");
 ?>

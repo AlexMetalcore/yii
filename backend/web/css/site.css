@@ -256,3 +256,8 @@ hr.line-under-name {
     font-weight: bold;
     text-align: center;
 }
+.media-img {
+    width: 100%;
+    padding: 20px 0;
+    height: 230px;
+}

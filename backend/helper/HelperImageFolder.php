@@ -7,9 +7,11 @@
  */
 
 namespace backend\helper;
+
 use backend\models\Portfolio;
 use backend\models\Post;
 use backend\models\Settings;
+
 /**
  * Class HelperImageFolder
  * @package backend\helper
@@ -115,5 +117,23 @@ class HelperImageFolder
             }
         }
         return $onlyimg;
+    }
+
+    public function getAllImages ()
+    {
+        $dir_images = scandir($this->path);
+        $dir_static_img = scandir($this->path_static);
+        foreach ($dir_images as $img) {
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
+                $img_src[] = '/admin/images/'.$img;
+            }
+        }
+        foreach ($dir_static_img as $img) {
+            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
+                $img_src_static[] = '/admin/images/staticimg/' . $img;
+            }
+        }
+
+        return array_merge($img_src , $img_src_static);
     }
 }
