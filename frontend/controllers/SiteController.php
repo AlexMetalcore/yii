@@ -160,12 +160,8 @@ class SiteController extends Controller
                 }
             }
         }
-        if(Yii::$app->request->isAjax) {
-            return $this->renderAjax('signup', compact('model'));
-        }
-        else {
-            return $this->render('signup', compact('model'));
-        }
+        return $this->render('signup', compact('model'));
+
     }
 
     /**
