@@ -5,6 +5,8 @@ use backend\models\Portfolio;
 use backend\models\User;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\base\Response;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -17,7 +19,6 @@ use backend\models\ContactForm;
 use backend\models\Post;
 use yii\data\Pagination;
 use backend\models\Settings;
-
 /**
  * Class SiteController
  * @package frontend\controllers
@@ -82,22 +83,17 @@ class SiteController extends Controller
         return $this->render('index' , compact('posts' , 'about_me'));
     }
 
-    /**
-     * @return string|\yii\web\Response
-     */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if(!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() ) {
-            return $this->goBack();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goHome();
         } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            return $this->render('login', compact('model'));
         }
     }
 
@@ -164,10 +160,12 @@ class SiteController extends Controller
                 }
             }
         }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        if(Yii::$app->request->isAjax) {
+            return $this->renderAjax('signup', compact('model'));
+        }
+        else {
+            return $this->render('signup', compact('model'));
+        }
     }
 
     /**

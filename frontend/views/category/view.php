@@ -55,12 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif;?>
             </div>
         </div>
-        <?php echo LinkPager::widget([
-            'pagination' => $pages,
-            'options' => [
-                'id' => 'pagination_category',
-                'class' => 'pagination'
-            ],
-        ]); ?>
+        <div class="block-pagination">
+            <?php echo LinkPager::widget([
+                'pagination' => $pages,
+                'options' => [
+                    'id' => 'pagination_category',
+                    'class' => 'pagination'
+                ],
+            ]); ?>
+        </div>
     </div>
 </div>

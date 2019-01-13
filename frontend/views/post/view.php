@@ -5,13 +5,22 @@ use yii\helpers\Url;
 use frontend\components\CategoryWidget;
 use yii\widgets\Pjax;
 use backend\models\Settings;
+use yii\bootstrap\Modal;
+use yii\bootstrap\ActiveForm;
 
 $this->title = $post->title;
 $this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id ? $post->category->id : '']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-
+<?php if (Yii::$app->session->hasFlash('error-login')): ?>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <?php echo Yii::$app->session->getFlash('error-login'); ?>
+    </div>
+<?php endif;?>
 <div class="site-post">
     <div class="row">
         <div class="col-md-8 content_post_view">
@@ -61,7 +70,48 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php
+Modal::begin([
+    'header'=>'<h4>Авторизация</h4>',
+    'id'=>'modal-login-user',
+    'size'=>'modal-md',
+]);?>
+    <div class="form-login">
+        <?php $form = ActiveForm::begin([
+            'id' => 'login-form',
+            'enableAjaxValidation' => true,
+            'enableClientValidation' => true,
+        ]); ?>
 
+        <?= $form->field($model, 'username')->label('Пользователь')->textInput(['autofocus' => true , 'class' => 'input-login-site form-control']) ?>
+
+        <?= $form->field($model, 'password')->label('Пароль')->passwordInput(['class' => 'input-login-site form-control']) ?>
+
+        <?= $form->field($model, 'rememberMe')->label('Запомнить меня')->checkbox() ?>
+
+        <?= Html::a('Регистрация', ['site/signup'] , ['class' => 'register_link']) ?>
+
+        <div style="color:#999;margin:1em 0">
+            Если вы забыли свой пароль, вы можете <?= Html::a('сбросить его', ['site/request-password-reset']) ?>.
+        </div>
+
+        <div class="form-group">
+            <?= Html::submitButton('Авторизироваться', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
+<?php
+Modal::end();
+?>
+<?php
+$this->registerJS("
+    $('.link-login').click(function(e){
+        e.preventDefault();
+        $('#modal-login-user').modal('show'); 
+    });
+");
+?>
 <?= newerton\fancybox\FancyBox::widget([
     'target' => 'a[rel=fancybox]',
     'helpers' => true,

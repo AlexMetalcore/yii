@@ -7,7 +7,8 @@ use backend\models\User;
 use yii\web\Controller;
 use backend\models\Post;
 use Yii;
-use frontend\components\CategoryWidget;
+use backend\models\LoginForm;
+use yii\widgets\ActiveForm;
 
 /**
  * Class PostController
@@ -15,6 +16,15 @@ use frontend\components\CategoryWidget;
  */
 class PostController extends Controller
 {
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
     /**
      * @return array
      */
@@ -31,6 +41,23 @@ class PostController extends Controller
      * @return string
      */
     public function actionView ($id) {
+
+        $model = new LoginForm();
+
+        if (Yii::$app->request->isAjax) {
+            if ($model->load(Yii::$app->request->post())) {
+                if($model->login()) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    ActiveForm::validate($model);
+                    return $this->refresh();
+                }
+                else {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ActiveForm::validate($model);
+                }
+            }
+        }
+
         $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
         if(!$post) {
             $this->redirect(['/site/error']);
@@ -49,10 +76,10 @@ class PostController extends Controller
                             break;
                         }
                     }
-                    return $this->render('view' , compact('post' , 'count' , 'model_author'));
+                    return $this->render('view' , compact('post' , 'count' , 'model_author' , 'model'));
                 }
             }
-            return $this->render('view' , compact('post' ,'count'));
+            return $this->render('view' , compact('post' ,'count' , 'model'));
         }
     }
 

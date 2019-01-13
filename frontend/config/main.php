@@ -11,7 +11,6 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'modules' => [],
     'components' => [
         'language' => 'ru-RU',
         'request' => [
@@ -53,12 +52,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                //'post/page/<page:\d+>' => 'post/index',
-                //'/<controller>/<action>/<id:\w+>' => '/<controller>/<action>/',
                 '/comment/default/create' => '/comment/default/create',
                 '/comment/default/delete' => '/comment/default/delete',
+                'site/page/<page:\d+>' => '/site/blog',
+                '<controller:\w+>/<action:\w+>/<id:\w+>/page/<page:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
-                'search' => 'site/search',
+                'search/' => 'site/search',
                 '/' => 'site/index',
                 ],
         ],

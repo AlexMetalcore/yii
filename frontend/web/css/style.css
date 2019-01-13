@@ -559,3 +559,7 @@ a.link_post {
 .pagination {
     padding-left: unset;
 }
+.content > p {
+    padding: 5px 30px;
+    text-align: justify;
+}
