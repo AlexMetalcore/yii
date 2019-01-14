@@ -32,6 +32,9 @@ body {
     display: block;
     color: black;
 }
+.category_title {
+    padding-left: 9px;
+}
 a.link_post {
     color: #000;
     text-decoration: none;
