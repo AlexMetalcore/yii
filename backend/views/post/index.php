@@ -30,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </div>
 
-
     <?= GridView::widget([
             'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
             'layout'=>"{summary}\n{items}\n{pager}",
             'summary' => 'Показано {count} из {totalCount} статтей',
             'emptyText' => 'Статтей нету',
@@ -43,20 +43,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 'title',
                 [
-                        'header' => 'Описание',
+                    'attribute' => 'content',
                         'value'  => function($model){
                             return strlen(Post::removeImgTags($model->content)) < 200 ? $model->content : mb_substr($model->content , '0' , 200). '...';
                         },
                         'format' => 'raw'
                 ],
                 [
-                        'header' => 'Категория',
+                    'attribute' => 'category_id',
                         'value' => function($model){
                             return $model->category->title ? $model->category->title : 'Категория отсутствует';
                         },
                 ],
                 [
-                    'header' => 'Автор',
+                    'attribute' => 'author_id',
                     'value' => 'author.username',
                 ],
                 [
@@ -71,7 +71,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $model->viewed ? $model->viewed : 'Статью никто еще не просматривал';
                     }
                 ],
-                'publish_date',
                 [
                         'attribute' => 'publish_date',
                         'value' => function($model) {
@@ -95,11 +94,11 @@ $this->params['breadcrumbs'][] = $this->title;
             $('.alert-success').children().children().trigger('click');
             e.preventDefault();
             var url = $(this).attr('delete-url-post');
-            var id = url.split('=');
+            var id = url.split('=')[1];
             var pjaxContainer = $(this).attr('pjax-container-post');
             $.ajax({
                 url: '/admin/post/delete',
-                data: { id: id[1] },
+                data: { id: id },
                 type: 'GET',
                 success: function (res) {
                     $('.breadcrumb').after(res);

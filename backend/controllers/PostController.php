@@ -9,6 +9,7 @@ use backend\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use backend\helper\HelperImgCompression;
+use backend\models\PostSearch;
 
 /**
  * Class PostController
@@ -75,17 +76,12 @@ class PostController extends AppController
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
-            'pagination' => [
-                'pageSize' => 3,
-                'forcePageParam' => false,
-                'pageSizeParam' => false,
-            ],
-        ]);
+        $searchModel = new PostSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
