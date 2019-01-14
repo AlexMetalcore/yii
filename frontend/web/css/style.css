@@ -30,7 +30,6 @@ body {
     font-size: 40px;
     font-weight: bold;
     display: block;
-    padding-left: 9px;
     color: black;
 }
 a.link_post {
@@ -90,7 +89,6 @@ a.link_post {
 }
 .date {
     display: inline-block;
-    padding-left: 9px;
 }
 .content_text_post {
     padding: 10px 0;
