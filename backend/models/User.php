@@ -6,7 +6,8 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
+use common\implement\UploadFileInterfaces;
+use yii\web\UploadedFile;
 /**
  * User model
  *
@@ -21,8 +22,12 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface , UploadFileInterfaces
 {
+    /**
+     * @var string
+     */
+    public $upload_user_avatar;
     /**
      *
      */
@@ -39,11 +44,6 @@ class User extends ActiveRecord implements IdentityInterface
      *
      */
     const STATUS_ACTIVE = 10;
-
-    /**
-     * @var integer
-     */
-    const COUNT_LAST_USER_REGISTERED = 6;
 
     /**
      * {@inheritdoc}
@@ -75,6 +75,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'E-mail существует'],
+            [['upload_user_avatar'], 'file', 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }
 
@@ -267,7 +268,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function isUserAdmin($username)
     {
-        if (static::findOne(['username' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]]) || static::findOne(['email' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR]])) {
+        if (static::findOne(['username' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR , self::ROLE_USER]]) || static::findOne(['email' => $username, 'status' => [self::ROLE_ADMIN , self::ROLE_MODERATOR , self::ROLE_USER]])) {
             return true;
         }
         else {
@@ -292,5 +293,19 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getLastRegisteredUser()
     {
         return self::find()->orderBy('created_at desc')->limit(Settings::get(Settings::COUNT_LAST_USER_REGISTERED))->all();
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function createFilePath ()
+    {
+        $this->upload_user_avatar = UploadedFile::getInstance($this, 'upload_user_avatar');
+        return $this->upload_user_avatar  ? 'images/' . uniqid() . '.' . $this->upload_user_avatar->extension : $this->user_img;
+    }
+
+    public function getAvatar()
+    {
+        return $this->user_img ?'../../admin/'.$this->user_img : 'http://www.gravatar.com/avatar?d=mm&f=y&s=50';
     }
 }

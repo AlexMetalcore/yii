@@ -60,6 +60,7 @@ class PostController extends Controller
         }
 
         $post = Post::find()->where(['id' => $id])->andWhere(['publish_status' => 'publish'])->one();
+
         if(!$post) {
             $this->redirect(['/site/error']);
         }
@@ -95,7 +96,7 @@ class PostController extends Controller
             return false;
         }
         $author_id = \Yii::$app->user->identity->getId();
-        $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
+        $user = Yii::$app->user->identity->username;
         $model = LikePosts::find()->where(['post_id' => $id])->andWhere(['author_id' => $author_id])->one();
         if ($model && $model->post_id == $id && $model->author_id == $author_id) {
             $model->delete();

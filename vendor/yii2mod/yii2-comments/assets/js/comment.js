@@ -27,8 +27,8 @@
             scrollTo: false,
             url: window.location.href
         },
-        submitBtnText: 'Comment',
-        submitBtnLoadingText: 'Loading...'
+        submitBtnText: 'Комментарий',
+        submitBtnLoadingText: 'Загрузка...'
     };
 
     var commentData = {};
@@ -141,8 +141,8 @@
         var settings = commentData[event.data.wrapperSelector].settings;
 
         $.ajax({
-            url: $this.data('url'),
-            type: 'DELETE',
+            //url: $this.data('url'),
+            //type: 'DELETE',
             error: function (xhr, status, error) {
                 alert(error);
             },

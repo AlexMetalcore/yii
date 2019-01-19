@@ -7,6 +7,7 @@ use yii\widgets\Pjax;
 use backend\models\Settings;
 use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
+use backend\models\User;
 
 $this->title = $post->title;
 $this->params['breadcrumbs'][] = ['label' => $post->category->title, 'url' => ['category/view', 'id' => $post->category->id ? $post->category->id : '']];
@@ -28,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <span class="count_like"><?= !$count ? '' : $count; ?></span>
                 <span class="tooltiptext">
                     <?php if(!empty($post->like) && count($post->like) >= 1): ?>
-                    <?php foreach ($post->like as $author): ?>
-                        <span class="author_likes"><?= $author->like_author;?></span>
+                    <?php $count = 1; foreach ($post->like as $author): ?>
+                                <span class="author_likes <?= $count++ > 6 ? 'hide-block' : '' ;?>"><?= $author->like_author;?><img src="/admin/<?=isset($author->user) && $author->user->user_img ? $author->user->user_img : 'images/staticimg/no-img.png'?>" class="img-user-avatar" alt="User Image"/></span>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </span>
@@ -42,13 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= \yii2mod\comments\widgets\Comment::widget([
                 'model' => $post,
                 'maxLevel' => 2,
+                'pjaxContainerId' => 'container-user-comment',
                 'dataProviderConfig' => [
                     'pagination' => [
                         'pageSize' => 10
                     ],
                 ],
                 'listViewConfig' => [
-                    'emptyText' => Yii::t('app', 'Комментариев нету'),
+                    //'emptyText' => Yii::t('app', 'Комментариев нету'),
+                    'emptyText' => ''
                 ],
             ]); ?>
         </div>

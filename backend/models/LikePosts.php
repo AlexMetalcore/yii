@@ -49,6 +49,6 @@ class LikePosts extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Post::class, ['id' => 'author_id']);
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 }

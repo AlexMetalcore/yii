@@ -71,6 +71,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
+        'd' => 
+        array (
+            'dmstr\\' => 6,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -125,6 +129,7 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         ),
         'C' => 
         array (
+            'Composer\\Installers\\' => 20,
             'Codeception\\PHPUnit\\' => 20,
             'Codeception\\Extension\\' => 22,
             'Codeception\\' => 12,
@@ -250,6 +255,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
         ),
+        'dmstr\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dmstr/yii2-adminlte-asset',
+        ),
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
@@ -337,6 +346,10 @@ class ComposerStaticInit610af4912ba1d1faf6bd52bdf75ebcbc
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
         'Codeception\\PHPUnit\\' => 
         array (

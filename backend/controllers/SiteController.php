@@ -84,6 +84,10 @@ class SiteController extends Controller
                 $success;
                 return $this->redirect(['post/index']);
             }
+            else if ($user_status === User::ROLE_USER) {
+                $success;
+                return $this->redirect(['user/view' , 'id' => User::findIdentity(\Yii::$app->user->identity->getId())->id]);
+            }
             $success;
             return $this->redirect(['/']);
         } else {

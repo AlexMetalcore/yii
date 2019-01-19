@@ -133,10 +133,11 @@ class DefaultController extends Controller
         $commentModel = $this->findModel($id);
         $event = Yii::createObject(['class' => CommentEvent::class, 'commentModel' => $commentModel]);
         $this->trigger(self::EVENT_BEFORE_DELETE, $event);
+        /*fix delete comment from db*/
+        $this->findModel($id)->deleteWithChildren();
 
         if ($commentModel->markRejected()) {
             $this->trigger(self::EVENT_AFTER_DELETE, $event);
-
             return Yii::t('yii2mod.comments', 'Комментарий удален.');
         } else {
             Yii::$app->response->setStatusCode(500);

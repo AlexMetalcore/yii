@@ -37,20 +37,19 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      * @param $imgthumb
      * @throws \ImagickException
      */
-    public function setImgThumb($imgthumb)
+    public function setImgThumb($imgthumb , $width = 300 , $height = 200 )
     {
-        $this->imgthumb = $this->createImgThumb($imgthumb);
+        $this->imgthumb = $this->createImgThumb($imgthumb , $width = 300 , $height = 200);
         return $this->imgthumb;
     }
-
     /**
      * @param $filePath
      * @return string
      * @throws \ImagickException
      */
-    private function createImgThumb($filePath) {
+    private function createImgThumb($filePath , $width = 300 , $height = 200) {
         $thumb = new \Imagick($filePath);
-        $thumb->resizeImage(Settings::get(Settings::WIDTH_IMAGE_RESIZE), Settings::get(Settings::HEIGHT_IMAGE_RESIZE), \Imagick::FILTER_LANCZOS,1);
+        $thumb->resizeImage($width , $height, \Imagick::FILTER_LANCZOS,1);
         $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
         $thumb->writeImage($thumb_path);
         chmod(\Yii::$app->basePath.'/web/'.$thumb_path, 0777);

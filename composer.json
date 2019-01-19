@@ -34,7 +34,8 @@
         "calcinai/php-imagick": "^0.1.2",
         "tpmanc/yii2-imagick": "*",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "rmrevin/yii2-fontawesome": "~2.17"
+        "rmrevin/yii2-fontawesome": "~2.17",
+        "dmstr/yii2-adminlte-asset": "2.*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

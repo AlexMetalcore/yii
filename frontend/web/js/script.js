@@ -1,10 +1,6 @@
 jQuery(document).ready(function(){
+    Objectresize();
     jQuery('.title-separator').remove();
-
-    /*$('.count_post').click(function(){
-        $(this).parent().next().slideToggle();
-    });*/
-
     $(document).on('click' , '.block-portfolio' ,function(){
         var item_id = $(this).children().next().next().val();
         var overlay = $('.items-overlay-portfolio');
@@ -45,3 +41,11 @@ jQuery(document).ready(function(){
         });
     });
 });
+var Objectresize = function () {
+     var summ = 0;
+     var span_author = $('.tooltiptext').children();
+     span_author.each(function () {
+        summ += $(this).width();
+     });
+     span_author.length <= 6 ? $('#pjaxCountLikes .tooltiptext').css('min-width' , summ + 70) : '';
+};

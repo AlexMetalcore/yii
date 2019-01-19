@@ -8,7 +8,7 @@ function add_previw_img(input) {
                 loader.fadeIn();
                 btn.prop('disabled', true);
                 setTimeout(function (){
-                    jQuery('#post-upload , #portfolio-gallery').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
+                    jQuery('#post-upload , #portfolio-gallery , #user-upload_user_avatar').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
                     loader.fadeOut();
                     btn.removeAttr('disabled');
                 } ,1000);
@@ -27,11 +27,11 @@ function add_previw_img(input) {
     }
 }
 
-$("#post-upload , #portfolio-gallery").change(function(){
+$("#post-upload , #portfolio-gallery , #user-upload_user_avatar").change(function(){
     add_previw_img(this);
 });
-$('.upload_gallary').click(function() {
-    $('#portfolio-gallery , #post-upload').trigger('click');
+$('.upload_gallary , .upload_user_avatar').click(function() {
+    $('#portfolio-gallery , #post-upload , #user-upload_user_avatar').trigger('click');
 });
 
 $('#btn-delete-img').click(function() {

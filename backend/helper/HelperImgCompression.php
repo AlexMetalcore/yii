@@ -44,7 +44,7 @@ class HelperImgCompression
     private function ImgCompression () {
         $full_path = $this->full_path_file.$this->file_name;
         $img = new \Imagick($full_path);
-        if (filesize($full_path) > 1024*1000) {
+        if (filesize($full_path) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {
             $img->setImageCompression(true);
             $img->setImageCompression(Settings::get(Settings::PARAMETERS_COMPRESSION));
             $img->setImageCompressionQuality(Settings::get(Settings::PARAMETERS_QUALITY));

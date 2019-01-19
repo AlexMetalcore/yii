@@ -121,7 +121,7 @@ a.desc:after {
 .title-block > .title-separator {
     display: none;
 }
-#portfolio-gallery , #post-upload {
+#portfolio-gallery , #post-upload , #user-upload_user_avatar {
     display: none;
 }
 .img-preview-portfolio {
@@ -260,4 +260,9 @@ hr.line-under-name {
     width: 100%;
     padding: 20px 0;
     height: 230px;
+}
+.user-panel>.image>img {
+    width: 100% !important;
+    max-width: 50px !important;
+    height: 50px !important;
 }

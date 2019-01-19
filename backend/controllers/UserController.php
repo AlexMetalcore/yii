@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use backend\helper\HelperImgCompression;
+use backend\models\Post;
+use backend\models\Settings;
 use Yii;
 use backend\models\User;
 use yii\data\ActiveDataProvider;
@@ -30,6 +33,11 @@ class UserController extends Controller
                         'roles' => ['admin'],
                         'actions' => ['index' , 'create' , 'update' , 'view' , 'delete'],
                     ],
+                    [
+                        'allow' => true,
+                        'roles' => ['moderator' , 'user'],
+                        'actions' => ['update' , 'view'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -41,6 +49,25 @@ class UserController extends Controller
         ];
     }
 
+    /**
+     * @param User $model
+     * @throws \ImagickException
+     */
+    private function imgSaveUserAvatar(User $model) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->createFilePath() && $model->upload_user_avatar) {
+                    $filePath = $model->createFilePath();
+                    if ($model->upload_user_avatar->saveAs($filePath)) {
+                        new HelperImgCompression(\Yii::$app->basePath.'/web/' , $filePath);
+                        chmod(\Yii::$app->basePath.'/web/'. $filePath, 0777);
+                        $model_post = new Post();
+                        $model->user_img = $model_post->setImgThumb($filePath,Settings::get(Settings::WIDTH_IMAGE_RESIZE), Settings::get(Settings::HEIGHT_IMAGE_RESIZE));
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * @return string
@@ -78,13 +105,15 @@ class UserController extends Controller
         ]);
     }
 
-
     /**
      * @return string|\yii\web\Response
+     * @throws \ImagickException
      */
     public function actionCreate()
     {
         $model  = new User();
+        $this->imgSaveUserAvatar($model);
+
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model->password);
             $model->generateAuthKey();
@@ -97,15 +126,16 @@ class UserController extends Controller
         ]);
     }
 
-
     /**
      * @param $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException
+     * @throws \ImagickException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->imgSaveUserAvatar($model);
 
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model->password);

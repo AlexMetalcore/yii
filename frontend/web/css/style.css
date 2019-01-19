@@ -269,20 +269,12 @@ a.link_post {
 .heart-like , .heart-like-active {
     width: 15px;
 }
-.heart-like:hover , .heart-like-active {
-    cursor: pointer;
-    transform: scale(1.1);
-    transition: 0.5s;
-}
 #pjaxCountLikes {
     display: inline-block;
     top: 1px;
     position: relative;
 }
-#pjaxCountLikes:hover {
-    cursor: pointer;
-}
-#pjaxCountLikes .tooltiptext {
+.tooltiptext {
     visibility: hidden;
     background-color: #555;
     color: #fff;
@@ -293,13 +285,21 @@ a.link_post {
     z-index: 1;
     bottom: 20px;
     left: 0;
-    min-width: 120px;
+    min-width: 600px;
+    width: 100%;
 }
-#pjaxCountLikes:hover .tooltiptext {
+.heart-like:hover , .heart-like-active:hover {
+    cursor: pointer;
+}
+.heart-like:hover + #pjaxCountLikes > .tooltiptext ,  .heart-like-active:hover + #pjaxCountLikes > .tooltiptext{
     visibility: visible;
 }
 .author_likes {
-    display: block;
+    display: inline-block;
+    margin-left: 5px;
+}
+.hide-block {
+    display: none;
 }
 .block-category , .post-data{
     display: block;
@@ -563,4 +563,14 @@ a.link_post {
 .content > p {
     padding: 5px 30px;
     text-align: justify;
+}
+.img-user-avatar {
+    width: 100%;
+    max-width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    padding: 3px;
+}
+.comment-author-avatar > img {
+    width: 70px;
 }
