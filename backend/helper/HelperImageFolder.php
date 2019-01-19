@@ -117,13 +117,13 @@ class HelperImageFolder
     public function staticFolderImage ()
     {
         $get_all_img = scandir($this->path_static);
-        $onlyimg = [];
+        $onlyimgs = [];
         foreach ($get_all_img as $img) {
             if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img) && filesize($this->path_static.$img) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {
-                $onlyimg[] = $this->path_static.$img;
+                $onlyimgs[] = $this->path_static.$img;
             }
         }
-        return $onlyimg;
+        return $onlyimgs;
     }
 
     public function getAllImages ()
