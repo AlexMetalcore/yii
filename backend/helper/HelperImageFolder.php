@@ -11,6 +11,7 @@ namespace backend\helper;
 use backend\models\Portfolio;
 use backend\models\Post;
 use backend\models\Settings;
+use backend\models\User;
 
 /**
  * Class HelperImageFolder
@@ -54,12 +55,14 @@ class HelperImageFolder
     {
         $imgportfolio = [];
         $imgpost = [];
+        $imguser = [];
         $imgpostthumb = [];
         $onlyimg = [];
         $allimg = scandir($this->path);
 
         $portfolio = Portfolio::find()->all();
         $posts = Post::find()->all();
+        $users = User::find()->all();
 
         foreach ($allimg as $img) {
             if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
@@ -79,7 +82,11 @@ class HelperImageFolder
             $allimginpost = array_merge($imgpost , $imgpostthumb);
         }
 
-        $global_array_img = array_merge($imgportfolio , $allimginpost);
+        foreach ($users as $user) {
+            $imguser[] = basename($user->user_img);
+        }
+
+        $global_array_img = array_merge($imgportfolio , $allimginpost , $imguser);
         $delete_img = array_diff($onlyimg , $global_array_img);
 
         return $delete_img;
