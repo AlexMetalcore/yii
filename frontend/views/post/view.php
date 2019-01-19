@@ -27,13 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= (!isset($model_author) && empty($model_author)) ? Html::img('/admin/images/staticimg/heart-outline.png' , ['class' => 'heart-like']) : Html::img('/admin/images/staticimg/heart_red.png' , ['class' => 'heart-like-active']); ?>
                 <?php Pjax::begin([ 'id' => 'pjaxCountLikes']); ?>
             <span class="count_like"><?= !$count ? '' : $count; ?></span>
-                <span class="tooltiptext">
-                    <?php if(!empty($post->like) && count($post->like) >= 1): ?>
-                    <?php $count = 1; foreach ($post->like as $author): ?>
-                                <span class="author_likes <?= $count++ > 6 ? 'hide-block' : '' ;?>"><?= $author->like_author;?><img src="/admin/<?=isset($author->user) && $author->user->user_img ? $author->user->user_img : 'images/staticimg/no-img.png'?>" class="img-user-avatar" alt="User Image"/></span>
-                    <?php endforeach; ?>
+                <?php if(!empty($post->like) && count($post->like) >= 1): ?>
+                    <span class="tooltiptext">
+                        <?php $count = 1; foreach ($post->like as $author): ?>
+                                    <span class="author_likes <?= $count++ > 6 ? 'hide-block' : '' ;?>"><?= $author->like_author;?><img src="/admin/<?=isset($author->user) && $author->user->user_img ? $author->user->user_img : 'images/staticimg/no-img.png'?>" class="img-user-avatar" alt="User Image"/></span>
+                        <?php endforeach; ?>
+                    </span>
                     <?php endif; ?>
-                </span>
                 <?php Pjax::end(); ?>
                 <input type="hidden" class="post-id" value="<?= $post->id;?>"/>
             <?php endif; ?>
