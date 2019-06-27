@@ -22,4 +22,5 @@ class m190105_174845_add_new_column_thumb_for_preview_img_in_post_table extends 
     {
         $this->dropColumn('post', 'thumb_img');
     }
+
 }

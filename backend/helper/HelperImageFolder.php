@@ -19,6 +19,7 @@ use backend\models\User;
  */
 class HelperImageFolder
 {
+    private $pattern = '/\.(jpg)|(jpeg)|(bmp)|(png)/';
     /**
      * @var string
      */
@@ -41,7 +42,7 @@ class HelperImageFolder
     {
         $this->path = \Yii::$app->basePath.'/web/images/';
         /*transfer variable to view in any controller*/
-        $this->array_image = $this->getTrashArrayPhoto();
+        $this->array_image = $this->getTrashArrayPhoto();   
         $this->path_static = \Yii::$app->basePath.'/web/images/staticimg/';
 
     }
@@ -65,7 +66,7 @@ class HelperImageFolder
         $users = User::find()->all();
 
         foreach ($allimg as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
+            if (preg_match($this->pattern, $img)) {
                 $onlyimg[] = $img;
             }
         }
@@ -119,27 +120,40 @@ class HelperImageFolder
         $get_all_img = scandir($this->path_static);
         $onlyimgs = [];
         foreach ($get_all_img as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img) && filesize($this->path_static.$img) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {
+            if (preg_match($this->pattern, $img) && filesize($this->path_static.$img) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {
                 $onlyimgs[] = $this->path_static.$img;
             }
         }
         return $onlyimgs;
     }
 
+    /**
+     * @return array
+     */
     public function getAllImages ()
     {
         $dir_images = scandir($this->path);
         $dir_static_img = scandir($this->path_static);
+        $img_src = [];
+        $img_src_static = [];
+
+        setlocale(LC_ALL, 'ru_RU', 'ru_RU.UTF-8', 'ru', 'russian');
+
         foreach ($dir_images as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
-                $img_src[] = '/admin/images/'.$img;
+            if (preg_match($this->pattern, $img)) {
+                $img_src['/admin/images/'.$img] = strftime("%B %d, %Y",  date(filemtime(\Yii::$app->basePath.'/web/images/'. $img)));
             }
         }
+
+        arsort($img_src);
+
         foreach ($dir_static_img as $img) {
-            if (preg_match('/\.(jpg)|(jpeg)|(bmp)|(png)/', $img)) {
-                $img_src_static[] = '/admin/images/staticimg/' . $img;
+            if (preg_match($this->pattern, $img)) {
+                $img_src_static['/admin/images/staticimg/' . $img] = strftime("%B %d, %Y", date(filemtime(\Yii::$app->basePath.'/web/images/staticimg/'. $img)));
             }
         }
+
+        arsort($img_src_static);
 
         return array_merge($img_src , $img_src_static);
     }

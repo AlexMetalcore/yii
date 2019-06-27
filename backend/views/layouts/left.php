@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use backend\models\User;
 ?>
-<aside class="main-sidebar">
+<aside id="main-header-width" class="main-sidebar">
 
     <section class="sidebar">
         <div class="user-panel">

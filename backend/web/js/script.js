@@ -8,7 +8,7 @@ function add_previw_img(input) {
                 loader.fadeIn();
                 btn.prop('disabled', true);
                 setTimeout(function (){
-                    jQuery('#post-upload , #portfolio-gallery , #user-upload_user_avatar').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
+                    jQuery('#post-upload , #portfolio-gallery , #user-upload_user_avatar , #media-media_upload').parent().append('<img class="preview_img" src="'+e.target.result+'" alt="php">');
                     loader.fadeOut();
                     btn.removeAttr('disabled');
                 } ,1000);
@@ -27,11 +27,11 @@ function add_previw_img(input) {
     }
 }
 
-$("#post-upload , #portfolio-gallery , #user-upload_user_avatar").change(function(){
+$("#post-upload , #portfolio-gallery , #user-upload_user_avatar , #media-media_upload").change(function(){
     add_previw_img(this);
 });
 $('.upload_gallary , .upload_user_avatar').click(function() {
-    $('#portfolio-gallery , #post-upload , #user-upload_user_avatar').trigger('click');
+    $('#portfolio-gallery , #post-upload , #user-upload_user_avatar , #media-media_upload').trigger('click');
 });
 
 $('#btn-delete-img').click(function() {
@@ -95,6 +95,32 @@ $('#btn-clear-cache').click(function() {
                 loader.hide();
                 $('.static-images').after(res);
             },1000);
+        },
+        error: function () {
+            alert('Ошибка!');
+        }
+    });
+});
+function basename(path) {
+    return path.split('/').reverse()[0];
+}
+
+$('.img-delete-item').click(function(e) {
+    e.preventDefault();
+    var this_btn = $(this);
+    var file_name = this_btn.next().attr('href');
+    file_name = basename(file_name);
+    $.ajax({
+        url: '/admin/media/delete-item-img',
+        data: { name_img : file_name},
+        type: 'GET',
+        success: function (res) {
+            setTimeout(function() {
+                $('form#w0').after(res);
+                //$.pjax.reload({container: '#pjax-list-media'});
+            },500);
+            //window.location.reload();
+            $.pjax.reload({container: '#pjax-list-media'});
         },
         error: function () {
             alert('Ошибка!');

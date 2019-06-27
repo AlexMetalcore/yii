@@ -4,7 +4,7 @@ namespace backend\models;
 
 use yii\db\ActiveRecord;
 use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
-use yii\web\UploadedFile;
+use \yii\web\UploadedFile;
 use common\implement\UploadFileInterfaces;
 
 /**
