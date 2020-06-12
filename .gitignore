@@ -26,3 +26,5 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+/vendor
