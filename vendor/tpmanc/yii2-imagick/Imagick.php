@@ -4,8 +4,6 @@
  */
 namespace tpmanc\imagick;
 
-use yii\base\InvalidConfigException;
-
 /**
  * Working with Imagemagick
  */
@@ -13,13 +11,13 @@ class Imagick
 {
     private $image;
 
-    /** 
-     * @var integer Opened image height 
+    /**
+     * @var integer Opened image height
      */
     private $height;
 
-    /** 
-     * @var integer Opened image width 
+    /**
+     * @var integer Opened image width
      */
     private $width;
 
@@ -41,11 +39,16 @@ class Imagick
         return $this->height;
     }
     
-    private function __construct() {}
+    /**
+     * Constructor
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * @param string $imagePath Path to image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public static function open($imagePath)
     {
@@ -72,7 +75,7 @@ class Imagick
      * Add border
      * @param integer $width Border width
      * @param string $color Border color
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function border($width, $color)
     {
@@ -93,7 +96,7 @@ class Imagick
      * Blur
      * @param float $radius
      * @param float $delta
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function blur($radius, $delta)
     {
@@ -107,7 +110,7 @@ class Imagick
      * @param integer $startY
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function crop($startX, $startY, $width, $height)
     {
@@ -117,7 +120,7 @@ class Imagick
 
     /**
      * Vertical mirror image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function flip()
     {
@@ -127,7 +130,7 @@ class Imagick
 
     /**
      * Horizontal mirror image
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function flop()
     {
@@ -140,78 +143,89 @@ class Imagick
      * @param string $watermarkPath Path to watermark image
      * @param string $xPos Horizontal position - 'left', 'right' or 'center'
      * @param string $yPos Vertical position - 'top', 'bottom' or 'center'
-     * @param string|integer $xSize Horizontal watermark size: 100, '50%', 'auto' etc.
-     * @param string|integer $ySize Vertical watermark size: 100, '50%', 'auto' etc.
-     * @return tpmanc\imagick\Imagick
+     * @param bool|int|string $xSize Horizontal watermark size: 100, '50%', 'auto' etc.
+     * @param bool|int|string $ySize Vertical watermark size: 100, '50%', 'auto' etc.
+     * @param bool $xOffset
+     * @param bool $yOffset
+     * @return Imagick
+     * @throws Exception
      */
-    public function watermark($watermarkPath, $xPos, $yPos, $xSize = false, $ySize = false, $xOffset = false, $yOffset = false)
-    {
-        $watermark = new \Imagick($watermarkPath);
+    public function watermark(
+        $watermarkPath,
+        $xPos,
+        $yPos,
+        $xSize = false,
+        $ySize = false,
+        $xOffset = false,
+        $yOffset = false
+    ) {
+        if ($watermarkPath !== null) {
+            $watermark = new \Imagick($watermarkPath);
 
-        // resize watermark
-        $newSizeX = false;
-        $newSizeY = false;
-        if ($xSize !== false) {
-            if (is_numeric($xSize)) {
-                $newSizeX = $xSize;
-            } elseif (is_string($xSize) && substr($xSize, -1) === '%') {
-                $float = str_replace('%', '', $xSize) / 100;
-                $newSizeX = $this->width * ((float) $float);
+            // resize watermark
+            $newSizeX = false;
+            $newSizeY = false;
+            if ($xSize !== false) {
+                if (is_numeric($xSize)) {
+                    $newSizeX = $xSize;
+                } elseif (is_string($xSize) && substr($xSize, -1) === '%') {
+                    $float = str_replace('%', '', $xSize) / 100;
+                    $newSizeX = $this->width * ((float) $float);
+                }
             }
-        }
-        if ($ySize !== false) {
-            if (is_numeric($ySize)) {
-                $newSizeY = $ySize;
-            } elseif (is_string($ySize) && substr($ySize, -1) === '%') {
-                $float = str_replace('%', '', $ySize) / 100;
-                $newSizeY = $this->height * ((float) $float);
+            if ($ySize !== false) {
+                if (is_numeric($ySize)) {
+                    $newSizeY = $ySize;
+                } elseif (is_string($ySize) && substr($ySize, -1) === '%') {
+                    $float = str_replace('%', '', $ySize) / 100;
+                    $newSizeY = $this->height * ((float) $float);
+                }
             }
-        }
-        // var_dump($newSizeX);var_dump($newSizeY);die();
-        if ($newSizeX !== false && $newSizeY !== false) {
-            $watermark->adaptiveResizeImage($newSizeX, $newSizeY);
-        } elseif ($newSizeX !== false && $newSizeY === false) {
-            $watermark->adaptiveResizeImage($newSizeX, 0);
-        } elseif ($newSizeX === false && $newSizeY !== false) {
-            $watermark->adaptiveResizeImage(0, $newSizeY);
-        }
+            if ($newSizeX !== false && $newSizeY !== false) {
+                $watermark->adaptiveResizeImage($newSizeX, $newSizeY);
+            } elseif ($newSizeX !== false && $newSizeY === false) {
+                $watermark->adaptiveResizeImage($newSizeX, 0);
+            } elseif ($newSizeX === false && $newSizeY !== false) {
+                $watermark->adaptiveResizeImage(0, $newSizeY);
+            }
 
-        $startX = false;
-        $startY = false;
-        $watermarkSize = $watermark->getImageGeometry();
-        if ($yPos === 'top') {
-            $startY = 0;
-            if ($yOffset !== false) {
-                $startY += $yOffset;
+            $startX = false;
+            $startY = false;
+            $watermarkSize = $watermark->getImageGeometry();
+            if ($yPos === 'top') {
+                $startY = 0;
+                if ($yOffset !== false) {
+                    $startY += $yOffset;
+                }
+            } elseif ($yPos === 'bottom') {
+                $startY = $this->height - $watermarkSize['height'];
+                if ($yOffset !== false) {
+                    $startY -= $yOffset;
+                }
+            } elseif ($yPos === 'center') {
+                $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
+            } else {
+                throw new \Exception('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"');
             }
-        } elseif ($yPos === 'bottom') {
-            $startY = $this->height - $watermarkSize['height'];
-            if ($yOffset !== false) {
-                $startY -= $yOffset;
-            }
-        } elseif ($yPos === 'center') {
-            $startY = ($this->height / 2) - ($watermarkSize['height'] / 2);
-        } else {
-            throw new InvalidConfigException('Param $yPos should be "top", "bottom" or "center" insteed "'.$yPos.'"', 1);
-        }
 
-        if ($xPos === 'left') {
-            $startX = 0;
-            if ($xOffset !== false) {
-                $startX += $xOffset;
+            if ($xPos === 'left') {
+                $startX = 0;
+                if ($xOffset !== false) {
+                    $startX += $xOffset;
+                }
+            } elseif ($xPos === 'right') {
+                $startX = $this->width - $watermarkSize['width'];
+                if ($xOffset !== false) {
+                    $startX -= $xOffset;
+                }
+            } elseif ($xPos === 'center') {
+                $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
+            } else {
+                throw new \Exception('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"');
             }
-        } elseif ($xPos === 'right') {
-            $startX = $this->width - $watermarkSize['width'];
-            if ($xOffset !== false) {
-                $startX -= $xOffset;
-            }
-        } elseif ($xPos === 'center') {
-            $startX = ($this->width / 2) - ($watermarkSize['width'] / 2);
-        } else {
-            throw new InvalidConfigException('Param $xPos should be "left", "right" or "center" insteed "'.$xPos.'"', 1);
-        }
 
-        $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
+            $this->image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $startX, $startY);
+        }
         return $this;
     }
 
@@ -219,15 +233,18 @@ class Imagick
      * Create thumbnail
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
      */
     public function thumb($width, $height)
     {
-        if ($this->width >= $this->height || $height === false) {
-            $this->image->thumbnailImage($width, 0);
-        } else {
-            $this->image->thumbnailImage(0, $height);
+        if ($this->width > $width || $this->height > $height) {
+            if ($this->width >= $this->height || $height === false) {
+                $this->image->thumbnailImage($width, 0);
+            } else {
+                $this->image->thumbnailImage(0, $height);
+            }
         }
+
         return $this;
     }
 
@@ -235,14 +252,26 @@ class Imagick
      * Resize image
      * @param integer $width
      * @param integer $height
-     * @return tpmanc\imagick\Imagick
+     * @return Imagick
+     * @throws Exception
      */
     public function resize($width, $height)
     {
-        if ($this->width >= $this->height || $height === false) {
-            $this->image->adaptiveResizeImage($width, 0);
+        if ($height === false && $width === false) {
+            throw new \Exception('$width and $height can not be false simultaneously');
+        }
+        if ($width !== false && $height !== false) {
+            if ($this->width >= $this->height) {
+                $this->image->adaptiveResizeImage($width, 0);
+            } else {
+                $this->image->adaptiveResizeImage(0, $height);
+            }
         } else {
-            $this->image->adaptiveResizeImage(0, $height);
+            if ($width === false) {
+                $this->image->adaptiveResizeImage(0, $height);
+            } elseif ($height === false) {
+                $this->image->adaptiveResizeImage($width, 0);
+            }
         }
         return $this;
     }

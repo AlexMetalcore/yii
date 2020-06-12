@@ -74,6 +74,12 @@ class BaseController extends Controller{
 			$options['lang'] = $_GET['langCode'];
 		}
 
+		if(isset($_GET['tinymce'])){
+            $options['getFileCallback'] = new JsExpression('function(file, fm) { '.
+                'parent.tinymce.activeEditor.windowManager.getParams().oninsert(file, fm);'.
+                'parent.tinymce.activeEditor.windowManager.close();}');
+		}
+
 		if(isset($_GET['filter'])){
 			if(is_array($_GET['filter']))
 				$options['onlyMimes'] = $_GET['filter'];
@@ -100,6 +106,13 @@ class BaseController extends Controller{
 		if(!empty($this->disabledCommands))
 			$options['commands'] = new JsExpression('ElFinderGetCommands('.Json::encode($this->disabledCommands).')');
 
+        if(isset($this->managerOptions['handlers'])) {
+            $handlers = [];
+            foreach ($this->managerOptions['handlers'] as $event => $js) {
+                $handlers[$event] = new JsExpression($js);
+            }
+            $this->managerOptions['handlers'] = $handlers;
+        }
 
 		return ArrayHelper::merge($options, $this->managerOptions);
 	}

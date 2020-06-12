@@ -41,7 +41,8 @@ class HelperImgCompression
     /**
      * @throws \ImagickException
      */
-    private function ImgCompression () {
+    private function ImgCompression ()
+    {
         $full_path = $this->full_path_file.$this->file_name;
         $img = new \Imagick($full_path);
         if (filesize($full_path) > Settings::get(Settings::FILESIZE_FILE_COMPRESSION)) {

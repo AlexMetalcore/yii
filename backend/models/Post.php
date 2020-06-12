@@ -33,8 +33,12 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     private $imgthumb;
 
+
     /**
      * @param $imgthumb
+     * @param int $width
+     * @param int $height
+     * @return string
      * @throws \ImagickException
      */
     public function setImgThumb($imgthumb , $width = 300 , $height = 200 )
@@ -47,7 +51,8 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      * @return string
      * @throws \ImagickException
      */
-    private function createImgThumb($filePath , $width = 300 , $height = 200) {
+    private function createImgThumb($filePath , $width = 300 , $height = 200)
+    {
         $thumb = new \Imagick($filePath);
         $thumb->resizeImage($width , $height, \Imagick::FILTER_LANCZOS,1);
         $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
@@ -57,6 +62,9 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     }
 
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -184,7 +192,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     /**
      * @return mixed|string
      */
-    public function createFilePath ()
+    public function createFilePath()
     {
         $this->upload = UploadedFile::getInstance($this, 'upload');
         return $this->upload ? 'images/' . uniqid() . '.' . $this->upload->extension : $this->img;

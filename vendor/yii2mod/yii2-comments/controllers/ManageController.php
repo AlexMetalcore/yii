@@ -3,7 +3,6 @@
 namespace yii2mod\comments\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii2mod\comments\models\CommentModel;
@@ -34,6 +33,18 @@ class ManageController extends Controller
     public $searchClass = 'yii2mod\comments\models\search\CommentSearch';
 
     /**
+     * @var array verb filter config
+     */
+    public $verbFilterConfig = [
+        'class' => 'yii\filters\VerbFilter',
+        'actions' => [
+            'index' => ['get'],
+            'update' => ['get', 'post'],
+            'delete' => ['post'],
+        ],
+    ];
+
+    /**
      * @var array access control config
      */
     public $accessControlConfig = [
@@ -52,14 +63,7 @@ class ManageController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'index' => ['get'],
-                    'update' => ['get', 'post'],
-                    'delete' => ['post'],
-                ],
-            ],
+            'verbs' => $this->verbFilterConfig,
             'access' => $this->accessControlConfig,
         ];
     }
@@ -83,7 +87,7 @@ class ManageController extends Controller
     }
 
     /**
-     * Updates an existing CommentModel model.
+     * Updates an existing CommentModel.
      *
      * If update is successful, the browser will be redirected to the 'index' page.
      *
@@ -96,7 +100,7 @@ class ManageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('yii2mod.comments', 'Комментарий сохранен.'));
+            Yii::$app->session->setFlash('success', Yii::t('yii2mod.comments', 'Comment has been saved.'));
 
             return $this->redirect(['index']);
         }
@@ -124,7 +128,7 @@ class ManageController extends Controller
     }
 
     /**
-     * Finds the CommentModel model based on its primary key value.
+     * Finds the CommentModel based on its primary key value.
      *
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
@@ -138,7 +142,7 @@ class ManageController extends Controller
     {
         $commentModel = $this->getModule()->commentModelClass;
 
-        if (($model = $commentModel::findOne($id)) !== null) {
+        if (null !== ($model = $commentModel::findOne($id))) {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('yii2mod.comments', 'The requested page does not exist.'));

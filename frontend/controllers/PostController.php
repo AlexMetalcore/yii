@@ -37,9 +37,11 @@ class PostController extends Controller
             ],
         ];
     }
+
+
     /**
      * @param $id
-     * @return string
+     * @return array|string|\yii\web\Response
      */
     public function actionView ($id) {
 
@@ -70,6 +72,7 @@ class PostController extends Controller
             }
             $count = count($post->like);
             if (!Yii::$app->user->isGuest) {
+                $model_author = '';
                 $user = User::findIdentity(\Yii::$app->user->identity->getId())->username;
                 if($user){
                     foreach ($post->like as $like) {
@@ -78,8 +81,8 @@ class PostController extends Controller
                             break;
                         }
                     }
-                    return $this->render('view' , compact('post' , 'count' , 'model_author' , 'model'));
                 }
+                return $this->render('view' , compact('post' , 'count' , 'model_author' , 'model'));
             }
             return $this->render('view' , compact('post' ,'count' , 'model'));
         }

@@ -42,6 +42,8 @@ class CommentModel extends ActiveRecord
 {
     use ModuleTrait;
 
+    const SCENARIO_MODERATION = 'moderation';
+
     /**
      * @var null|array|ActiveRecord[] comment children
      */
@@ -62,12 +64,12 @@ class CommentModel extends ActiveRecord
     {
         return [
             [['entity', 'entityId'], 'required'],
-            ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Заполните поле.')],
+            ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Comment cannot be blank.')],
             [['content', 'entity', 'relatedTo', 'url'], 'string'],
             ['status', 'default', 'value' => Status::APPROVED],
             ['status', 'in', 'range' => Status::getConstantsByName()],
             ['level', 'default', 'value' => 1],
-            ['parentId', 'validateParentID'],
+            ['parentId', 'validateParentID', 'except' => static::SCENARIO_MODERATION],
             [['entityId', 'parentId', 'status', 'level'], 'integer'],
         ];
     }
@@ -77,7 +79,7 @@ class CommentModel extends ActiveRecord
      */
     public function validateParentID($attribute)
     {
-        if ($this->{$attribute} !== null) {
+        if (null !== $this->{$attribute}) {
             $parentCommentExist = static::find()
                 ->approved()
                 ->andWhere([
@@ -168,7 +170,7 @@ class CommentModel extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($this->parentId > 0) {
+            if ($this->parentId > 0 && $this->isNewRecord) {
                 $parentNodeLevel = static::find()->select('level')->where(['id' => $this->parentId])->scalar();
                 $this->level += $parentNodeLevel;
             }

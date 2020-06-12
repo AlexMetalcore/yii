@@ -3,8 +3,6 @@
 use yii\helpers\ArrayHelper;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
-use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $commentModel \yii2mod\comments\models\CommentModel */
@@ -20,12 +18,9 @@ use yii\helpers\Html;
     <?php Pjax::begin(['enablePushState' => false, 'timeout' => 20000, 'id' => $pjaxContainerId]); ?>
     <div class="comments row">
         <div class="col-md-12 col-sm-12">
-	    <div class="title-block clearfix">
-		<?php if (Yii::$app->user->isGuest) : ?>
-			<div class="position_text">Что бы оставлять комментарий - <?php echo Html::a('Авторизируйтесь' , '/site/login' , ['class' => 'link-login']); ?></div>
-                    <?php endif; ?>
-		<h3 class="h3-body-title">
-		    <?php echo Yii::t('yii2mod.comments', 'Комментариев ({0})', $commentModel->getCommentsCount()); ?>
+            <div class="title-block clearfix">
+                <h3 class="h3-body-title">
+                    <?php echo Yii::t('yii2mod.comments', 'Comments ({0})', $commentModel->getCommentsCount()); ?>
                 </h3>
                 <div class="title-separator"></div>
             </div>

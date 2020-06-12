@@ -391,7 +391,7 @@ $I->click('Submit');
 // CSS button
 $I->click('#form input[type=submit]');
 // XPath
-$I->click('//form/*[@type=submit]');
+$I->click('//form/*[@type="submit"]');
 // link in context
 $I->click('Logout', '#nav');
 // using strict locator
@@ -465,7 +465,7 @@ Can't be used with PhantomJS
  
 Print out latest Selenium Logs in debug mode
 
- * `param TestInterface` $test
+ * `param \Codeception\TestInterface` $test
 
 
 ### deleteSessionSnapshot
@@ -505,7 +505,7 @@ But will ignore strings like:
 For checking the raw source code, use `seeInSource()`.
 
  * `param string` $text
- * `param string` $selector optional
+ * `param array|string` $selector optional
 
 
 ### dontSeeCheckboxIsChecked
@@ -554,7 +554,7 @@ Checks that current url doesn't match the given regular expression.
 ``` php
 <?php
 // to match root url
-$I->dontSeeCurrentUrlMatches('~$/users/(\d+)~');
+$I->dontSeeCurrentUrlMatches('~^/users/(\d+)~');
 ?>
 ```
 
@@ -859,7 +859,7 @@ If no parameters are provided, the full URI is returned.
 
 ``` php
 <?php
-$user_id = $I->grabFromCurrentUrl('~$/user/(\d+)/~');
+$user_id = $I->grabFromCurrentUrl('~^/user/(\d+)/~');
 $uri = $I->grabFromCurrentUrl();
 ?>
 ```
@@ -1202,7 +1202,7 @@ But will *not* be true for strings like:
 For checking the raw source code, use `seeInSource()`.
 
  * `param string` $text
- * `param string` $selector optional
+ * `param array|string` $selector optional
 
 
 ### seeCheckboxIsChecked
@@ -1257,7 +1257,7 @@ Checks that the current URL matches the given regular expression.
 ``` php
 <?php
 // to match root url
-$I->seeCurrentUrlMatches('~$/users/(\d+)~');
+$I->seeCurrentUrlMatches('~^/users/(\d+)~');
 ?>
 ```
 
@@ -1880,6 +1880,23 @@ $I->waitForElementChange('#menu', function(WebDriverElement $el) {
 @throws \Codeception\Exception\ElementNotFound
 
 
+### waitForElementClickable
+ 
+Waits up to $timeout seconds for the given element to be clickable.
+If element doesn't become clickable, a timeout exception is thrown.
+
+``` php
+<?php
+$I->waitForElementClickable('#agree_button', 30); // secs
+$I->click('#agree_button');
+?>
+```
+
+ * `param` $element
+ * `param int` $timeout seconds
+@throws \Exception
+
+
 ### waitForElementNotVisible
  
 Waits up to $timeout seconds for the given element to become invisible.
@@ -1949,4 +1966,4 @@ $I->waitForText('foo', 30, '.title'); // secs
  * `param string` $selector optional
 @throws \Exception
 
-<p>&nbsp;</p><div class="alert alert-warning">Module reference is taken from the source code. <a href="https://github.com/Codeception/Codeception/tree/2.4/src/Codeception/Module/AngularJS.php">Help us to improve documentation. Edit module reference</a></div>
+<p>&nbsp;</p><div class="alert alert-warning">Module reference is taken from the source code. <a href="https://github.com/Codeception/Codeception/tree/2.5/src/Codeception/Module/AngularJS.php">Help us to improve documentation. Edit module reference</a></div>

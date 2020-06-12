@@ -116,7 +116,7 @@ class DefaultController extends Controller
         }
 
         return [
-            'status' => 'Ошибка',//'error',
+            'status' => 'error',
             'errors' => ActiveForm::validate($commentModel),
         ];
     }
@@ -131,14 +131,14 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
         $commentModel = $this->findModel($id);
+        $commentModel->setScenario(CommentModel::SCENARIO_MODERATION);
         $event = Yii::createObject(['class' => CommentEvent::class, 'commentModel' => $commentModel]);
         $this->trigger(self::EVENT_BEFORE_DELETE, $event);
-        /*fix delete comment from db*/
-        $this->findModel($id)->deleteWithChildren();
 
         if ($commentModel->markRejected()) {
             $this->trigger(self::EVENT_AFTER_DELETE, $event);
-            return Yii::t('yii2mod.comments', 'Комментарий удален.');
+
+            return Yii::t('yii2mod.comments', 'Comment has been deleted.');
         } else {
             Yii::$app->response->setStatusCode(500);
 
@@ -158,7 +158,7 @@ class DefaultController extends Controller
     protected function findModel($id)
     {
         $commentModel = $this->getModule()->commentModelClass;
-        if (($model = $commentModel::findOne($id)) !== null) {
+        if (null !== ($model = $commentModel::findOne($id))) {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('yii2mod.comments', 'The requested page does not exist.'));
@@ -177,7 +177,7 @@ class DefaultController extends Controller
     protected function getCommentAttributesFromEntity($entity)
     {
         $decryptEntity = Yii::$app->getSecurity()->decryptByKey(utf8_decode($entity), $this->getModule()->id);
-        if ($decryptEntity !== false) {
+        if (false !== $decryptEntity) {
             return Json::decode($decryptEntity);
         }
 

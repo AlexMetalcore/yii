@@ -3,42 +3,6 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
-  'yiisoft/yii2-swiftmailer' => 
-  array (
-    'name' => 'yiisoft/yii2-swiftmailer',
-    'version' => '2.1.1.0',
-    'alias' => 
-    array (
-      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
-    ),
-  ),
-  'yiisoft/yii2-bootstrap' => 
-  array (
-    'name' => 'yiisoft/yii2-bootstrap',
-    'version' => '2.0.8.0',
-    'alias' => 
-    array (
-      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap/src',
-    ),
-  ),
-  'yiisoft/yii2-debug' => 
-  array (
-    'name' => 'yiisoft/yii2-debug',
-    'version' => '2.0.13.0',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug',
-    ),
-  ),
-  'yiisoft/yii2-gii' => 
-  array (
-    'name' => 'yiisoft/yii2-gii',
-    'version' => '2.0.7.0',
-    'alias' => 
-    array (
-      '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii/src',
-    ),
-  ),
   'yiisoft/yii2-faker' => 
   array (
     'name' => 'yiisoft/yii2-faker',
@@ -75,15 +39,6 @@ return array (
       '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
     ),
   ),
-  'mihaildev/yii2-elfinder' => 
-  array (
-    'name' => 'mihaildev/yii2-elfinder',
-    'version' => '1.2.2.0',
-    'alias' => 
-    array (
-      '@mihaildev/elfinder' => $vendorDir . '/mihaildev/yii2-elfinder',
-    ),
-  ),
   'yiisoft/yii2-dev' => 
   array (
     'name' => 'yiisoft/yii2-dev',
@@ -92,33 +47,6 @@ return array (
     array (
       '@yii' => $vendorDir . '/yiisoft/yii2-dev/framework',
       '@yii/cs' => $vendorDir . '/yiisoft/yii2-dev/cs/src',
-    ),
-  ),
-  'mdmsoft/yii2-admin' => 
-  array (
-    'name' => 'mdmsoft/yii2-admin',
-    'version' => '2.8.0.0',
-    'alias' => 
-    array (
-      '@mdm/admin' => $vendorDir . '/mdmsoft/yii2-admin',
-    ),
-  ),
-  'kartik-v/yii2-krajee-base' => 
-  array (
-    'name' => 'kartik-v/yii2-krajee-base',
-    'version' => '1.8.9.0',
-    'alias' => 
-    array (
-      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
-    ),
-  ),
-  'kartik-v/yii2-widget-datetimepicker' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-datetimepicker',
-    'version' => '1.4.4.0',
-    'alias' => 
-    array (
-      '@kartik/datetime' => $vendorDir . '/kartik-v/yii2-widget-datetimepicker',
     ),
   ),
   'spanjeta/yii2-comments' => 
@@ -157,33 +85,6 @@ return array (
       '@cebe/gravatar' => $vendorDir . '/cebe/yii2-gravatar/cebe/gravatar',
     ),
   ),
-  'yurkinx/yii2-image' => 
-  array (
-    'name' => 'yurkinx/yii2-image',
-    'version' => '1.1.0.0',
-    'alias' => 
-    array (
-      '@yii/image' => $vendorDir . '/yurkinx/yii2-image/yii/image',
-    ),
-  ),
-  'asinfotrack/yii2-toolbox' => 
-  array (
-    'name' => 'asinfotrack/yii2-toolbox',
-    'version' => '0.8.10.0',
-    'alias' => 
-    array (
-      '@asinfotrack/yii2/toolbox' => $vendorDir . '/asinfotrack/yii2-toolbox',
-    ),
-  ),
-  'asinfotrack/yii2-comments' => 
-  array (
-    'name' => 'asinfotrack/yii2-comments',
-    'version' => '0.8.0.0',
-    'alias' => 
-    array (
-      '@asinfotrack/yii2/comments' => $vendorDir . '/asinfotrack/yii2-comments',
-    ),
-  ),
   'yii2mod/yii2-enum' => 
   array (
     'name' => 'yii2mod/yii2-enum',
@@ -209,15 +110,6 @@ return array (
     'alias' => 
     array (
       '@yii2mod/editable' => $vendorDir . '/yii2mod/yii2-editable',
-    ),
-  ),
-  'yii2mod/yii2-behaviors' => 
-  array (
-    'name' => 'yii2mod/yii2-behaviors',
-    'version' => '1.2.0.0',
-    'alias' => 
-    array (
-      '@yii2mod/behaviors' => $vendorDir . '/yii2mod/yii2-behaviors',
     ),
   ),
   'paulzi/yii2-sortable' => 
@@ -247,24 +139,6 @@ return array (
       '@yii/imperavi' => $vendorDir . '/asofter/yii2-imperavi-redactor/yii/imperavi',
     ),
   ),
-  'yii2mod/yii2-comments' => 
-  array (
-    'name' => 'yii2mod/yii2-comments',
-    'version' => '1.9.9.2',
-    'alias' => 
-    array (
-      '@yii2mod/comments' => $vendorDir . '/yii2mod/yii2-comments',
-    ),
-  ),
-  'kartik-v/yii2-widget-datepicker' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-datepicker',
-    'version' => '1.4.4.0',
-    'alias' => 
-    array (
-      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
-    ),
-  ),
   'rmrevin/yii2-fontawesome' => 
   array (
     'name' => 'rmrevin/yii2-fontawesome',
@@ -281,6 +155,132 @@ return array (
     'alias' => 
     array (
       '@dmstr' => $vendorDir . '/dmstr/yii2-adminlte-asset',
+    ),
+  ),
+  'yiisoft/yii2-swiftmailer' => 
+  array (
+    'name' => 'yiisoft/yii2-swiftmailer',
+    'version' => '2.1.2.0',
+    'alias' => 
+    array (
+      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
+    ),
+  ),
+  'mihaildev/yii2-elfinder' => 
+  array (
+    'name' => 'mihaildev/yii2-elfinder',
+    'version' => '1.3.0.0',
+    'alias' => 
+    array (
+      '@mihaildev/elfinder' => $vendorDir . '/mihaildev/yii2-elfinder',
+    ),
+  ),
+  'mdmsoft/yii2-admin' => 
+  array (
+    'name' => 'mdmsoft/yii2-admin',
+    'version' => '2.9.0.0',
+    'alias' => 
+    array (
+      '@mdm/admin' => $vendorDir . '/mdmsoft/yii2-admin',
+    ),
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '2.0.5.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base/src',
+    ),
+  ),
+  'kartik-v/yii2-widget-datetimepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datetimepicker',
+    'version' => '1.4.9.0',
+    'alias' => 
+    array (
+      '@kartik/datetime' => $vendorDir . '/kartik-v/yii2-widget-datetimepicker/src',
+    ),
+  ),
+  'yurkinx/yii2-image' => 
+  array (
+    'name' => 'yurkinx/yii2-image',
+    'version' => '1.3.0.0',
+    'alias' => 
+    array (
+      '@yii/image' => $vendorDir . '/yurkinx/yii2-image/yii/image',
+    ),
+  ),
+  'yiisoft/yii2-bootstrap' => 
+  array (
+    'name' => 'yiisoft/yii2-bootstrap',
+    'version' => '2.0.10.0',
+    'alias' => 
+    array (
+      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap/src',
+    ),
+  ),
+  'yiisoft/yii2-gii' => 
+  array (
+    'name' => 'yiisoft/yii2-gii',
+    'version' => '2.0.8.0',
+    'alias' => 
+    array (
+      '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii/src',
+    ),
+  ),
+  'asinfotrack/yii2-toolbox' => 
+  array (
+    'name' => 'asinfotrack/yii2-toolbox',
+    'version' => '0.8.13.0',
+    'alias' => 
+    array (
+      '@asinfotrack/yii2/toolbox' => $vendorDir . '/asinfotrack/yii2-toolbox',
+    ),
+  ),
+  'asinfotrack/yii2-comments' => 
+  array (
+    'name' => 'asinfotrack/yii2-comments',
+    'version' => '0.8.2.0',
+    'alias' => 
+    array (
+      '@asinfotrack/yii2/comments' => $vendorDir . '/asinfotrack/yii2-comments',
+    ),
+  ),
+  'yii2mod/yii2-behaviors' => 
+  array (
+    'name' => 'yii2mod/yii2-behaviors',
+    'version' => '2.0.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/behaviors' => $vendorDir . '/yii2mod/yii2-behaviors',
+    ),
+  ),
+  'yii2mod/yii2-comments' => 
+  array (
+    'name' => 'yii2mod/yii2-comments',
+    'version' => '2.0.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/comments' => $vendorDir . '/yii2mod/yii2-comments',
+    ),
+  ),
+  'kartik-v/yii2-widget-datepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datepicker',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker/src',
+    ),
+  ),
+  'yiisoft/yii2-debug' => 
+  array (
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.0.14.0',
+    'alias' => 
+    array (
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
     ),
   ),
 );

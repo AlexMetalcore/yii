@@ -28,8 +28,7 @@ class MediaController extends Controller
      * @throws \ImagickException
      */
     private function imgMediaSave(Media $model) {
-        if ($model->createFilePath() && $model->media_upload && $model->attributes['media_upload'] !== null) {
-            $files = $model->createFilePath();
+        if ($files = $model->createFilePath() && $model->media_upload && $model->attributes['media_upload'] !== null) {
             foreach ($files as $file) {
                 $path = 'images/' . uniqid() . '.' . $file->extension;
                 if ($file->saveAs($path)) {
