@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
 if ($_SERVER['SERVER_ADDR'] === '127.0.0.1') {
     defined('YII_ENV') or define('YII_ENV', 'dev');
 }

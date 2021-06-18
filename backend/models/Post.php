@@ -2,10 +2,10 @@
 
 namespace backend\models;
 
-use yii\db\ActiveRecord;
 use asinfotrack\yii2\comments\behaviors\CommentsBehavior;
-use \yii\web\UploadedFile;
 use common\implement\UploadFileInterfaces;
+use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "post".
@@ -33,7 +33,6 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     private $imgthumb;
 
-
     /**
      * @param $imgthumb
      * @param int $width
@@ -41,23 +40,24 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      * @return string
      * @throws \ImagickException
      */
-    public function setImgThumb($imgthumb , $width = 300 , $height = 200 )
+    public function setImgThumb($imgthumb, int $width = 300, int $height = 200): string
     {
-        $this->imgthumb = $this->createImgThumb($imgthumb , $width = 300 , $height = 200);
+        $this->imgthumb = $this->createImgThumb($imgthumb, $width, $height);
         return $this->imgthumb;
     }
+
     /**
      * @param $filePath
      * @return string
      * @throws \ImagickException
      */
-    private function createImgThumb($filePath , $width = 300 , $height = 200)
+    private function createImgThumb($filePath, $width = 300, $height = 200)
     {
         $thumb = new \Imagick($filePath);
-        $thumb->resizeImage($width , $height, \Imagick::FILTER_LANCZOS,1);
-        $thumb_path = 'images/'.uniqid().basename($thumb->getImageFilename());
+        $thumb->resizeImage($width, $height, \Imagick::FILTER_LANCZOS, 1);
+        $thumb_path = 'images/' . uniqid() . basename($thumb->getImageFilename());
         $thumb->writeImage($thumb_path);
-        chmod(\Yii::$app->basePath.'/web/'.$thumb_path, 0777);
+        chmod(\Yii::$app->basePath . '/web/' . $thumb_path, 0777);
         return $thumb_path;
     }
 
@@ -68,7 +68,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     public function behaviors()
     {
         return [
-            'comments'=>[
+            'comments' => [
                 'class' => CommentsBehavior::className(),
             ],
         ];
@@ -111,7 +111,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
             'id' => 'ID',
             'title' => 'Заголовок',
             'content' => 'Описание',
-            'img'   => 'Фото',
+            'img' => 'Фото',
             'category_id' => 'Категория',
             'author_id' => 'Автор',
             'publish_status' => 'Статус статьи',
@@ -140,7 +140,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public function getAuthor()
     {
-       return $this->hasOne(User::class, ['id' => 'author_id']);
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
     /**
@@ -162,7 +162,7 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     /**
      * @return bool
      */
-    public function ViwedCounter($id)
+    public function ViwedCounter()
     {
         $this->viewed += 1;
         $this->save(false);
@@ -181,15 +181,6 @@ class Post extends ActiveRecord implements UploadFileInterfaces
     }
 
     /**
-     * @param $str
-     * @return string|string[]|null
-     */
-    public static function removeImgTags ($str)
-    {
-        return preg_replace('#<img[^>]*>#i', '', $str);
-    }
-
-    /**
      * @return mixed|string
      */
     public function createFilePath()
@@ -203,7 +194,11 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public static function getLastPost()
     {
-        return self::find()->orderBy('id desc')->limit(Settings::get(Settings::COUNT_LAST_POST))->all();
+        return self::find()
+            ->orderBy('id desc')
+            ->limit(
+                Settings::get(Settings::COUNT_LAST_POST)
+            )->all();
     }
 
     /**
@@ -211,7 +206,11 @@ class Post extends ActiveRecord implements UploadFileInterfaces
      */
     public static function getPopularPosts()
     {
-        return self::find()->orderBy('viewed desc')->limit(Settings::get(Settings::COUNT_POPULAR_POST))->all();
+        return self::find()
+            ->orderBy('viewed desc')
+            ->limit(
+                Settings::get(Settings::COUNT_POPULAR_POST)
+            )->all();
     }
 
 }

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\repositories\UserRepositoryInterface;
 use backend\models\Portfolio;
 use backend\models\User;
 use Yii;
@@ -23,6 +24,14 @@ use backend\models\Settings;
  */
 class SiteController extends Controller
 {
+    private $userRepository;
+
+    public function __construct($id, $module, UserRepositoryInterface $userRepository, $config = [])
+    {
+        $this->userRepository = $userRepository;
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * @return array
      */
@@ -75,6 +84,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        var_dump($this->userRepository);die;
         $posts = Post::getLastPost();
 
         return $this->render('index' , compact('posts'));

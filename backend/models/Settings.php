@@ -86,7 +86,7 @@ class Settings extends \yii\db\ActiveRecord
             [['value', 'default_value'], 'string'],
             [['key'], 'string', 'max' => 50],
             [['name'], 'string', 'max' => 250],
-            [['key'], 'unique' , 'targetClass' => '\backend\models\Settings', 'message' => 'Настройка существует'],
+            [['key'], 'unique', 'targetClass' => '\backend\models\Settings', 'message' => 'Настройка существует'],
         ];
     }
 
@@ -108,16 +108,15 @@ class Settings extends \yii\db\ActiveRecord
      * @param bool $default
      * @return bool
      */
-    public static function get($key, $default = false)
+    public static function get($key, bool $default = false)
     {
         $row = static::findOne(['key' => $key]);
-        if (!$row)
-        {
-            return $default;
-        } else {
-            $result = (strlen($row['value']) ? $row['value'] : $row['default_value']);
 
+        if ($row === false) {
+            $result = (strlen($row['value']) ? $row['value'] : $row['default_value']);
             return $result;
         }
+
+        return $default;
     }
 }

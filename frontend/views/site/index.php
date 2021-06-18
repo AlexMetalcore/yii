@@ -3,15 +3,17 @@
 /* @var $this yii\web\View */
 /* @var $posts [] */
 
+use \backend\helper\HelperImageFolder;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use backend\models\Post;
 
 $this->title = 'Веб заметки';
 ?>
 <div class="site-index">
 
-    <span class="new-posts">Новые статьи</span>
+    <span class="new-posts">
+        Новые статьи
+    </span>
     <div class="container">
     <div class="row">
         <?php foreach ($posts as $post) : ?>
@@ -30,10 +32,10 @@ $this->title = 'Веб заметки';
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                     <div class="content">
-                        <?php if (strlen(Post::removeImgTags($post->content)) > 100): ?>
+                        <?php if (strlen(HelperImageFolder::removeImgTags($post->content)) > 100): ?>
                             <?= mb_substr($post->content , 0 , 100 ). '...'; ?>
                         <?php else:?>
-                            <?= Post::removeImgTags($post->content); ?>
+                            <?= HelperImageFolder::removeImgTags($post->content); ?>
                         <?php endif; ?>
                     </div>
                 </div>

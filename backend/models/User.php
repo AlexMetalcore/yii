@@ -100,7 +100,6 @@ class User extends ActiveRecord implements IdentityInterface , UploadFileInterfa
      */
     public static function findIdentity($id)
     {
-
         return static::findOne(['id' => $id, 'status' => [self::ROLE_USER, self::ROLE_ADMIN , self::ROLE_MODERATOR]]);
 
     }
