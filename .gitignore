@@ -28,3 +28,7 @@ phpunit.phar
 /.vagrant
 
 vendor
+
+sql/*
+.env
+backend/web/images/*
