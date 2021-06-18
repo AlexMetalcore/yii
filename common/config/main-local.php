@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii',
-            'username' => 'yii',
-            'password' => '654apekru',
+            'dsn' => 'mysql:host=' . getenv('HOST') . ';dbname=' . getenv('DBNAME') . '',
+            'username' => getenv('USERNAME'),
+            'password' => getenv('PASSWORD'),
             'charset' => 'utf8',
         ],
         'mailer' => [

@@ -21,7 +21,7 @@
         "newerton/yii2-fancybox": "dev-master",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
-        "yiisoft/yii2-dev": "2.0.15.1",
+        "yiisoft/yii2-dev": "2.0.42",
         "mdmsoft/yii2-admin": "~2.0",
         "kartik-v/yii2-widget-datetimepicker": "^1.4",
         "yiisoft/yii2-jui": "^2.0",

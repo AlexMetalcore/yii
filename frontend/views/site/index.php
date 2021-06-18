@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $posts [] */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -9,9 +10,7 @@ use backend\models\Post;
 $this->title = 'Веб заметки';
 ?>
 <div class="site-index">
-    <div class="about-me">
-        <?=$about_me?>
-    </div>
+
     <span class="new-posts">Новые статьи</span>
     <div class="container">
     <div class="row">

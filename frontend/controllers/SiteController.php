@@ -75,10 +75,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $about_me = User::findOne(1)->about;
         $posts = Post::getLastPost();
 
-        return $this->render('index' , compact('posts' , 'about_me'));
+        return $this->render('index' , compact('posts'));
     }
 
     public function actionLogin()
