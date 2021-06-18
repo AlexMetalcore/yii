@@ -10,7 +10,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function get($id)
     {
-       var_dump($id);die;
+        // TODO: Implement add() method.
     }
 
     public function create(User $user)

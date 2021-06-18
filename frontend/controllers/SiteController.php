@@ -84,7 +84,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        var_dump($this->userRepository);die;
         $posts = Post::getLastPost();
 
         return $this->render('index' , compact('posts'));
