@@ -2,9 +2,11 @@
 
 namespace common\loader;
 
+use common\repositories\PostRepository;
+use common\repositories\PostRepositoryInterface;
 use \common\repositories\UserRepository;
 
-use yii\base\Application;
+use common\repositories\UserRepositoryInterface;
 use yii\base\BootstrapInterface;
 
 class BootstrapLoader implements BootstrapInterface
@@ -13,8 +15,9 @@ class BootstrapLoader implements BootstrapInterface
     {
         $container = \Yii::$container;
 
-        $container->setSingleton('common\repositories\UserRepositoryInterface', function() {
-            return new UserRepository();
-        });
+        $container->setSingleton(UserRepositoryInterface::class, UserRepository::class);
+
+        $container->setSingleton(PostRepositoryInterface::class, PostRepository::class);
+
     }
 }

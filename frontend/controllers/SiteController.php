@@ -1,34 +1,35 @@
 <?php
+
 namespace frontend\controllers;
 
-use common\repositories\UserRepositoryInterface;
-use backend\models\Portfolio;
-use backend\models\User;
-use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+use backend\models\ContactForm;
 use backend\models\LoginForm;
 use backend\models\PasswordResetRequestForm;
-use backend\models\ResetPasswordForm;
-use backend\models\SignupForm;
-use backend\models\ContactForm;
+use backend\models\Portfolio;
 use backend\models\Post;
-use yii\data\Pagination;
+use backend\models\ResetPasswordForm;
 use backend\models\Settings;
+use backend\models\SignupForm;
+use commmon\services\PostService;
+use Yii;
+use yii\base\InvalidParamException;
+use yii\data\Pagination;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
+use yii\web\Controller;
+
 /**
  * Class SiteController
  * @package frontend\controllers
  */
 class SiteController extends Controller
 {
-    private $userRepository;
+    private $postService;
 
-    public function __construct($id, $module, UserRepositoryInterface $userRepository, $config = [])
+    public function __construct($id, $module, PostService $postService, $config = [])
     {
-        $this->userRepository = $userRepository;
+        $this->postService = $postService;
         parent::__construct($id, $module, $config);
     }
 
@@ -86,12 +87,12 @@ class SiteController extends Controller
     {
         $posts = Post::getLastPost();
 
-        return $this->render('index' , compact('posts'));
+        return $this->render('index', compact('posts'));
     }
 
     public function actionLogin()
     {
-        if(!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -150,7 +151,7 @@ class SiteController extends Controller
     {
         $portfolios = Portfolio::find()->all();
 
-        return $this->render('portfolio' , compact('portfolios'));
+        return $this->render('portfolio', compact('portfolios'));
     }
 
     /**
@@ -166,6 +167,7 @@ class SiteController extends Controller
                 }
             }
         }
+
         return $this->render('signup', compact('model'));
 
     }
@@ -218,47 +220,54 @@ class SiteController extends Controller
     /**
      * @return string
      */
-    public function actionBlog ()
+    public function actionBlog()
     {
-        $where_publish = ['publish_status' => 'publish'];
         $query = Post::find();
-        $pages = new Pagination(['totalCount' =>
-            $query->where($where_publish)->count() ,
-            'defaultPageSize' => Settings::get(Settings::MAX_ITEM_IN_BLOG)]);
 
-        $posts = $query->offset($pages->offset)
-            ->where($where_publish)
-            ->limit($pages->limit)->all();
+        $pages = new Pagination([
+            'totalCount' => $query->count(),
+            'defaultPageSize' => Settings::get(Settings::MAX_ITEM_IN_BLOG)
+        ]);
 
-        return $this->render('blog' , compact('posts' ,'pages'));
+        $posts = $query
+            ->offset($pages->offset)
+            ->where(['publish_status' => 'publish'])
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('blog', compact('posts', 'pages'));
 
     }
 
     /**
      * @return string
      */
-    public function actionSearch ($search_query)
+    public function actionSearch($search_query)
     {
         $where_publish = ['publish_status' => 'publish'];
 
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             $this->layout = false;
         }
-        $query = Post::find()
-            ->where(['OR', ['like' , 'title' , $search_query] ,
-                ['like' , 'content' , $search_query]])
-            ->andWhere($where_publish);
 
-        $pages = new Pagination(['totalCount' => $query->count() , 'defaultPageSize' => 6]);
+        $query = Post::find();
+
+        $pages = new Pagination([
+            'totalCount' => $query->count(),
+            'defaultPageSize' => 6
+        ]);
 
         $count = $query->count();
 
         $posts = $query
+            ->where(['OR', ['like', 'title', $search_query],
+                ['like', 'content', $search_query]])
+            ->andWhere($where_publish)
             ->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
 
-        return $this->render('search' , compact('posts' , 'pages' , 'search_query' , 'count'));
+        return $this->render('search', compact('posts', 'pages', 'search_query', 'count'));
 
     }
 
@@ -266,13 +275,13 @@ class SiteController extends Controller
      * @param $id
      * @return string
      */
-    public function actionPageDraft ($id)
+    public function actionPageDraft($id)
     {
         $post = Post::findOne($id);
-        if($post->publish_status != 'draft') {
-            $this->redirect(['/post/view' , 'id' => $id]);
+        if ($post->publish_status != 'draft') {
+            $this->redirect(['/post/view', 'id' => $id]);
         }
-        return $this->render('page-draft' , compact('post'));
+        return $this->render('page-draft', compact('post'));
     }
 
     /**
@@ -281,13 +290,12 @@ class SiteController extends Controller
      */
     public function actionPortfolioContent($id)
     {
-
-        if(!Yii::$app->request->isAjax) {
+        if (!Yii::$app->request->isAjax) {
             return $this->redirect(['site/error']);
         }
 
-        $content = Portfolio::getAllImg($id);
+        $content = Portfolio::findOne($id);
 
-        return $this->renderAjax('ajaxportfolio/item-portfolio' , compact('content'));
+        return $this->renderAjax('ajaxportfolio/item-portfolio', compact('content'));
     }
 }

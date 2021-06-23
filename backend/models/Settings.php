@@ -103,18 +103,12 @@ class Settings extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @param $key
-     * @param bool $default
-     * @return bool
-     */
-    public static function get($key, bool $default = false)
+    public static function get(string $key, bool $default = false)
     {
         $row = static::findOne(['key' => $key]);
 
-        if ($row === false) {
-            $result = (strlen($row['value']) ? $row['value'] : $row['default_value']);
-            return $result;
+        if ($row !== false) {
+            return (strlen($row['value']) ? $row['value'] : $row['default_value']);
         }
 
         return $default;

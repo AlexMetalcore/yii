@@ -107,9 +107,7 @@ class HelperImageFolder
      */
     public function deleteTrashImg()
     {
-
         $delete_img = $this->getTrashArrayPhoto();
-
         if ($delete_img) {
             foreach ($delete_img as $img) {
                 $file_delete = $this->path . $img;

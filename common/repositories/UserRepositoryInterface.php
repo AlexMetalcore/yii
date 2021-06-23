@@ -6,7 +6,7 @@ use backend\models\User;
 
 interface UserRepositoryInterface
 {
-    public function get($id);
+    public function get(int $id);
 
     public function create(User $user);
 

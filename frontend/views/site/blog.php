@@ -3,6 +3,7 @@ use yii\widgets\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\models\Post;
+use \backend\helper\HelperImageFolder;
 
 $this->title = 'Все статьи';
 $this->params['breadcrumbs'][] = $this->title;
@@ -28,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="<?= Url::to(['post/view' , 'id' => $post->id]); ?>"><?= strtoupper($post->title); ?></a>
                     </span>
                         <div class="content">
-                            <?php if (strlen(Post::removeImgTags($post->content)) > 100): ?>
-                            <?= mb_substr(Post::removeImgTags($post->content), 0 , 100 ). '...'; ?>
+                            <?php if (strlen(HelperImageFolder::removeImgTags($post->content)) > 100): ?>
+                            <?= mb_substr(HelperImageFolder::removeImgTags($post->content), 0 , 100 ). '...'; ?>
                             <?php else:?>
-                                <?= Post::removeImgTags($post->content); ?>
+                                <?= HelperImageFolder::removeImgTags($post->content); ?>
                             <?php endif; ?>
                         </div>
                     </div>

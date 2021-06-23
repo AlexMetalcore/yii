@@ -8,9 +8,9 @@
 
 namespace backend\models;
 
+use common\implement\UploadFileInterfaces;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
-use common\implement\UploadFileInterfaces;
 
 /**
  * Class Portfolio
@@ -37,9 +37,9 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
     public function rules()
     {
         return [
-            [['title' , 'content'], 'required'],
+            [['title', 'content'], 'required'],
             ['title', 'unique', 'targetClass' => '\backend\models\Portfolio', 'message' => 'Работа существует'],
-            [['gallery'], 'file', 'maxFiles' => 10,  'skipOnEmpty' => true, 'extensions' => 'png, jpg , jpeg , bmp'],
+            [['gallery'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true, 'extensions' => 'png, jpg , jpeg , bmp'],
         ];
     }
 
@@ -51,31 +51,25 @@ class Portfolio extends ActiveRecord implements UploadFileInterfaces
         return [
             'title' => 'Название работы',
             'content' => 'Контент',
-            'img'   => 'Фото'
+            'img' => 'Фото'
         ];
     }
 
     /**
      * @return string|UploadedFile
      */
-    public function createFilePath ()
+    public function createFilePath()
     {
         $this->gallery = UploadedFile::getInstances($this, 'gallery');
         return $this->gallery ? $this->gallery : $this->img;
     }
 
-
-    /**
-     * @return string
-     */
-    public static function getAllImg ($id)
+    public static function getLastPortfolio()
     {
-        $img = Portfolio::findOne($id);
-        return $img;
-    }
-
-    public static function getLastPortfolio ()
-    {
-        return self::find()->orderBy('id desc')->limit(Settings::get(Settings::COUNT_LAST_PORTFOLIO))->all();
+        return self::find()
+            ->orderBy('id desc')
+            ->limit(
+                Settings::get(Settings::COUNT_LAST_PORTFOLIO)
+            )->all();
     }
 }

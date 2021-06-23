@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\components;
 
 use backend\models\Category;
@@ -52,7 +53,7 @@ class CategoryWidget extends Widget
      * @param string $tab
      * @return string
      */
-    private function getMenuHtml($tree,$tab = '')
+    private function getMenuHtml($tree, $tab = '')
     {
         $str = '';
         foreach ($tree as $category) {
@@ -66,7 +67,7 @@ class CategoryWidget extends Widget
      * @param $tab
      * @return false|string
      */
-    private function catToTemplate($category , $tab)
+    private function catToTemplate($category, $tab)
     {
         ob_start();
         $count_posts = $this->count_posts;
@@ -85,13 +86,14 @@ class CategoryWidget extends Widget
     /**
      * @return string|void
      */
-    public function run() {
+    public function run()
+    {
         $where = ['publish_status' => 'publish'];
         $this->data = Category::find()->indexBy('id')->asArray()->all();
         foreach ($this->data as $category) {
             $posts = Post::find(['id' => $category['id']])->where($where)->all();
             foreach ($posts as $post) {
-                if($category['id'] == $post->category_id) {
+                if ($category['id'] == $post->category_id) {
                     $this->count_posts[$category['title']][] = [
                         'post_id' => $post->id,
                         'post_name' => $post->title,
@@ -105,9 +107,9 @@ class CategoryWidget extends Widget
             ->limit(Settings::get(Settings::COUNT_POPULAR_POST))
             ->all();
         $this->tree = $this->getTree();
-        $this->menuHtml = $this->getMenuHtml($this->tree , $this->count_posts);
+        $this->menuHtml = $this->getMenuHtml($this->tree, $this->count_posts);
         $menu = $this->menuHtml;
 
-        return $this->render('block-popular' , compact('menu', 'popular'));
+        return $this->render('block-popular', compact('menu', 'popular'));
     }
 }
